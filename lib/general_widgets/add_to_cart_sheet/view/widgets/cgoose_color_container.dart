@@ -1,12 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/general_widgets/item_sheet/colored_circle.dart';
-import 'package:hanot/general_widgets/item_sheet/managers/single_products_details_cubit/single_products_details_cubit.dart';
 
-import '../../core/design/appTexts.dart';
-import '../../core/design/app_styles.dart';
+import '../../../../core/design/app_styles.dart';
+import '../../managers/single_products_details_cubit/single_products_details_cubit.dart';
+import 'colored_circle.dart';
 
 class ChooseColorContainer extends StatefulWidget {
   const ChooseColorContainer({Key? key, required this.index}) : super(key: key);
@@ -56,9 +54,10 @@ class _ChooseColorContainerState extends State<ChooseColorContainer> {
                 int color = 4278190080 + (int.tryParse(cubit.singleProductModel.options![widget.index].values![index].value!.substring(1),radix: 16)??0);
                 return GestureDetector(
                     onTap:(){
-                      choices.fillRange(0, choices.length,false);
-                      choices[index]=true;
-                      selectedColor = cubit.singleProductModel.options![widget.index].values![index].name!;
+                      choices.fillRange(0, choices.length,false); //for ui
+                      choices[index]=true; //for ui
+                      selectedColor = cubit.singleProductModel.options![widget.index].values![index].name!; //for ui
+                      cubit.setOption(widget.index, cubit.singleProductModel.options![widget.index].values![index].id!.toInt());
                       setState(() {});
                     },
                     child: ColoredCircle(

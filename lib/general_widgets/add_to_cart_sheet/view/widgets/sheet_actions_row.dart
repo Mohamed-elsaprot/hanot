@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
+import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/cart/manager/cart_cubit.dart';
 import 'package:hanot/features/tabs_screen/view/widgets/fav_icon.dart';
+import 'package:hanot/general_widgets/add_to_cart_sheet/managers/single_products_details_cubit/single_products_details_cubit.dart';
 
-import '../../core/design/app_styles.dart';
-import '../../core/design/images.dart';
-import '../../features/favorites/manager/fav_cubit.dart';
-import '../../features/favorites/manager/fav_state.dart';
-import '../../features/tabs_screen/model/category_model/Product.dart';
+import '../../../../core/design/app_styles.dart';
+import '../../../../core/design/images.dart';
+import '../../../../features/favorites/manager/fav_cubit.dart';
+import '../../../../features/favorites/manager/fav_state.dart';
+import '../../../../features/tabs_screen/model/category_model/Product.dart';
 
 class SheetActionsRow extends StatelessWidget {
   const SheetActionsRow({Key? key,required this.product}) : super(key: key);
@@ -18,6 +20,7 @@ class SheetActionsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
+    var singleProductCubit = BlocProvider.of<SingleProductCubit>(context);
     return Row(
       children: [
         Expanded(
@@ -37,8 +40,20 @@ class SheetActionsRow extends StatelessWidget {
           flex: 6,
           child: ElevatedButton(
               onPressed: (){
-                cartCubit.addToCart(product);
-                Navigator.pop(context);
+                if(singleProductCubit.productOptionsList.isNotEmpty) {
+                  cartCubit.getSkuDetails(
+                      selectedOptionsList: singleProductCubit.productOptionsList,
+                      product: singleProductCubit.singleProductModel,
+                      body: {"options": singleProductCubit.productOptionsList, "product_id": product.id!.toInt()},
+                      context: context);
+                }else{
+                  if(product.quantity!>0){
+                    loadingDialog(context);
+                    cartCubit.addToCart(body: {"product_id": product.id, "qty": 1,}, context: context);
+                  }else{
+                   errorDialog(context: context, message: 'هذا المنتج غير متوفر حاليا');
+                  }
+                }
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,

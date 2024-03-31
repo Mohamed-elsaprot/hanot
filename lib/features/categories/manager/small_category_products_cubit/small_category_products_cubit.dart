@@ -48,7 +48,7 @@ class SmallCategoryProductsAndChildrenCubit extends Cubit<SmallCategoryProductsS
       List<Product> cache = categoryProductsModel.productsList!;
       var res = await nextPageProductsRepoImpl.getNextPageProducts(nextLink: categoryProductsModel.links!.next!);
       res.fold((failure){
-        customDialog(context: context, message: failure.errorMessage);
+        errorDialog(context: context, message: failure.errorMessage);
       }, (catModel){
         cache.addAll(catModel.productsList!);
         categoryProductsModel = categoryProductsModel.copyWith(links: catModel.links,meta: catModel.meta,message: catModel.message,list: cache);

@@ -34,7 +34,7 @@ class SubCategoryCubit extends Cubit<SubCategoryState>{
       List<Product> cache = subCategoryModel.productsList!;
       var res = await nextPageProductsRepoImpl.getNextPageProducts(nextLink: subCategoryModel.links!.next!);
       res.fold((failure){
-        customDialog(context: context, message: failure.errorMessage);
+        errorDialog(context: context, message: failure.errorMessage);
       }, (catModel){
         cache.addAll(catModel.productsList!);
         subCategoryModel = subCategoryModel.copyWith(links: catModel.links,meta: catModel.meta,message: catModel.message,list: cache);

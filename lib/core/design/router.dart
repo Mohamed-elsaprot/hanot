@@ -7,7 +7,7 @@ import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.dart';
 import 'package:hanot/features/sub_category_screen/view/sub_category_screen.dart';
 import 'package:hanot/features/tabs_screen/model/category_details/Children.dart';
-import 'package:hanot/tabs_screen.dart';
+import 'package:hanot/features/navigation_screen/view/navigation_screen.dart';
 
 import '../../features/categories/manager/small_category_products_cubit/small_category_products_cubit.dart';
 import '../../features/tabs_screen/data/get_category_products_repo/products_repo_impl.dart';

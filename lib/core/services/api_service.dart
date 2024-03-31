@@ -9,6 +9,7 @@ class ApiService {
   static const confirmOtp = '/auth/confirm';
   static const singleProductDetails = '/products/';
   static const singleSkuDetails = '/products/sku';
+  static const shoppingCart = '/shoppingCart';
 
   static final Dio _dio = Dio(
     BaseOptions(

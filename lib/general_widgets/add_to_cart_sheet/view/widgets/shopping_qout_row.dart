@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../core/design/app_styles.dart';
-import '../../core/design/images.dart';
+import '../../../../core/design/app_styles.dart';
+import '../../../../core/design/images.dart';
 
 class ShoppingQuotRow extends StatelessWidget {
   const ShoppingQuotRow({Key? key}) : super(key: key);

@@ -1,22 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/home/manager/home_cubit.dart';
 import 'package:hanot/features/home/manager/home_state.dart';
-import 'package:hanot/features/tabs_screen/view/widgets/tab_bar.dart';
 import 'package:hanot/features/tabs_screen/view/widgets/tab_bar_view_body.dart';
 
-import '../../../core/design/images.dart';
 import '../../../general_widgets/app_bar.dart';
 import '../manager/categories_cubit/category_cubit.dart';
 import '../manager/categories_cubit/category_state.dart';
 import '../manager/products_cubit/get_category_products_cubit.dart';
 import '../manager/products_cubit/get_category_products_state.dart';
 
-import 'package:badges/badges.dart' as badges;
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);

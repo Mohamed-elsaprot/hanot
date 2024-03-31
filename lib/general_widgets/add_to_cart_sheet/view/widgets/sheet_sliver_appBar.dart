@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/general_widgets/add_to_cart_sheet/view/widgets/sheet_app_bar.dart';
 
-import '../../core/design/widgets.dart';
-import '../../features/tabs_screen/model/category_model/Product.dart';
-import 'sheet_app_bar.dart';
+import '../../../../core/design/widgets.dart';
+import '../../../../features/tabs_screen/model/category_model/Product.dart';
+
 
 class SheetSliverAppBar extends StatelessWidget {
   const SheetSliverAppBar({Key? key, required this.product}) : super(key: key);

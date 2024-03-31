@@ -10,7 +10,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:hanot/features/cart/manager/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/cart_state.dart';
 
-import 'core/services/localization.dart';
+import '../../../core/services/localization.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);

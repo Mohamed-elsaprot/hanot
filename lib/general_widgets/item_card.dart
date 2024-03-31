@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_state.dart';
-import 'package:hanot/general_widgets/item_sheet/add_to_cart_sheet.dart';
 
 import '../core/design/app_styles.dart';
 import '../core/design/widgets.dart';
 import '../features/tabs_screen/model/category_model/Product.dart';
 import '../features/tabs_screen/view/widgets/fav_icon.dart';
+import 'add_to_cart_sheet/add_to_cart_sheet.dart';
 
 class ItemCard extends StatelessWidget {
   const ItemCard({Key? key,required this.product}) : super(key: key);
