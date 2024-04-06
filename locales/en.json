@@ -30,5 +30,11 @@
   "Mobile Number": "Mobile Number",
   "email": "email",
   "Log out": "Log out",
-  "Log in": "Log in"
+  "Log in": "Log in",
+  "Password": "Password",
+  "Confirm": "Confirm",
+  "pleaseEnter4Num": "Please Enter 4 Num",
+  "To Continue Login process": "To Continue Login process",
+  "Check Out": "Check Out",
+  "Please Enter The Otp": "Please Enter The Otp"
 }

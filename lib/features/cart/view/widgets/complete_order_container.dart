@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
+import 'package:hanot/core/design/router.dart';
 import 'package:hanot/features/auth_screen/view/phone/phone_auth_screen.dart';
-import 'package:hanot/features/cart/manager/cart_cubit.dart';
-import 'package:hanot/features/cart/manager/cart_state.dart';
+import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
+import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
 import 'package:hanot/features/cart/view/widgets/code_sheet_body.dart';
 
 import '../../../../core/design/app_styles.dart';
@@ -45,7 +45,7 @@ class CompleteOrderContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Styles.text('',color: Colors.black54,size: 18),
-                Styles.text('${cartCubit.calcTotal()} PLN',color: Colors.black54,size: 18),
+                Styles.text('${cartCubit.cartTotal} PLN',color: Colors.black54,size: 18),
               ],
             );
           }),
@@ -55,7 +55,11 @@ class CompleteOrderContainer extends StatelessWidget {
               child: CustomButton(
                   rad: 12,padding: EdgeInsets.symmetric(vertical: 8.h),
                   fun: (){
-                    if(!authCubit.isAuth)bottomSheet(context, const AuthScreen(), rad: 20);
+                    if(!authCubit.isAuth) {
+                      bottomSheet(context, const AuthScreen(), rad: 20);
+                    }else{
+                      AppRouter.router.push(AppRouter.checkOutScreen);
+                    }
                   }, title: Texts.completeOrder.tr()))
         ],
       ),

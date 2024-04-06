@@ -66,14 +66,14 @@ Widget shimmerWidget({required double height,required double width,double? rad=0
   );
 }
 
-Widget loadingIndicator(){
+Widget loadingIndicator({double? rad=30,Color? color}){
   return Center(
     child: Container(
       margin: EdgeInsets.only(bottom: 5.h),
-      height: 30.h,
+      height: rad!.h,
       child: LoadingIndicator(
         indicatorType: Indicator.ballRotateChase,
-        colors:  [Styles.primary, Styles.primary.withOpacity(.5),],
+        colors:  [Styles.primary,color?? Styles.primary.withOpacity(.5),],
       ),
     ),
   );

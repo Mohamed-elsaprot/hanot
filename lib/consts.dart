@@ -30,3 +30,9 @@ List<Widget> tabsList = [
   const SettingsScreen(),
 ];
 const String fontFamily = 'Noto Kufi Arabic';
+
+List testImages = [
+  'https://www.pngitem.com/pimgs/m/131-1313063_cash-stack-of-money-clipart-free-best-transparent.png',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqoP5xMilrb7ilVu6hhYcR6BI24lcnsMo3NXGRHAmYEz94HF7CpY9vw2ZEpe564mnuAII&usqp=CAU',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS39ADIiwONBpbuyX_WfT2g1qi4jyGtgunXNA&s',
+];

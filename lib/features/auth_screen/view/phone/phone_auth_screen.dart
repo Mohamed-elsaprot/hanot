@@ -2,7 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
+import 'package:hanot/features/auth_screen/view/otp/otp_screen.dart';
+import 'package:hanot/features/auth_screen/view/phone/widgets/auth_button.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/auth_type_container.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/phone_sheet_close_button.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/phone_text_field.dart';
@@ -10,7 +13,6 @@ import 'package:hanot/features/auth_screen/view/phone/widgets/phone_text_field.d
 import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/images.dart';
-import '../../../../general_widgets/custom_button.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -21,9 +23,11 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   late AuthCubit authCubit;
+  late TextEditingController controller;
   @override
   void initState() {
     authCubit = BlocProvider.of<AuthCubit>(context);
+    controller = TextEditingController();
     super.initState();
   }
   final _focusNode = FocusNode();
@@ -58,22 +62,21 @@ class _AuthScreenState extends State<AuthScreen> {
                       SizedBox(height: 15.h,),
                       Styles.subTitle(Texts.pleaseLogInToCompleteYourShopping,size: 16,color: Colors.black54).tr(),
                       SizedBox(height: 20.h,),
-                       AuthTypeContainer(focusNode: _focusNode),
+                       AuthTypeContainer(controller: controller,focusNode: _focusNode),
                       SizedBox(height: 35.h,),
                       Form(
                         key: formKey,
-                        child: PhoneTextField(
-                            focusNode: _focusNode,isPhone: true,
-                        ),
+                        child: PhoneTextField(controller: controller,focusNode: _focusNode),
                       ),
                       SizedBox(height: 20.h,),
                       SizedBox(
                           width: double.infinity,
-                          child: CustomButton(fun: ()async{
+                          child: AuthButton(
+                            fun: ()async{
                             if(formKey.currentState!.validate()){
                               _focusNode.unfocus();
                               formKey.currentState!.save();
-                              await authCubit.sendOtp();
+                              await authCubit.sendOtp(context: context);
                             }
                           } ,title: Texts.logIn.tr(),rad: 12,textSize: 20,))
                     ],

@@ -44,14 +44,47 @@ class CartRepoImpl implements CartRepo{
   }
 
   @override
-  Future<Either<Failure, List<CartProductModel>>> getCartProducts() async{
+  Future<Either<Failure, Map>> getCartProducts() async{
     try{
       List<CartProductModel> list=[];
       var res = await ApiService.getDataWithToken(endPoint: ApiService.shoppingCart);
       res['data'].forEach((e){
         list.add(CartProductModel.fromJson(e));
       });
-      return right(list);
+      return right({
+        'list':list,
+        'cart':res['cart']
+      });
+    }catch(e){
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, Map>> deleteCartProducts({required String rowId}) async{
+    try{
+      var res = await ApiService.delete(endPoint: '${ApiService.shoppingCart}/$rowId');
+      return right(res);
+    }catch(e){
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, Map>> updateProduct({required String rowId, required num qun, required String id}) async{
+    try{
+      var res = await ApiService.update(endPoint: '${ApiService.shoppingCart}/$id', body: {
+        'rowId': rowId,'qty':qun
+      });
+      return right(res);
     }catch(e){
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));

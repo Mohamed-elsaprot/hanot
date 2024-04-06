@@ -24,15 +24,21 @@ abstract class Texts {
   static const String whatsApp='Whats App';
   static const String logOut='Log out';
   static const String logIn='Log in';
+  static const String password='Password';
   static const String doYouHaveCoupon='Have a coupon?';
   static const String completeOrder='complete order';
   static const String enterTheCoupon='Enter The Coupon';
   static const String disCount='DisCount';
   static const String helloOurDearVisitor ='Hello our dear visitor';
   static const String pleaseLogInToCompleteYourShopping ='Please log in to complete your shopping';
+  static const String toContinueTheLoginProcess ='To Continue Login process';
+  static const String pleaseEnterTheOtp ='Please Enter The Otp';
   static const String enterMobileNumberHere ='Enter mobile number here';
   static const String mobileNumber ='Mobile Number';
   static const String email ='email';
+  static const String confirm ='Confirm';
   static const String total='Total';
+  static const String checkOut='Check Out';
+  static const String pleaseEnter4Num='pleaseEnter4Num';
 
 }

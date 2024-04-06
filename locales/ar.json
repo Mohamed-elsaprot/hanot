@@ -30,6 +30,12 @@
   "Mobile Number": "رقم الجوال",
   "email": "البريد الالكتروني",
   "Log out": "تسجيل الخروج",
-  "Log in": "تسجيل الدخول"
+  "Log in": "تسجيل الدخول",
+  "Password": "كلمة المرور",
+  "Confirm": "تأكيد",
+  "pleaseEnter4Num": "الرقم المطلوب مكزن من 4 ارقام",
+  "To Continue Login process": "للمتابعه في عملية تسجيل الدخول",
+  "Check Out": "عملية الدفع",
+  "Please Enter The Otp": "من فضلك ادخل الرقم السري المتغير"
 
 }

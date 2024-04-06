@@ -1,10 +1,10 @@
-import 'Options.dart';
 
 class CartProductModel {
   CartProductModel({
       this.rowId, 
       this.name, 
-      this.productId, 
+      this.image,
+      this.productId,
       this.skuId, 
       this.qty, 
       // this.options,
@@ -16,6 +16,7 @@ class CartProductModel {
   CartProductModel.fromJson(dynamic json) {
     rowId = json['rowId'];
     name = json['name'];
+    image = json['image'];
     productId = json['product_id'];
     skuId = json['sku_id'];
     qty = json['qty'];
@@ -27,6 +28,7 @@ class CartProductModel {
   }
   String? rowId;
   String? name;
+  String? image;
   num? productId;
   num? skuId;
   num? qty;
@@ -60,6 +62,7 @@ CartProductModel copyWith({  String? rowId,
     final map = <String, dynamic>{};
     map['rowId'] = rowId;
     map['name'] = name;
+    map['image'] = image;
     map['product_id'] = productId;
     map['sku_id'] = skuId;
     map['qty'] = qty;

@@ -4,5 +4,5 @@ import '../../../core/errors/failure.dart';
 
 abstract class AuthRepo {
   Future<Either<Failure,Map>> sendOtp({required Map data});
-  Future<Either<Failure,Map>> confirmOtm();
+  Future<Either<Failure,Map>> confirmOtm({required Map data});
 }

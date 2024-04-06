@@ -6,5 +6,6 @@ abstract class Images{
   static const twoBags = '${base}two-bags.png';
   static const cart = '${base}cart.png';
   static const logIn = '${base}login.png';
+  static const otp = '${base}otp.png';
 
 }

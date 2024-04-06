@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/cart/data/cart_repo_impl.dart';
-import 'package:hanot/features/cart/manager/cart_state.dart';
+import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
 import 'package:hanot/features/cart/models/CartProductModel.dart';
 
-import '../../../general_widgets/add_to_cart_sheet/models/single_product_model/SingleProductModel.dart';
-import '../../../general_widgets/add_to_cart_sheet/models/single_sku_details/SingleSkuDetails.dart';
-import '../../tabs_screen/model/category_model/Product.dart';
+import '../../../../general_widgets/add_to_cart_sheet/models/single_product_model/SingleProductModel.dart';
+import '../../../../general_widgets/add_to_cart_sheet/models/single_sku_details/SingleSkuDetails.dart';
 
 class CartCubit extends Cubit<CartState>{
   CartCubit(this.cartRepoImpl):super(CartInitial());
   final CartRepoImpl cartRepoImpl;
   late SingleSkuDetails skuDetails;
-  List<Product> cartList =[];
+  num cartTotal = 0 ;
   List<CartProductModel> cartProductsList=[];
+  int cartLen = 0 ;
   getSkuDetails({required List selectedOptionsList,required SingleProductModel product,required Map body,required BuildContext context})async{
     loadingDialog(context);
     var res = await cartRepoImpl.checkSkuDetails(body: body);
@@ -40,7 +40,9 @@ class CartCubit extends Cubit<CartState>{
     res.fold((failure){
       Navigator.pop(context);
       errorDialog(context: context, message: failure.errorMessage);
-      }, (map){
+      }, (map)async{
+      await getCartProducts();
+      emit(CartSuccess());
       Navigator.pop(context);
       Navigator.pop(context);
     });
@@ -51,41 +53,29 @@ class CartCubit extends Cubit<CartState>{
     var res = await cartRepoImpl.getCartProducts();
     res.fold((failure){
       emit(CartFailure(errorMessage: failure.errorMessage));
-    }, (list){
-      cartProductsList = list;
+    }, (map){
+      cartProductsList = map['list'];
+      cartTotal= double.parse( map['cart']['total']);
+      cartLen=cartProductsList.length;
       emit(CartSuccess());
     });
   }
 
-
-  changeCount(Product product,String op){
-    int index = cartList.indexWhere((element) => element.id==product.id);
-    if(op=='+'){
-      if(cartList[index].count<=cartList[index].quantity!)cartList[index].count = cartList[index].count!+1;
-    }else{
-      if(cartList[index].count!>1){
-        cartList[index].count = cartList[index].count!-1;
-      }else{
-        cartList.removeAt(index);
-      }
-    }
-    emit(CartInitial());
-  }
-  removeFromCart(Product product){
-    int index = cartList.indexWhere((element) => element.id==product.id);
-    cartList.removeAt(index);
-    emit(CartInitial());
-  }
-  calcTotal(){
-    double total=0;
-    cartList.forEach((element) {
-      if(element.salePrice!=null||element.salePrice!=0){
-        total= total+(element.count!*element.salePrice!);
-      }else{
-        total= total+(element.count!*element.costPrice!);
-      }
+  removeFromCart({required int index,required BuildContext context,})async{
+    CartProductModel cartProductModel = cartProductsList[index];
+    cartProductsList.removeAt(index);
+    cartLen=cartProductsList.length;
+    emit(CartSuccess());
+    var res = await cartRepoImpl.deleteCartProducts(rowId: cartProductModel.rowId!);
+    res.fold((failure){
+      errorDialog(context: context, message: failure.errorMessage);
+      cartProductsList.insert(index, cartProductModel);
+      cartLen=cartProductsList.length;
+    }, (map){
+      cartTotal = double.parse( map['cart']['total']);
+      emit(CartSuccess());
     });
-    return total;
   }
+
 
 }

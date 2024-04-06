@@ -7,9 +7,9 @@ import '../../../core/services/api_service.dart';
 
 class AuthRepoImpl implements AuthRepo{
   @override
-  Future<Either<Failure, Map>> confirmOtm() async{
+  Future<Either<Failure, Map>> confirmOtm({required Map data}) async{
     try {
-      var res = await ApiService.postData(endPoint: ApiService.confirmOtp, postedData: {});
+      var res = await ApiService.postData(endPoint: ApiService.confirmOtp, postedData: data);
       return right(res);
     } catch (e) {
       if (e is DioException) {

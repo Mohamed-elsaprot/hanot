@@ -11,8 +11,9 @@ import '../../../../../core/design/app_styles.dart';
 // import '../phone_auth_screen.dart';
 
 class AuthTypeContainer extends StatelessWidget {
-  const AuthTypeContainer({Key? key, required this.focusNode}) : super(key: key);
+  const AuthTypeContainer({Key? key, required this.focusNode, required this.controller}) : super(key: key);
   final FocusNode focusNode;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
@@ -29,9 +30,9 @@ class AuthTypeContainer extends StatelessWidget {
               flex: 1,
               child: InkWell(
                 onTap: (){
-                  // Navigator.pop(context);
-                  // bottomSheet(context, const AuthScreen(), rad: 20);
+                  controller.text='';
                   focusNode.unfocus();
+                  authCubit.email=null;
                   authCubit.changeAuthType('phone');
                 },
                 child: Container(
@@ -51,7 +52,9 @@ class AuthTypeContainer extends StatelessWidget {
                 onTap: (){
                   // Navigator.pop(context);
                   // bottomSheet(context, const AuthScreen(), rad: 20);
+                  controller.text='';
                   focusNode.unfocus();
+                  authCubit.phone=null;
                   authCubit.changeAuthType('email');
                 },
                 child: Container(

@@ -10,16 +10,17 @@ import 'package:hanot/features/auth_screen/manager/auth_state.dart';
 import '../../../../../core/design/app_styles.dart';
 
 class PhoneTextField extends StatelessWidget {
-   const PhoneTextField({Key? key, this.focusNode, required this.isPhone,}) : super(key: key);
+   const PhoneTextField({Key? key, this.focusNode, required this.controller,}) : super(key: key);
   final FocusNode? focusNode;
-  final bool isPhone;
+  final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     return BlocBuilder<AuthCubit,AuthState>(builder: (context,state) {
       return TextFormField(
+        controller: controller,
         focusNode: focusNode,
-        onSaved: (x) {if(authCubit.authType=='phone'){authCubit.phone=x;}else{authCubit.email=x;}},
+        onSaved: (x) {if(authCubit.authType=='phone'){authCubit.phone='+972${x!}';}else{authCubit.email=x;}},
         validator: (x){
           if(authCubit.authType=='phone'){
             if(x!.length!=10){
@@ -28,7 +29,7 @@ class PhoneTextField extends StatelessWidget {
               return null;
             }
           }else{
-            if(!x!.contains('@gmail.com')){
+            if(!x!.contains('@')){
               return 'must have @gmail.com';
             }else {
               return null;

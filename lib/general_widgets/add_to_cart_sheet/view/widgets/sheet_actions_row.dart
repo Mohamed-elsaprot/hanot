@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
-import 'package:hanot/features/cart/manager/cart_cubit.dart';
+import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/tabs_screen/view/widgets/fav_icon.dart';
 import 'package:hanot/general_widgets/add_to_cart_sheet/managers/single_products_details_cubit/single_products_details_cubit.dart';
 

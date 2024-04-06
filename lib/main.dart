@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/features/auth_screen/data/auth_repo_impl.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/cart/data/cart_repo_impl.dart';
-import 'package:hanot/features/cart/manager/cart_cubit.dart';
+import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
 import 'core/design/router.dart';
 
@@ -32,8 +32,8 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return MultiBlocProvider(
             providers: [
-              BlocProvider(create: (context)=>AuthCubit(AuthRepoImpl())),
-              BlocProvider(create: (context)=>CartCubit(CartRepoImpl())),
+              BlocProvider(create: (context)=>AuthCubit(AuthRepoImpl())..checkToken()),
+              BlocProvider(create: (context)=>CartCubit(CartRepoImpl())..getCartProducts()),
               BlocProvider(create: (context)=>FavCubit()),
             ],
             child: MaterialApp.router(

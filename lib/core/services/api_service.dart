@@ -24,16 +24,41 @@ class ApiService {
     return res.data;
   }
 
+  static Future postData({required String endPoint,required postedData}) async {
+    Response res = await _dio.post(baseUrl+endPoint,data: postedData);
+    return res.data;
+  }
+
   static Future getDataWithToken({required String endPoint,}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 4|kGHQn4yrlxrDi1wjbYEZU6KPPfMQy5jeMD1bt5qz6db333ad",}, receiveDataWhenStatusError: true),);
+    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 13|kkqJdmIm9l4rsURtYPdkdC2a03F0BuzaA5U1FDNb797d80d9",}, receiveDataWhenStatusError: true),);
     Response res = await dio.get(
       baseUrl + endPoint!,
     );
     return res.data;
   }
 
+  static Future postDataWithToken({required String endPoint,required postedData}) async {
+    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 13|kkqJdmIm9l4rsURtYPdkdC2a03F0BuzaA5U1FDNb797d80d9",}, receiveDataWhenStatusError: true),);
+    Response res = await dio.post(baseUrl+endPoint,data: postedData);
+    return res.data;
+  }
+
+  static Future delete({required String endPoint}) async {
+    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json','Authorization': "Bearer 13|kkqJdmIm9l4rsURtYPdkdC2a03F0BuzaA5U1FDNb797d80d9"}, receiveDataWhenStatusError: true),);
+    Response res = await dio.delete(baseUrl+endPoint);
+    return res.data;
+  }
+
+  static Future update({required String endPoint,required Map body}) async {
+    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json','Authorization': "Bearer 13|kkqJdmIm9l4rsURtYPdkdC2a03F0BuzaA5U1FDNb797d80d9"}, receiveDataWhenStatusError: true),);
+    Response res = await dio.put(baseUrl+endPoint,data: body);
+    return res.data;
+  }
+
+
+
   static Future getCategoryProducts({required String catId,}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 4|kGHQn4yrlxrDi1wjbYEZU6KPPfMQy5jeMD1bt5qz6db333ad",}, receiveDataWhenStatusError: true),);
+    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 13|kkqJdmIm9l4rsURtYPdkdC2a03F0BuzaA5U1FDNb797d80d9",}, receiveDataWhenStatusError: true),);
     Response res = await dio.get(
       '$baseUrl/categories/$catId?page=1&pre_page=26',
     );
@@ -41,23 +66,13 @@ class ApiService {
   }
 
   static Future getNextPageProducts({required String link}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 4|kGHQn4yrlxrDi1wjbYEZU6KPPfMQy5jeMD1bt5qz6db333ad",}, receiveDataWhenStatusError: true),);
+    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 13|kkqJdmIm9l4rsURtYPdkdC2a03F0BuzaA5U1FDNb797d80d9",}, receiveDataWhenStatusError: true),);
     Response res = await dio.get(
       '$link&pre_page=26',
     );
     return res.data;
   }
 
-  static Future postDataWithToken({required String endPoint,required postedData}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 4|kGHQn4yrlxrDi1wjbYEZU6KPPfMQy5jeMD1bt5qz6db333ad",}, receiveDataWhenStatusError: true),);
-    Response res = await dio.post(baseUrl+endPoint,data: postedData);
-    return res.data;
-  }
 
-  static Future postData({required String endPoint,required postedData}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json',}, receiveDataWhenStatusError: true),);
-    Response res = await dio.post(baseUrl+endPoint,data: postedData);
-    return res.data;
-  }
 
 }

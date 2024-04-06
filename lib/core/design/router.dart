@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hanot/features/categories/category_products_screen/view/category_products_screen.dart';
 import 'package:hanot/features/categories/data/single_category_repo/single_category_repo_impl.dart';
 import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
+import 'package:hanot/features/check_out_screen/view/check_out.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.dart';
 import 'package:hanot/features/sub_category_screen/view/sub_category_screen.dart';
 import 'package:hanot/features/tabs_screen/model/category_details/Children.dart';
@@ -16,6 +17,7 @@ abstract class AppRouter{
 
   static const categoryProducts='/categoryProducts';
   static const subCategoryScreen='/subCategoryScreen';
+  static const checkOutScreen='/checkOutScreen';
 
   static final GoRouter router = GoRouter(
     routes: [
@@ -45,6 +47,13 @@ abstract class AppRouter{
           );
         },
       ),
+      GoRoute(
+        path: checkOutScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return const CheckOut();
+        },
+      ),
+
     ]
   );
 }
