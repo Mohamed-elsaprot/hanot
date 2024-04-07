@@ -28,6 +28,7 @@ class CartCubit extends Cubit<CartState>{
         optionsMap[product.options![i].id.toString()]=selectedOptionsList[i];
       }
       if(skuDetails.quantity! > 0){
+        // update this scope
         addToCart(body: {"product_id": product.id, "qty": 1, "sku_id": skuDetails.skuId, "options": optionsMap}, context: context);
       }else{
         errorDialog(context: context, message: 'هذا المنتج غير متوفر حاليا بهذه المواصفات');

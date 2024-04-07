@@ -10,6 +10,7 @@ class SingleProductCubit extends Cubit<SingleProductDetailsState>{
 
   late SingleProductModel singleProductModel;
   late List productOptionsList;
+
   getSingleProduct({required String id})async{
     emit(SingleProductDetailsLoading());
     var res = await singleProductRepoImpl.getSingleProductModel(id: id);

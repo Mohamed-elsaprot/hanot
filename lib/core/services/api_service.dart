@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 class ApiService {
+  //static const baseUrl = 'https://dev.hanot.co/khan.com/api/v1/mobile';
   static const baseUrl = 'https://hanot.co/khan.com/api/v1/mobile';
   static const categories = '/categories/tree';
   static const smallCategories = '/categories?pre_page=10000';
