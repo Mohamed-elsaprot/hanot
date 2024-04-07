@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/features/tabs_screen/model/category_model/Product.dart';
 
 import '../../../../core/design/app_styles.dart';
+import '../../../../features/cart/manager/cart_cubit/cart_cubit.dart';
+import '../../managers/hint_cubit/hint_cubit.dart';
+import '../../managers/hint_cubit/hint_state.dart';
 import '../../managers/single_products_details_cubit/single_products_details_cubit.dart';
 
 class ChooseSizeContainer extends StatefulWidget {
-  const ChooseSizeContainer({Key? key, required this.index}) : super(key: key);
+  const ChooseSizeContainer({Key? key, required this.index, required this.product}) : super(key: key);
   final int index;
-
+  final Product product;
   @override
   State<ChooseSizeContainer> createState() => _ChooseSizeContainerState();
 }
 
 class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
-  late SingleProductCubit cubit;
+  late SingleProductCubit singleProductCubit;
+  late CartCubit cartCubit;
+  late HintCubit hintCubit;
   late List<bool> choices;
 
   @override
   void initState() {
-    cubit = BlocProvider.of<SingleProductCubit>(context);
-    choices = List.generate(cubit.singleProductModel.options![widget.index].values!.length, (index)=> index==0?true:false);
+    singleProductCubit = BlocProvider.of<SingleProductCubit>(context);
+    cartCubit = BlocProvider.of<CartCubit>(context);
+    hintCubit = BlocProvider.of<HintCubit>(context);
+    choices = List.generate(singleProductCubit.singleProductModel.options![widget.index].values!.length, (index)=> index==0?true:false);
     super.initState();
   }
   @override
@@ -35,7 +43,7 @@ class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Styles.subTitle(cubit.singleProductModel.options![widget.index].name??'',size: 16),
+          Styles.subTitle(singleProductCubit.singleProductModel.options![widget.index].name??'',size: 16),
           SizedBox(height: 10.h,),
           SizedBox(
             height: 28.h,
@@ -43,12 +51,21 @@ class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(),
               children: [
-                ...List.generate(cubit.singleProductModel.options![widget.index].values!.length, (ind) => GestureDetector(
-                  onTap: (){
+                ...List.generate(singleProductCubit.singleProductModel.options![widget.index].values!.length, (ind) => GestureDetector(
+                  onTap: () async {
                     choices.fillRange(0, choices.length,false); //for ui
                     choices[ind]=true; //for ui
-                    cubit.setOption(widget.index, cubit.singleProductModel.options![widget.index].values![ind].id!.toInt());
+                    singleProductCubit.setOption(widget.index, singleProductCubit.singleProductModel.options![widget.index].values![ind].id!.toInt());
                     setState(() {});
+                    hintCubit.emit(HintLoading());
+                    await cartCubit.getSkuDetails(
+                        isAddToCartButton: false,
+                        selectedOptionsList: singleProductCubit.productOptionsList,
+                        product: singleProductCubit.singleProductModel,
+                        body: {"options": singleProductCubit.productOptionsList, "product_id": widget.product.id!.toInt()},
+                        context: context
+                    );
+                    hintCubit.emit(HintInitial());
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -60,7 +77,7 @@ class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
                     margin: EdgeInsets.symmetric(horizontal: 4.w),
                     width: 60.w,
                     alignment: Alignment.center,
-                    child: Styles.text(cubit.singleProductModel.options![widget.index].values![ind].name??'',fontWeight: FontWeight.w500,size: 14),
+                    child: Styles.text(singleProductCubit.singleProductModel.options![widget.index].values![ind].name??'',fontWeight: FontWeight.w500,size: 14),
                   ),
                 ),
                 )

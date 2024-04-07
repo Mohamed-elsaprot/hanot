@@ -57,7 +57,7 @@ class AuthCubit extends Cubit<AuthState>{
   }
 
   checkToken()async{
-    String token = await SecureStorage.getToken();
+    String? token = await SecureStorage.getToken();
     if(token!=null) isAuth = true;
     print(token);
     print(isAuth);

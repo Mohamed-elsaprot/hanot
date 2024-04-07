@@ -15,8 +15,9 @@ class CartCubit extends Cubit<CartState>{
   num cartTotal = 0 ;
   List<CartProductModel> cartProductsList=[];
   int cartLen = 0 ;
-  getSkuDetails({required List selectedOptionsList,required SingleProductModel product,required Map body,required BuildContext context})async{
-    loadingDialog(context);
+  num hintNum=0;
+  getSkuDetails({required bool isAddToCartButton,required List selectedOptionsList,required SingleProductModel product,required Map body,required BuildContext context})async{
+    if(isAddToCartButton)loadingDialog(context);
     var res = await cartRepoImpl.checkSkuDetails(body: body);
     res.fold((failure){
       Navigator.pop(context);
@@ -27,11 +28,16 @@ class CartCubit extends Cubit<CartState>{
       for (int i=0; i<selectedOptionsList.length; i++) {
         optionsMap[product.options![i].id.toString()]=selectedOptionsList[i];
       }
+      hintNum = skuDetails.quantity!;
       if(skuDetails.quantity! > 0){
-        // update this scope
-        addToCart(body: {"product_id": product.id, "qty": 1, "sku_id": skuDetails.skuId, "options": optionsMap}, context: context);
+        if(isAddToCartButton){
+          addToCart(body: {"product_id": product.id, "qty": 1, "sku_id": skuDetails.skuId, "options": optionsMap}, context: context);
+        }
       }else{
-        errorDialog(context: context, message: 'هذا المنتج غير متوفر حاليا بهذه المواصفات');
+        if(isAddToCartButton){
+          Navigator.pop(context);
+          errorDialog(context: context, message: 'هذا المنتج غير متوفر حاليا بهذه المواصفات');
+        }
       }
     });
   }

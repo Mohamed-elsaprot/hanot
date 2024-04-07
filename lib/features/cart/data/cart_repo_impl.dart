@@ -17,6 +17,7 @@ class CartRepoImpl implements CartRepo{
       }
       return right(res['data']);
     }catch(e){
+      print(e);
       if(e is DioException){
         return left(ServerFailure.fromDioError(e));
       }else if(e == 'المنتج مضافة و الكمية غير متوفرة حالياٌ .') {

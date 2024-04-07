@@ -42,10 +42,12 @@ class SheetActionsRow extends StatelessWidget {
               onPressed: (){
                 if(singleProductCubit.productOptionsList.isNotEmpty) {
                   cartCubit.getSkuDetails(
+                    isAddToCartButton: true,
                       selectedOptionsList: singleProductCubit.productOptionsList,
                       product: singleProductCubit.singleProductModel,
                       body: {"options": singleProductCubit.productOptionsList, "product_id": product.id!.toInt()},
-                      context: context);
+                      context: context
+                  );
                 }else{
                   if(product.quantity!>0){
                     loadingDialog(context);

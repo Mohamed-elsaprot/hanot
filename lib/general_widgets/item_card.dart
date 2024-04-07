@@ -19,7 +19,7 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () async {
         bottomSheet(context, AddToCartSheet(product: product), rad: 0);
       },
       child: Stack(
