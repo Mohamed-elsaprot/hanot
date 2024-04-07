@@ -26,7 +26,12 @@ class SheetBody extends StatelessWidget {
                 SizedBox(height: 10.h,),
                 SheetTitleRow(product: product),
                 SizedBox(height: 5.h,),
-                Styles.text(product.salePrice!=null||product.salePrice!=0? '${product.salePrice} PLN':'${product.costPrice} PLN',size: 18,color: Colors.black),
+                Row(
+                  children: [
+                    Styles.text(product.salePrice!=null||product.salePrice!=0? '${product.salePrice} PLN':'${product.costPrice} PLN',size: 18,color: Colors.black),
+                    SizedBox(width: 20.w,),
+                  ],
+                ),
                 SizedBox(height: 8.h,),
                 OptionsBody(product: product),
               ],
@@ -37,3 +42,10 @@ class SheetBody extends StatelessWidget {
     );
   }
 }
+
+// Styles.text('متوفر',color: Colors.green),
+// SizedBox(
+//     width: 260.w,
+//     child: FittedBox(
+//         fit: BoxFit.scaleDown,
+//         child: Styles.text('هذا المنتج غير متوفر بهذه المواصفات حاليا',color: Colors.red))),
