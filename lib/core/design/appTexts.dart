@@ -39,6 +39,21 @@ abstract class Texts {
   static const String confirm ='Confirm';
   static const String total='Total';
   static const String checkOut='Check Out';
+  static const String allAddresses='All Addresses';
   static const String pleaseEnter4Num='pleaseEnter4Num';
+  static const String addNewLocation='Add New Location';
+  static const String country='Country';
+  static const String city='City';
+  static const String postalCode='Postal Code';
+  static const String add='Add';
+  static const String required='required';
+  static const String streetName='Street Name';
+  static const String homeAddress='Home Address';
+  static const String neighborhood='Neighborhood';
+  static const String more='more';
+  static const String addAddress='Add Address';
+  static const String useSelectedAddress='Use Selected Address';
+  static const String deliveryMethod='Delivery Method';
+  static const String deliveryTo='Delivery To';
 
 }

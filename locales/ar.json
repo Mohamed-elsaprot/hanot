@@ -36,6 +36,21 @@
   "pleaseEnter4Num": "الرقم المطلوب مكزن من 4 ارقام",
   "To Continue Login process": "للمتابعه في عملية تسجيل الدخول",
   "Check Out": "عملية الدفع",
+  "All Addresses": "العناوين السابقة",
+  "Add New Location": "اضافة عنوان جديد",
+  "Country": "الدولة",
+  "City": "المدينة",
+  "Neighborhood": "الحي",
+  "Postal Code": "كود المدينة",
+  "Add": "اضافة",
+  "required": "مطلوب",
+  "Street Name": "اسم الشارع",
+  "Home Address": "عنوان المنزل",
+  "Add Address": "اضافة عنوان",
+  "more": "المزيد",
+  "Delivery Method": "طريقة التوصيل",
+  "Delivery To": "توصيل لعنوان",
+  "Use Selected Address": "استخدام العنوان المحدد",
   "Please Enter The Otp": "من فضلك ادخل الرقم السري المتغير"
 
 }

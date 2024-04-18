@@ -5,14 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/router.dart';
-import 'package:hanot/features/auth_screen/view/phone/phone_auth_screen.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
 import 'package:hanot/features/cart/view/widgets/code_sheet_body.dart';
 
 import '../../../../core/design/app_styles.dart';
 import '../../../../general_widgets/custom_button.dart';
-import '../../../auth_screen/manager/auth_cubit.dart';
+import '../../../check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
 
 class CompleteOrderContainer extends StatelessWidget {
   const CompleteOrderContainer({Key? key}) : super(key: key);
@@ -20,7 +19,8 @@ class CompleteOrderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
-    var authCubit = BlocProvider.of<AuthCubit>(context);
+    var oldAddCubit = BlocProvider.of<OldAddressesCubit>(context);
+
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -55,11 +55,8 @@ class CompleteOrderContainer extends StatelessWidget {
               child: CustomButton(
                   rad: 12,padding: EdgeInsets.symmetric(vertical: 8.h),
                   fun: (){
-                    if(!authCubit.isAuth) {
-                      bottomSheet(context, const AuthScreen(), rad: 20);
-                    }else{
+                      oldAddCubit.getCustomerFirsAddresses(context: context);
                       AppRouter.router.push(AppRouter.checkOutScreen);
-                    }
                   }, title: Texts.completeOrder.tr()))
         ],
       ),

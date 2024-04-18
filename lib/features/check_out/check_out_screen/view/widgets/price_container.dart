@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hanot/features/check_out_screen/view/widgets/price_row.dart';
+import 'package:hanot/features/check_out/check_out_screen/view/widgets/price_row.dart';
 
 class PriceContainer extends StatelessWidget {
   const PriceContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
         PriceRow(title: 'اجمالي السلة',price: 625,),
         PriceRow(title: 'اجمالي التخفيض',price: 0,),

@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:hanot/core/local_storage/secure_storage.dart';
 
 class ApiService {
-  //static const baseUrl = 'https://dev.hanot.co/khan.com/api/v1/mobile';/
-  static const baseUrl = 'https://hanot.co/khan.com/api/v1/mobile';
+  static const baseUrl = 'https://dev.hanot.co/khan.com/api/v1/mobile';
+  // static const baseUrl = 'https://hanot.co/khan.com/api/v1/mobile';
   static const categories = '/categories/tree';
   static const smallCategories = '/categories?pre_page=10000';
   static const home = '/home-layouts';
@@ -11,6 +12,11 @@ class ApiService {
   static const singleProductDetails = '/products/';
   static const singleSkuDetails = '/products/sku';
   static const shoppingCart = '/shoppingCart';
+  static const customerFirstAddresses = '/addresses?pre_page=2&page=1';
+  static const allAddresses = '/addresses/all';
+  static const countries = '/addresses/countries';
+  static const cities = '/addresses/cities?country_id=';
+  static const address = '/addresses';
 
   static final Dio _dio = Dio(
     BaseOptions(
@@ -31,49 +37,63 @@ class ApiService {
   }
 
   static Future getDataWithToken({required String endPoint,}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 16|R912CSUdhQTh2YOxkbRkZULeetABVZ9bKHMbJgHt69aeae7b",}, receiveDataWhenStatusError: true),);
-    Response res = await dio.get(
+    String? token = await SecureStorage.getToken();
+    if(token!=null){
+      _dio.options.headers['Authorization']='Bearer $token';
+    }
+    Response res = await _dio.get(
       baseUrl + endPoint!,
     );
     return res.data;
   }
 
   static Future postDataWithToken({required String endPoint,required postedData}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 16|R912CSUdhQTh2YOxkbRkZULeetABVZ9bKHMbJgHt69aeae7b",}, receiveDataWhenStatusError: true),);
-    Response res = await dio.post(baseUrl+endPoint,data: postedData);
+    String? token = await SecureStorage.getToken();
+    if(token!=null){
+      _dio.options.headers['Authorization']='Bearer $token';
+    }
+    Response res = await _dio.post(baseUrl+endPoint,data: postedData);
     return res.data;
   }
 
   static Future delete({required String endPoint}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json','Authorization': "Bearer 16|R912CSUdhQTh2YOxkbRkZULeetABVZ9bKHMbJgHt69aeae7b"}, receiveDataWhenStatusError: true),);
-    Response res = await dio.delete(baseUrl+endPoint);
+    String? token = await SecureStorage.getToken();
+    if(token!=null){
+      _dio.options.headers['Authorization']='Bearer $token';
+    }
+    Response res = await _dio.delete(baseUrl+endPoint);
     return res.data;
   }
 
   static Future update({required String endPoint,required Map body}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json','Authorization': "Bearer 16|R912CSUdhQTh2YOxkbRkZULeetABVZ9bKHMbJgHt69aeae7b"}, receiveDataWhenStatusError: true),);
-    Response res = await dio.put(baseUrl+endPoint,data: body);
+    String? token = await SecureStorage.getToken();
+    if(token!=null){
+      _dio.options.headers['Authorization']='Bearer $token';
+    }
+    Response res = await _dio.put(baseUrl+endPoint,data: body);
     return res.data;
   }
 
-
-
   static Future getCategoryProducts({required String catId,}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 16|R912CSUdhQTh2YOxkbRkZULeetABVZ9bKHMbJgHt69aeae7b",}, receiveDataWhenStatusError: true),);
-    Response res = await dio.get(
+    String? token = await SecureStorage.getToken();
+    if(token!=null){
+      _dio.options.headers['Authorization']='Bearer $token';
+    }
+    Response res = await _dio.get(
       '$baseUrl/categories/$catId?page=1&pre_page=26',
     );
     return res.data;
   }
 
   static Future getNextPageProducts({required String link}) async {
-    Dio dio = Dio(BaseOptions(headers: {'Content-Type': 'application/json', 'Authorization': "Bearer 16|R912CSUdhQTh2YOxkbRkZULeetABVZ9bKHMbJgHt69aeae7b",}, receiveDataWhenStatusError: true),);
-    Response res = await dio.get(
+    String? token = await SecureStorage.getToken();
+    if(token!=null){
+      _dio.options.headers['Authorization']='Bearer $token';
+    }
+    Response res = await _dio.get(
       '$link&pre_page=26',
     );
     return res.data;
   }
-
-
 
 }

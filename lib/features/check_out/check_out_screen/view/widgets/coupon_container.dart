@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/design/app_styles.dart';
-import '../../../../general_widgets/custom_button.dart';
+import '../../../../../core/design/app_styles.dart';
+import '../../../../../general_widgets/custom_button.dart';
+
 
 class CouponContainer extends StatelessWidget {
   const CouponContainer({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class CouponContainer extends StatelessWidget {
               Styles.text('EID2024',),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           CustomButton(fun: (){}, title: 'تطبيق',rad: 6,padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 8.h),)
         ],
       ),

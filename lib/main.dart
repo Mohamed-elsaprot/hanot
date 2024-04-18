@@ -2,16 +2,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hanot/core/local_storage/secure_storage.dart';
 import 'package:hanot/features/auth_screen/data/auth_repo_impl.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/cart/data/cart_repo_impl.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
 import 'core/design/router.dart';
+import 'features/check_out/check_out_screen/data/get_first_addresses_repo/get_first_addresses_repo_impl.dart';
+import 'features/check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  // SecureStorage.deleteData();
   runApp(
       EasyLocalization(
         startLocale: const Locale('ar'),
@@ -35,6 +39,7 @@ class MyApp extends StatelessWidget {
               BlocProvider(create: (context)=>AuthCubit(AuthRepoImpl())..checkToken()),
               BlocProvider(create: (context)=>CartCubit(CartRepoImpl())..getCartProducts()),
               BlocProvider(create: (context)=>FavCubit()),
+              BlocProvider(create: (context)=>OldAddressesCubit(FirstAddressesRepoImpl())..getCustomerFirsAddresses(context: context))
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,

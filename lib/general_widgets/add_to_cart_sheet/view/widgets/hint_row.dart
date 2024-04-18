@@ -24,7 +24,6 @@ class HintAndPriceRow extends StatelessWidget {
             Styles.text(product.salePrice!=null||product.salePrice!=0? '${product.salePrice} PLN':'${product.costPrice} PLN',size: 18,color: Colors.black),
             SizedBox(width: 20.w,),
             BlocBuilder<HintCubit,HintState>(builder: (context,state){
-              print(state);
               if(state is HintLoading){
                 return shimmerWidget(height: 15.h, width: 150.w,rad: 10);
               }else {

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
 
-import '../../../../core/design/app_styles.dart';
+import '../../../../../core/design/app_styles.dart';
+
 
 class PriceRow extends StatelessWidget {
   const PriceRow({Key? key, required this.title, required this.price, this.total=false}) : super(key: key);

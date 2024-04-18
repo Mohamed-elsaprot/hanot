@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/fun.dart';
+import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_state.dart';
 import 'package:hanot/general_widgets/item_price_row.dart';
@@ -9,6 +10,7 @@ import 'package:hanot/general_widgets/red_sale_container.dart';
 
 import '../core/design/app_styles.dart';
 import '../core/design/widgets.dart';
+import '../features/auth_screen/view/phone/phone_auth_screen.dart';
 import '../features/tabs_screen/model/category_model/Product.dart';
 import '../features/tabs_screen/view/widgets/fav_icon.dart';
 import 'add_to_cart_sheet/add_to_cart_sheet.dart';
@@ -18,9 +20,14 @@ class ItemCard extends StatelessWidget {
   final Product product;
   @override
   Widget build(BuildContext context) {
+    var authCubit = BlocProvider.of<AuthCubit>(context);
     return GestureDetector(
       onTap: () async {
+      if(!authCubit.isAuth) {
+        bottomSheet(context, const AuthScreen(), rad: 20);
+      }else {
         bottomSheet(context, AddToCartSheet(product: product), rad: 0);
+      }
       },
       child: Stack(
         children: [

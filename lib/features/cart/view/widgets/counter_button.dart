@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
-import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
 import 'package:hanot/features/cart/manager/counter_cubit/counter_cubit.dart';
 import 'package:hanot/features/cart/manager/counter_cubit/counter_state.dart';
 import 'package:hanot/features/cart/models/CartProductModel.dart';

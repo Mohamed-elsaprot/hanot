@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/design/app_styles.dart';
+import '../../../../../core/design/app_styles.dart';
+
 
 class NoteContainer extends StatelessWidget {
   const NoteContainer({Key? key}) : super(key: key);
