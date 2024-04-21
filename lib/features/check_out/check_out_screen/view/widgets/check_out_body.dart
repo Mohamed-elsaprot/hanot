@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/widgets/price_container.dart';
 import 'package:hanot/general_widgets/custom_button.dart';
@@ -18,6 +19,7 @@ class CheckOutBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<OldAddressesCubit,OldAddressesState>(builder: (context,state){
+      var cubit = BlocProvider.of<OldAddressesCubit>(context);
       if(state is OldAddressesSuccess){
         return ListView(
           physics: const BouncingScrollPhysics(),
@@ -32,7 +34,9 @@ class CheckOutBody extends StatelessWidget {
             PriceContainer(),
             SizedBox(height: 50.h,),
             SizedBox(width: double.infinity,
-              child: CustomButton(fun: (){}, title: 'ارسال الطلب',rad: 8),
+              child: CustomButton(fun: (){
+                errorDialog(context: context, message: '${cubit.groupVal} ${cubit.selectedAddress?.city} ${cubit.selectedAddress?.neighborhood}');
+              }, title: 'ارسال الطلب',rad: 8),
             )
           ],
         );

@@ -55,5 +55,7 @@ abstract class Texts {
   static const String useSelectedAddress='Use Selected Address';
   static const String deliveryMethod='Delivery Method';
   static const String deliveryTo='Delivery To';
+  static const String shippingCompany='Shipping Company';
+  static const String payBy='Pay By';
 
 }

@@ -11,7 +11,7 @@ import '../../../../features/tabs_screen/model/category_model/Product.dart';
 import '../../managers/single_products_details_cubit/single_products_details_cubit.dart';
 import '../../managers/single_products_details_cubit/single_products_details_state.dart';
 import '../../models/sheet_options_shimmer.dart';
-import 'cgoose_color_container.dart';
+import 'choose_color_container.dart';
 import 'choose_size_container.dart';
 
 class OptionsBody extends StatelessWidget {

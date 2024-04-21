@@ -17,6 +17,9 @@ class ApiService {
   static const countries = '/addresses/countries';
   static const cities = '/addresses/cities?country_id=';
   static const address = '/addresses';
+  static const shippingCompanies = '/shipping-companies/by-address';
+  static const shippingFees = '/shipping-companies/shipping-company-fees';
+  static const paymentMethods = '/payment-methods';
 
   static final Dio _dio = Dio(
     BaseOptions(

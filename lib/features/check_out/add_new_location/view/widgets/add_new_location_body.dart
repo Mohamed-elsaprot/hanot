@@ -62,7 +62,7 @@ class AddNewLocationBody extends StatelessWidget {
                           SizedBox(width: 180.w, child: CustomTextField(title: Texts.postalCode, controller: newAddCubit.postalCodeController),),
                           const Spacer(),
                           BlocConsumer<AddNewAddCubit,AddNewAddState>(
-                              listener: (context,state){
+                              listener: (context,state) async {
                                 if(state is AddNewAddSuccess){
                                   oldAddressCubit.customerAddressesModel.addressesList!.insert(0, state.address);
                                   oldAddressCubit.selectedAddressIndex=0;

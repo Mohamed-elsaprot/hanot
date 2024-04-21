@@ -22,7 +22,7 @@ class AllAddressesCubit extends Cubit<AllAddressesState>{
     });
   }
 
-  deleteAddress({required String addressId,required int index,})async{
+  deleteAddress({required String addressId,required int index,required BuildContext context,})async{
     // Address? address;
     // allAddressesList.removeAt(index);
     // if(selectedIndex==index){
@@ -34,7 +34,10 @@ class AllAddressesCubit extends Cubit<AllAddressesState>{
     //   }
     // }
     allAddressesList.removeAt(index);
-    await addressesRepoImpl.deleteAddress(addressId: addressId);
+    var res = await addressesRepoImpl.deleteAddress(addressId: addressId);
+    res.fold((failure){
+      errorDialog(context: context, message: failure.errorMessage);
+    }, (map){});
   }
 
 

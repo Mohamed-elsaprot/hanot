@@ -7,7 +7,13 @@ import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/data/all_addresses_repo_impl.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_addresses_cubit.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/view/all_old_addresses_screen.dart';
+import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo.dart';
+import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo_impl.dart';
+import 'package:hanot/features/check_out/check_out_screen/data/shipping_companies_repo/shipping_companies_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/check_out_cubit/check_out_cubit.dart';
+import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
+import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
+import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.dart';
 import 'package:hanot/features/sub_category_screen/view/sub_category_screen.dart';
 import 'package:hanot/features/tabs_screen/model/category_details/Children.dart';
@@ -64,7 +70,14 @@ abstract class AppRouter {
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider(
             create: (context) => CheckOutCubit(),
-            child: const CheckOut());
+            child: BlocProvider(create: (context)=> ShippingCompaniesCubit(ShippingCompaniesRepoImpl()),
+              child: BlocProvider(create: (context)=> ShippingFeesCubit(ShippingCompaniesRepoImpl()),
+                child: BlocProvider(create: (context)=> PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context),
+                  child: const CheckOut(),
+                ),
+              ),
+            ),
+        );
       },
     ),
     GoRoute(

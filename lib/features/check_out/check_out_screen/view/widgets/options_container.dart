@@ -1,10 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_state.dart';
-
+import 'package:hanot/features/check_out/check_out_screen/view/widgets/payment_method_option_tile.dart';
+import 'package:hanot/features/check_out/check_out_screen/view/widgets/shipping_option_tile.dart';
+import '../../manager/shipping_companies_cubit/shipping_companies_cubit.dart';
 import 'old_address_option_tile.dart';
 
 class OptionsContainer extends StatelessWidget {
@@ -12,12 +12,21 @@ class OptionsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var oldAddresses = BlocProvider.of<OldAddressesCubit>(context);
+    var shippingCompaniesCubit = BlocProvider.of<ShippingCompaniesCubit>(context);
+    var oldAddressesCubit = BlocProvider.of<OldAddressesCubit>(context);
     return Column(
       children: [
-          BlocBuilder<OldAddressesCubit,OldAddressesState>(builder: (context,state){
-          return OldAddressesOptionTile(title: Texts.deliveryMethod.tr(),subTitle: '${Texts.deliveryTo.tr()}: ${oldAddresses.selectedAddress?.city ?? ''}',);
+        BlocConsumer<OldAddressesCubit, OldAddressesState>(
+          listener: (context,state) async {
+            if(state is OldAddressesSuccess){
+              await shippingCompaniesCubit.getCompanies(addressId: oldAddressesCubit.selectedAddress!.id!, context: context);
+            }
+          },
+            builder: (context, state) {
+          return const OldAddressesOptionTile();
         }),
+        const ShippingOptionTile(),
+        const PaymentOptionTile(),
 
       ],
     );

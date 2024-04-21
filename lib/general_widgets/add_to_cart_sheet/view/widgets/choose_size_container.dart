@@ -77,7 +77,7 @@ class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
                     margin: EdgeInsets.symmetric(horizontal: 4.w),
                     width: 60.w,
                     alignment: Alignment.center,
-                    child: Styles.text(singleProductCubit.singleProductModel.options![widget.index].values![ind].name??'',fontWeight: FontWeight.w500,size: 14),
+                    child: Styles.text(singleProductCubit.singleProductModel.options![widget.index].values![ind].name??'',textAlign: TextAlign.center,fontWeight: FontWeight.w500,size: 14),
                   ),
                 ),
                 )

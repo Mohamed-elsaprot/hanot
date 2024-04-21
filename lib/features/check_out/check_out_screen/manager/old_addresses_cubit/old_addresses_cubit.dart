@@ -14,7 +14,7 @@ class OldAddressesCubit extends Cubit<OldAddressesState>{
   Address? selectedAddress;
   late int selectedAddressIndex;
   bool last = false;
-  late num groupVal;
+  late num? groupVal;
 
   getCustomerFirsAddresses({required BuildContext context})async{
     emit(OldAddressesLoading());
@@ -53,6 +53,7 @@ class OldAddressesCubit extends Cubit<OldAddressesState>{
        groupVal= customerAddressesModel.addressesList![0].id!;
      }else{
        selectedAddress = null;
+       groupVal = null;
      }
     }
     emit(OldAddressesSuccess());

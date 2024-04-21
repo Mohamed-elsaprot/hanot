@@ -60,26 +60,30 @@ class _ChooseColorContainerState extends State<ChooseColorContainer> {
               physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               children: List.generate(singleProductCubit.singleProductModel.options![widget.index].values!.length, (index) {
-                int color = 4278190080 + (int.tryParse(singleProductCubit.singleProductModel.options![widget.index].values![index].value!.substring(1),radix: 16)??0);
-                return GestureDetector(
-                    onTap:() async {
-                      choices.fillRange(0, choices.length,false); //for ui
-                      choices[index]=true; //for ui
-                      selectedColor = singleProductCubit.singleProductModel.options![widget.index].values![index].name!; //for ui
-                      singleProductCubit.setOption(widget.index, singleProductCubit.singleProductModel.options![widget.index].values![index].id!.toInt());
-                      hintCubit.emit(HintLoading());
-                      setState(() {});
-                      await cartCubit.getSkuDetails(
-                        isAddToCartButton: false,
-                          selectedOptionsList: singleProductCubit.productOptionsList,
-                          product: singleProductCubit.singleProductModel,
-                          body: {"options": singleProductCubit.productOptionsList, "product_id": widget.product.id!.toInt()},
-                          context: context
-                      );
-                      hintCubit.emit(HintInitial());
-                    },
-                    child: ColoredCircle(
-                      choose: choices[index], color: Color(color),));
+                if(singleProductCubit.singleProductModel.options![widget.index].values![index].value != null){
+                  int color = 4278190080 + (int.tryParse(singleProductCubit.singleProductModel.options![widget.index].values![index].value!.substring(1),radix: 16)??0);
+                  return GestureDetector(
+                      onTap:() async {
+                        choices.fillRange(0, choices.length,false); //for ui
+                        choices[index]=true; //for ui
+                        selectedColor = singleProductCubit.singleProductModel.options![widget.index].values![index].name!; //for ui
+                        singleProductCubit.setOption(widget.index, singleProductCubit.singleProductModel.options![widget.index].values![index].id!.toInt());
+                        hintCubit.emit(HintLoading());
+                        setState(() {});
+                        await cartCubit.getSkuDetails(
+                            isAddToCartButton: false,
+                            selectedOptionsList: singleProductCubit.productOptionsList,
+                            product: singleProductCubit.singleProductModel,
+                            body: {"options": singleProductCubit.productOptionsList, "product_id": widget.product.id!.toInt()},
+                            context: context
+                        );
+                        hintCubit.emit(HintInitial());
+                      },
+                      child: ColoredCircle(
+                        choose: choices[index], color: Color(color),));
+                }else{
+                  return const SizedBox();
+                }
               }),
             ),
           )

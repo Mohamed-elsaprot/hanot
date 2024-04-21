@@ -48,8 +48,10 @@
   "Home Address": "Home Address",
   "Add Address": "Add Address",
   "more": "more",
+  "Pay By": "Pay By",
   "Delivery Method": "Delivery Method",
   "Delivery To": "Delivery To",
+  "Shipping Company":"Shipping Company",
   "Use Selected Address": "Use Selected Address",
   "Please Enter The Otp": "Please Enter The Otp"
 }

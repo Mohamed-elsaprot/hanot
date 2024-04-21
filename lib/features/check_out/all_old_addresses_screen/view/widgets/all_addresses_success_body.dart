@@ -2,13 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_state.dart';
 
 import '../../../../../core/design/appTexts.dart';
 import '../../../../../core/design/app_styles.dart';
 import '../../../../../general_widgets/custom_button.dart';
-import '../../../check_out_screen/view/widgets/radio_button.dart';
+import '../../../check_out_screen/view/widgets/old_address_radio_button.dart';
 import '../../manager/all_addresses_cubit.dart';
 
 class AllAddressesSuccessBody extends StatefulWidget {
@@ -28,7 +29,7 @@ class _AllAddressesSuccessBodyState extends State<AllAddressesSuccessBody> {
     allAddressesCubit = BlocProvider.of<AllAddressesCubit>(context);
     oldAddressesCubit = BlocProvider.of<OldAddressesCubit>(context);
     cacheIndex=oldAddressesCubit.selectedAddressIndex;
-    cacheVal = oldAddressesCubit.groupVal;
+    cacheVal = (oldAddressesCubit.groupVal ?? 0)!;
     cacheListLen = allAddressesCubit.allAddressesList.length;
     super.initState();
   }
@@ -86,7 +87,11 @@ class _AllAddressesSuccessBodyState extends State<AllAddressesSuccessBody> {
                     ),
                     GestureDetector(
                       onTap: () async {
-                        await allAddressesCubit.deleteAddress(addressId: allAddressesCubit.allAddressesList[index].id.toString(), index: index);
+                        if(allAddressesCubit.allAddressesList[index].id==oldAddressesCubit.groupVal){
+                          oldAddressesCubit.groupVal=null;
+                        }
+                        await allAddressesCubit.deleteAddress(addressId: allAddressesCubit.allAddressesList[index].id.toString(), index: index, context: context,
+                        );
                         setState(() {});
                         },
                       child: CircleAvatar(
@@ -103,12 +108,16 @@ class _AllAddressesSuccessBodyState extends State<AllAddressesSuccessBody> {
           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
           child: CustomButton(
             fun: (){
-              oldAddressesCubit.selectedAddress = allAddressesCubit.allAddressesList[oldAddressesCubit.selectedAddressIndex];
-              oldAddressesCubit.emit(OldAddressesSuccess());
-              if(oldAddressesCubit.selectedAddressIndex>=oldAddressesCubit.customerAddressesModel.addressesList!.length){
-                oldAddressesCubit.customerAddressesModel.addressesList!.insert(0, oldAddressesCubit.selectedAddress!);
+              if(oldAddressesCubit.groupVal!=null){
+                oldAddressesCubit.selectedAddress = allAddressesCubit.allAddressesList[oldAddressesCubit.selectedAddressIndex];
+                oldAddressesCubit.emit(OldAddressesSuccess());
+                if(oldAddressesCubit.selectedAddressIndex>=oldAddressesCubit.customerAddressesModel.addressesList!.length){
+                  oldAddressesCubit.customerAddressesModel.addressesList!.insert(0, oldAddressesCubit.selectedAddress!);
+                }
+                Navigator.pop(context);
+              }else{
+               errorDialog(context: context, message: 'من فضلك قم باختيار عنوان');
               }
-              Navigator.pop(context);
             },
             title: 'استخدام العنوان المحدد',
           ),
