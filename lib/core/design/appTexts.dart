@@ -12,6 +12,7 @@ abstract class Texts {
   static const String cartEmpty='cart empty';
   static const String itemsCount='Items Count';
   static const String top='top';
+  static const String edit='Edit';
   static const String settings='settings';
   static const String type='type';
   static const String color='color';
@@ -51,11 +52,14 @@ abstract class Texts {
   static const String homeAddress='Home Address';
   static const String neighborhood='Neighborhood';
   static const String more='more';
+  static const String noNotesAdded='No Notes Added';
   static const String addAddress='Add Address';
   static const String useSelectedAddress='Use Selected Address';
   static const String deliveryMethod='Delivery Method';
   static const String deliveryTo='Delivery To';
   static const String shippingCompany='Shipping Company';
   static const String payBy='Pay By';
+  static const String addNote='Add Note';
+  static const String orderNote='Order Note';
 
 }

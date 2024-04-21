@@ -52,6 +52,10 @@
   "Delivery To": "توصيل لعنوان",
   "Shipping Company": "شركة الشحن",
   "Pay By": "الدفع بواسطة",
+  "Add Note": "اضافة ملاحظة",
+  "Edit": "تعديل",
+  "No Notes Added": "لا يوجد ملاحظات",
+  "Order Note": "ملاحظة على الطلب",
   "Use Selected Address": "استخدام العنوان المحدد",
   "Please Enter The Otp": "من فضلك ادخل الرقم السري المتغير"
 

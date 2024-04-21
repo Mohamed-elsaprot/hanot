@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/design/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({Key? key,required this.fun, required this.title, this.click=true, this.textColor=Colors.white, this.padding,this.textSize=15, this.rad=50, this.titleWidget,}) : super(key: key);
+  const CustomButton({Key? key,required this.fun, required this.title, this.click=true, this.textColor=Colors.white, this.padding,this.textSize=15, this.rad=12, this.titleWidget,}) : super(key: key);
   final void Function() fun;
   final String title;
   final bool click;

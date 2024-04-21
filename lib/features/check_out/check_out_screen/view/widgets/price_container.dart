@@ -19,7 +19,7 @@ class PriceContainer extends StatelessWidget {
           PriceRow(title: 'اجمالي التخفيض',price: 0,),
           PriceRow(title: 'تخفيض الكوبون',price: 0,),
           PriceRow(title: 'رسوم الشحن',price: shippingFeesCubit.shippingFeesModel?.shippingFees?? 0,),
-          PriceRow(title: 'اجمالي الطلب',price: shippingFeesCubit.shippingFeesModel?.total?? 0, total: true),
+          PriceRow(title: 'اجمالي الطلب',price: shippingFeesCubit.shippingFeesModel?.total?? cartCubit.cartTotal, total: true),
         ],
       );
     });

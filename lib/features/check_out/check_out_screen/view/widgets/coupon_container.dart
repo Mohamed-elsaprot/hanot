@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/design/app_styles.dart';
+import '../../../../../core/design/fun.dart';
 import '../../../../../general_widgets/custom_button.dart';
+import 'code_sheet_body.dart';
 
 
 class CouponContainer extends StatelessWidget {
@@ -26,7 +28,9 @@ class CouponContainer extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          CustomButton(fun: (){}, title: 'تطبيق',rad: 6,padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 8.h),)
+          CustomButton(fun: (){
+            bottomSheet(context, const CodeSheetBody(),);
+          }, title: 'تطبيق',rad: 6,padding: EdgeInsets.symmetric(horizontal: 20.w,vertical: 6.h),)
         ],
       ),
     );

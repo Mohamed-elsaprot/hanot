@@ -11,6 +11,7 @@ import 'package:hanot/features/check_out/check_out_screen/data/payment_method_re
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/shipping_companies_repo/shipping_companies_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/check_out_cubit/check_out_cubit.dart';
+import 'package:hanot/features/check_out/check_out_screen/manager/note_cubit/note_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
@@ -73,7 +74,9 @@ abstract class AppRouter {
             child: BlocProvider(create: (context)=> ShippingCompaniesCubit(ShippingCompaniesRepoImpl()),
               child: BlocProvider(create: (context)=> ShippingFeesCubit(ShippingCompaniesRepoImpl()),
                 child: BlocProvider(create: (context)=> PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context),
-                  child: const CheckOut(),
+                  child: BlocProvider(create: (context)=> NoteCubit(),
+                    child: const CheckOut(),
+                  ),
                 ),
               ),
             ),

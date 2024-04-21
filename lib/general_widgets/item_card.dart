@@ -24,7 +24,7 @@ class ItemCard extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
       if(!authCubit.isAuth) {
-        bottomSheet(context, const AuthScreen(), rad: 20);
+        bottomSheet(context, const AuthScreen(),);
       }else {
         bottomSheet(context, AddToCartSheet(product: product), rad: 0);
       }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../core/design/appTexts.dart';
-import '../../../../../core/design/app_styles.dart';
+import 'package:hanot/core/design/app_styles.dart';
 
 class CouponTextField extends StatelessWidget {
   const CouponTextField({Key? key, required this.onChange, this.focusNode, required this.onTap, required this.onSubmit,}) : super(key: key);
@@ -17,6 +14,7 @@ class CouponTextField extends StatelessWidget {
         onFieldSubmitted: onSubmit,
         focusNode: focusNode,
         onTap: onTap,
+        cursorColor: Styles.primary,
         decoration: InputDecoration(
           suffix: const Icon(Icons.article_outlined,color: Colors.black54),
             border: border(),
@@ -30,6 +28,6 @@ class CouponTextField extends StatelessWidget {
   border() {
     return OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(width: 0, color: Colors.transparent));
+        borderSide: const BorderSide(width: 0, color: Colors.transparent));
   }
 }

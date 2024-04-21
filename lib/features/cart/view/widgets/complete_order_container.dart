@@ -7,7 +7,7 @@ import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/router.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
-import 'package:hanot/features/cart/view/widgets/code_sheet_body.dart';
+import 'package:hanot/features/check_out/check_out_screen/view/widgets/code_sheet_body.dart';
 
 import '../../../../core/design/app_styles.dart';
 import '../../../../general_widgets/custom_button.dart';
@@ -20,26 +20,26 @@ class CompleteOrderContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
     var oldAddCubit = BlocProvider.of<OldAddressesCubit>(context);
-
     return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          InkWell(
-            onTap: (){
-              bottomSheet(context, const CodeSheetBody(),rad: 30);
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Styles.text(Texts.doYouHaveCoupon,color: Colors.black.withOpacity(.7),size: 15).tr(),
-                Divider(color: Colors.black.withOpacity(.7),height: 0,endIndent: 250,thickness: 1.5,)
-              ],
-            ),
-          ),
-          Divider(color: Colors.black54,height: 25.h,),
+          // InkWell(
+          //   onTap: (){
+          //     bottomSheet(context, const CodeSheetBody(),);
+          //   },
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Styles.text(Texts.doYouHaveCoupon,color: Colors.black.withOpacity(.7),size: 15).tr(),
+          //       Divider(color: Colors.black.withOpacity(.7),height: 0,endIndent: 250,thickness: 1.5,)
+          //     ],
+          //   ),
+          // ),
+          // Divider(color: Colors.black54,height: 25.h,),
+          SizedBox(height: 10.h,),
           BlocBuilder<CartCubit,CartState>(builder: (context,state){
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

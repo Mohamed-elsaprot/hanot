@@ -25,13 +25,13 @@ class CheckOutBody extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
           children: [
-            OptionsContainer(),
+            const OptionsContainer(),
             SizedBox(height: 6.h,),
-            NoteContainer(),
+            const NoteContainer(),
             SizedBox(height: 12.h,),
-            CouponContainer(),
+            const CouponContainer(),
             SizedBox(height: 25.h,),
-            PriceContainer(),
+            const PriceContainer(),
             SizedBox(height: 50.h,),
             SizedBox(width: double.infinity,
               child: CustomButton(fun: (){

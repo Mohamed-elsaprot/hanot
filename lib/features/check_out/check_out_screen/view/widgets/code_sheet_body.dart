@@ -5,7 +5,7 @@ import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/cart/view/widgets/coupon_text_field.dart';
 import 'package:hanot/general_widgets/custom_button.dart';
 
-import '../../../../core/design/app_styles.dart';
+import '../../../../../core/design/app_styles.dart';
 
 class CodeSheetBody extends StatefulWidget {
   const CodeSheetBody({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _CodeSheetBodyState extends State<CodeSheetBody> {
               },
               onChange: (x){},
               onTap: (){
-            height=380;setState(() {});
+            height=400;setState(() {});
           }),
           SizedBox(height: 15.h,),
           SizedBox(width: double.infinity,

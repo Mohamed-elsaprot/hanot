@@ -34,7 +34,7 @@ class AuthCubit extends Cubit<AuthState>{
         id = map['id'];name = map['name'];email = map['email'];phone = map['phone'];isBlocked = map['is_blocked'];
       emit(AuthSuccess());
       Navigator.pop(context);
-      bottomSheet(context, OtpScreen(), rad: 20);
+      bottomSheet(context, OtpScreen(),);
     });
   }
   confirmOtp({required BuildContext context,required String code})async{

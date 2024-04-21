@@ -24,7 +24,7 @@ errorDialog({required BuildContext context,required String message,})async{
   });
 }
 
-bottomSheet(BuildContext context,Widget body,{required double rad,void Function()? fun,bool dismissible=true,}){
+bottomSheet(BuildContext context,Widget body,{double rad=20,void Function()? fun,bool dismissible=true,}){
   return showModalBottomSheet(
       context: context,
       isDismissible: dismissible,
