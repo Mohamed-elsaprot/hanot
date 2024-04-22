@@ -13,11 +13,11 @@ class CartRepoImpl implements CartRepo{
     try{
       var res = await ApiService.postDataWithToken(endPoint: ApiService.shoppingCart, postedData: body);
       if(res['data']==null){
-        throw 'المنتج مضافة و الكمية غير متوفرة حالياٌ .';
+        // throw 'المنتج مضافة و الكمية غير متوفرة حالياٌ .';
+        throw res['message'];
       }
       return right(res['data']);
     }catch(e){
-      print(e);
       if(e is DioException){
         return left(ServerFailure.fromDioError(e));
       }else if(e == 'المنتج مضافة و الكمية غير متوفرة حالياٌ .') {

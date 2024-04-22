@@ -11,7 +11,7 @@ class CategoryDetailsRepoImpl implements CategoryDetailsRepo{
   Future<Either<Failure, List<CategoryDetails>>> getCategories() async{
     try {
       List<CategoryDetails> categoriesList = [];
-      var categoriesRes = await ApiService.getDataWithToken(endPoint: ApiService.categories);
+      var categoriesRes = await ApiService.getData(endPoint: ApiService.categories);
       categoriesRes['data'].forEach((val) {
         categoriesList.add(CategoryDetails.fromJson(val));
       });

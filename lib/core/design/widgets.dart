@@ -41,15 +41,15 @@ Widget cachedImage(String img,{BoxFit boxFit=BoxFit.fill,bool smallImage=false,b
   );
 }
 
-PreferredSizeWidget customAppbar(){
-  return PreferredSize(
-    preferredSize: Size(double.infinity,90.h),
-    child: Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: AppBar(),
-    ),
-  );
-}
+// PreferredSizeWidget customAppbar(){
+//   return PreferredSize(
+//     preferredSize: Size(double.infinity,90.h),
+//     child: Padding(
+//       padding: EdgeInsets.symmetric(horizontal: 20.w),
+//       child: AppBar(),
+//     ),
+//   );
+// }
 
 Widget shimmerWidget({required double height,required double width,double? rad=0,EdgeInsetsGeometry? margin}){
   return Shimmer.fromColors(

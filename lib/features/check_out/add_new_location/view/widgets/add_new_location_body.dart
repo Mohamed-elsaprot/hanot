@@ -42,7 +42,7 @@ class AddNewLocationBody extends StatelessWidget {
                   children: [
                     const CountryCityRow(),
                     SizedBox(height: 20.h,),
-                    CustomTextField(title: Texts.neighborhood,
+                    CustomTextField(title: Texts.neighborhood.tr(),
                       validator: (x) {
                       if (x == null || x.isEmpty) {
                         return Texts.required.tr();
@@ -51,15 +51,15 @@ class AddNewLocationBody extends StatelessWidget {
                       }
                     }, controller: newAddCubit.neighborhoodController,),
                     SizedBox(height: 20.h,),
-                    CustomTextField(title: Texts.streetName, controller: newAddCubit.streetController),
+                    CustomTextField(title: Texts.streetName.tr(), controller: newAddCubit.streetController),
                     SizedBox(height: 20.h,),
-                    CustomTextField(title: Texts.homeAddress, controller: newAddCubit.homeController),
+                    CustomTextField(title: Texts.homeAddress.tr(), controller: newAddCubit.homeController),
                     SizedBox(height: 20.h,),
                     SizedBox(
                       height: 50.h,
                       child: Row(
                         children: [
-                          SizedBox(width: 180.w, child: CustomTextField(title: Texts.postalCode, controller: newAddCubit.postalCodeController),),
+                          SizedBox(width: 180.w, child: CustomTextField(title: Texts.postalCode.tr(), controller: newAddCubit.postalCodeController),),
                           const Spacer(),
                           BlocConsumer<AddNewAddCubit,AddNewAddState>(
                               listener: (context,state) async {

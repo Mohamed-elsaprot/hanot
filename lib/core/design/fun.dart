@@ -30,7 +30,7 @@ bottomSheet(BuildContext context,Widget body,{double rad=20,void Function()? fun
       isDismissible: dismissible,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(rad.r))),
-      builder: (context){
+      builder: (_){
         return body;
       }).then((value) async{
     if(fun!=null) fun();

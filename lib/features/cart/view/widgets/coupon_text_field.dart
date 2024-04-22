@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hanot/core/design/app_styles.dart';
 
 class CouponTextField extends StatelessWidget {
-  const CouponTextField({Key? key, required this.onChange, this.focusNode, required this.onTap, required this.onSubmit,}) : super(key: key);
-  final void Function(String) onChange;
+  const CouponTextField({Key? key, this.focusNode, required this.onTap, required this.onSubmit, required this.controller,}) : super(key: key);
+  // final void Function(String) onChange;
+  final TextEditingController controller;
   final void Function() onTap;
   final void Function(String) onSubmit;
   final FocusNode? focusNode;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        onChanged: onChange,
+        // onChanged: onChange,
+      controller: controller,
         onFieldSubmitted: onSubmit,
         focusNode: focusNode,
         onTap: onTap,

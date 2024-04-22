@@ -11,7 +11,7 @@ class SmallCategoryRepoImpl implements SmallCategoryRepo{
   Future<Either<Failure, List<SmallCategoryModel>>> getSmallCategories() async{
     try {
       List<SmallCategoryModel> list =[];
-      var res = await ApiService.getDataWithToken(endPoint: ApiService.smallCategories);
+      var res = await ApiService.getData(endPoint: ApiService.smallCategories);
       res['data'].forEach((val){
         list.add(SmallCategoryModel.fromJson(val));
       });

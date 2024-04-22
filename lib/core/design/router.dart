@@ -7,10 +7,12 @@ import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/data/all_addresses_repo_impl.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_addresses_cubit.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/view/all_old_addresses_screen.dart';
+import 'package:hanot/features/check_out/check_out_screen/data/coupon_repo/coupon_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/shipping_companies_repo/shipping_companies_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/check_out_cubit/check_out_cubit.dart';
+import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/note_cubit/note_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
@@ -75,7 +77,9 @@ abstract class AppRouter {
               child: BlocProvider(create: (context)=> ShippingFeesCubit(ShippingCompaniesRepoImpl()),
                 child: BlocProvider(create: (context)=> PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context),
                   child: BlocProvider(create: (context)=> NoteCubit(),
-                    child: const CheckOut(),
+                    child: BlocProvider(create: (context)=> CouponCubit(CouponRepoImpl()),
+                      child: const CheckOut(),
+                    ),
                   ),
                 ),
               ),

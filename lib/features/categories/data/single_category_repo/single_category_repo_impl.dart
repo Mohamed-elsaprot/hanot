@@ -11,7 +11,7 @@ class SingleCategoryRepoImpl implements SingleCategoryRepo{
   Future<Either<Failure, CategoryDetails>> getSingleCategory({required String catId}) async{
     try {
       late CategoryDetails categoryDetails;
-      var categoriesRes = await ApiService.getDataWithToken(endPoint: '${ApiService.categories}/$catId');
+      var categoriesRes = await ApiService.getData(endPoint: '${ApiService.categories}/$catId');
       categoryDetails = CategoryDetails.fromJson(categoriesRes['data']);
       return right(categoryDetails);
     } catch (e) {

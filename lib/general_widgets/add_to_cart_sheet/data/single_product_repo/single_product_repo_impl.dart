@@ -11,7 +11,7 @@ class SingleProductRepoImpl implements SingleProductRepo{
   Future<Either<Failure, SingleProductModel>> getSingleProductModel({required String id}) async {
     try{
       SingleProductModel singleProductModel;
-      var res = await ApiService.getDataWithToken(endPoint: ApiService.singleProductDetails+id);
+      var res = await ApiService.getData(endPoint: ApiService.singleProductDetails+id);
       singleProductModel = SingleProductModel.fromJson(res['data']);
       return right(singleProductModel);
     }catch(e){

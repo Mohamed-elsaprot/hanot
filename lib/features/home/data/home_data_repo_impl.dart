@@ -12,7 +12,7 @@ class HomeDataRepoImpl implements HomeDataRepo{
   Future<Either<Failure, List>> getHomeData() async{
     try{
       List homeList =[];
-      var res = await ApiService.getDataWithToken(endPoint: ApiService.home);
+      var res = await ApiService.getData(endPoint: ApiService.home);
       res['data'].forEach((item){
         if(item['type']=='slide_products'){
           homeList.add(HomeModelWithProducts.fromJson(item));

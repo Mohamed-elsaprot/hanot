@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
+import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/paymentMethod_state.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/widgets/payment_method_radio_button.dart';
@@ -37,7 +38,18 @@ class _PaymentOptionTileState extends State<PaymentOptionTile> {
             backgroundColor: Colors.white,
             iconColor: Styles.primary,
             textColor: Styles.primary,
-            title: Styles.text('${Texts.payBy.tr()}: ${paymentMethodCubit.selectedPaymentMethod?.name??'No Name'}'),
+            title: BlocBuilder<PaymentMethodCubit,PaymentMethodState>(builder: (context,state){
+              if(state is PaymentMethodSuccess){
+                return Styles.text('${Texts.payBy.tr()}: ${paymentMethodCubit.selectedPaymentMethod?.name??''}');
+              }else{
+                return Row(
+                  children: [
+                    Styles.text('${Texts.payBy.tr()}:  ', fontWeight: FontWeight.w900),
+                    shimmerWidget(height: 12, width: 60,rad: 6),
+                  ],
+                );
+              }
+            }),
             children: List.generate(paymentMethodCubit.paymentMethodsList.length, (index) => PaymentRadioButton(
                 fun: (x){
                   paymentMethodCubit.groupVal = x;
