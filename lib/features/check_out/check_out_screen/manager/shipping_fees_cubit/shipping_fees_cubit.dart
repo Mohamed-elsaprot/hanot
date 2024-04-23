@@ -21,4 +21,9 @@ class ShippingFeesCubit extends Cubit<ShippingFeesState>{
       emit(ShippingFeesSuccess());
     });
   }
+
+  deleteData(){
+    shippingFeesModel=null;
+    emit(ShippingFeesInitial());
+  }
 }

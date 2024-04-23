@@ -54,9 +54,20 @@
   "Pay By": "الدفع بواسطة",
   "Add Note": "اضافة ملاحظة",
   "Edit": "تعديل",
+  "Send Order": "ارسال الطلب",
+  "Add Coupon": "اضافة كوبون",
+  "Cart Total": "اجمالي السلة",
+  "Coupon Discount": "تخفيض الكوبون",
+  "Shipping Fees": "رسوم الشحن",
+  "Order Total": "اجمالي الطلب",
+  "This product not available now": "هذا المنتج غير متوفر حاليا بهذه المواصفات",
+  "close": "اغلاق",
+  "Quantity is currently unavailable.": "الكمية غير متوفرة حالياٌ .",
+  "Please choose a title": "من فضلك قم باختيار عنوان",
   "No Notes Added": "لا يوجد ملاحظات",
   "Order Note": "ملاحظة على الطلب",
   "Use Selected Address": "استخدام العنوان المحدد",
+  "Use the specified address": "استخدام العنوان المحدد",
   "Please Enter The Otp": "من فضلك ادخل الرقم السري المتغير"
 
 }

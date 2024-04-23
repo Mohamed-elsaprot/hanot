@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
@@ -22,7 +24,7 @@ class CouponContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Styles.text('هل لديك كوبون؟',),
+              Styles.text(Texts.doYouHaveCoupon.tr(),),
               Styles.text(couponCubit.couponCode,),
             ],
           ),
@@ -32,7 +34,7 @@ class CouponContainer extends StatelessWidget {
               bottomSheet(context, BlocProvider.value(value: BlocProvider.of<CouponCubit>(context), child: const CouponSheetBody(),)
               );
             },
-            title: 'اضافة كوبون',
+            title: Texts.addCoupon.tr(),
             rad: 6,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
           )

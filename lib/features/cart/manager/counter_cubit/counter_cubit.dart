@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/counter_cubit/counter_state.dart';
@@ -31,7 +33,7 @@ class CounterCubit extends Cubit<CounterState>{
           product.total = map['data']['cost_price'] * product.qty;
           newCartTotal = double.parse(map['cart']['total']);
         }else{
-          errorDialog(context: context, message: 'الكمية غير متوفرة حالياٌ .');
+          errorDialog(context: context, message: Texts.quantityIsCurrentlyUnavailable.tr());
           product.qty = cacheQun;
         }
         cartCubit.emit(CartInitial());

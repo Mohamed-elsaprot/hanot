@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/widgets/price_container.dart';
@@ -36,7 +38,7 @@ class CheckOutBody extends StatelessWidget {
             SizedBox(width: double.infinity,
               child: CustomButton(fun: (){
                 errorDialog(context: context, message: '${cubit.groupVal} ${cubit.selectedAddress?.city} ${cubit.selectedAddress?.neighborhood}');
-              }, title: 'ارسال الطلب',rad: 8),
+              }, title: Texts.sendOrder.tr(),rad: 8),
             )
           ],
         );

@@ -53,7 +53,7 @@ class SheetActionsRow extends StatelessWidget {
                     loadingDialog(context);
                     cartCubit.addToCart(body: {"product_id": product.id, "qty": 1,}, context: context);
                   }else{
-                   errorDialog(context: context, message: 'هذا المنتج غير متوفر حاليا');
+                   errorDialog(context: context, message: Texts.thisProductNotAvailableNow.tr());
                   }
                 }
               },

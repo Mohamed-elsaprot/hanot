@@ -1,5 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/cart/data/cart_repo_impl.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
@@ -36,7 +38,7 @@ class CartCubit extends Cubit<CartState>{
       }else{
         if(isAddToCartButton){
           Navigator.pop(context);
-          errorDialog(context: context, message: 'هذا المنتج غير متوفر حاليا بهذه المواصفات');
+          errorDialog(context: context, message: Texts.thisProductNotAvailableNow.tr());
         }
       }
     });

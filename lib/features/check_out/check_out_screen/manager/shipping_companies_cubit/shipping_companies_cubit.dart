@@ -33,4 +33,11 @@ class ShippingCompaniesCubit extends Cubit<ShippingCompaniesState> {
     selectedCompany = companiesList[index];
     groupVal = selectedCompany!.priceId!;
   }
+
+  deleteData(){
+    groupVal=null;
+    selectedCompany=null;
+    companiesList=[];
+    emit(ShippingCompaniesInitial());
+  }
 }

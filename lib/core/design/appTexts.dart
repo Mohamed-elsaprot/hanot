@@ -12,6 +12,7 @@ abstract class Texts {
   static const String cartEmpty='cart empty';
   static const String itemsCount='Items Count';
   static const String top='top';
+  static const String close='close';
   static const String edit='Edit';
   static const String settings='settings';
   static const String type='type';
@@ -61,5 +62,15 @@ abstract class Texts {
   static const String payBy='Pay By';
   static const String addNote='Add Note';
   static const String orderNote='Order Note';
+  static const String sendOrder='Send Order';
+  static const String addCoupon='Add Coupon';
+  static const String cartTotal='Cart Total';
+  static const String shippingFees='Shipping Fees';
+  static const String orderTotal='Order Total';
+  static const String couponDiscount='Coupon Discount';
+  static const String thisProductNotAvailableNow='This product not available now';
+  static const String quantityIsCurrentlyUnavailable='Quantity is currently unavailable.';
+  static const String pleaseChooseATitle='Please choose a title';
+  static const String useTheSpecifiedAddress='Use the specified address';
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/widgets.dart';
 
 import '../../general_widgets/custom_button.dart';
@@ -16,7 +17,7 @@ errorDialog({required BuildContext context,required String message,})async{
           CustomButton(
             padding: EdgeInsets.symmetric(horizontal: 50.w,vertical: 10.h),
             fun: () => Navigator.pop(context),
-            title: 'اغلاق',
+            title: Texts.close,
           )
         ],
       ),

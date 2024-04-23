@@ -17,7 +17,7 @@ class PaymentRadioButton extends StatelessWidget {
           children: [
             // Expanded(flex: 2,child: cachedImage(paymentMethodModel.logo??'',boxFit: BoxFit.cover,height: 40)),
             // SizedBox(width: 20.w,),
-            Expanded(flex: 10,child: Styles.text(paymentMethodModel.name??'No Name')),
+            Expanded(flex: 10,child: Styles.text(paymentMethodModel.name??'')),
           ],
         ),
         activeColor: Styles.primary,

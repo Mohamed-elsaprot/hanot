@@ -37,13 +37,7 @@ class _AllAddressesSuccessBodyState extends State<AllAddressesSuccessBody> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: ()async{
-        if(allAddressesCubit.allAddressesList.length==cacheListLen){
-          oldAddressesCubit.selectedAddressIndex=cacheIndex;
-          oldAddressesCubit.groupVal=cacheVal;
-        }else{
-          await oldAddressesCubit.getCustomerFirsAddresses(context: context);
-        }
-        Navigator.pop(context);
+        backFun(context);
         return Future(() => false);
       },
       child: Scaffold(
@@ -51,15 +45,7 @@ class _AllAddressesSuccessBodyState extends State<AllAddressesSuccessBody> {
           title: Styles.text(Texts.allAddresses,size: 22).tr(),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: ()async{
-              if(allAddressesCubit.allAddressesList.length==cacheListLen){
-                oldAddressesCubit.selectedAddressIndex=cacheIndex;
-                oldAddressesCubit.groupVal=cacheVal;
-              }else{
-                await oldAddressesCubit.getCustomerFirsAddresses(context: context);
-              }
-              Navigator.pop(context);
-            },
+            onPressed: ()async=>backFun(context)
           ),
         ),
         body: ListView.builder(
@@ -116,13 +102,27 @@ class _AllAddressesSuccessBodyState extends State<AllAddressesSuccessBody> {
                 }
                 Navigator.pop(context);
               }else{
-               errorDialog(context: context, message: 'من فضلك قم باختيار عنوان');
+               errorDialog(context: context, message: Texts.pleaseChooseATitle.tr());
               }
             },
-            title: 'استخدام العنوان المحدد',
+            title: Texts.useTheSpecifiedAddress.tr(),
           ),
         ),
       ),
     );
+  }
+
+  backFun(BuildContext context) async {
+    if(allAddressesCubit.allAddressesList.isEmpty){
+      oldAddressesCubit.selectedAddress=null;
+      oldAddressesCubit.emit(OldAddressesSuccess());
+    }
+    if(allAddressesCubit.allAddressesList.length==cacheListLen){
+      oldAddressesCubit.selectedAddressIndex=cacheIndex;
+      oldAddressesCubit.groupVal=cacheVal;
+    }else{
+      await oldAddressesCubit.getCustomerFirsAddresses(context: context);
+    }
+    Navigator.pop(context);
   }
 }
