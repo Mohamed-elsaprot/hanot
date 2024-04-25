@@ -15,6 +15,7 @@ import 'package:hanot/general_widgets/custom_textField.dart';
 
 import '../../../check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
 import '../../../check_out_screen/manager/old_addresses_cubit/old_addresses_state.dart';
+import '../../manager/cities_cubit/cities_cubit.dart';
 
 class AddNewLocationBody extends StatelessWidget {
   const AddNewLocationBody({Key? key}) : super(key: key);
@@ -23,8 +24,18 @@ class AddNewLocationBody extends StatelessWidget {
   Widget build(BuildContext context) {
     var newAddCubit = BlocProvider.of<AddNewAddCubit>(context);
     var oldAddressCubit = BlocProvider.of<OldAddressesCubit>(context);
+    var countriesCubit = BlocProvider.of<CountriesCubit>(context);
+    var citiesCubit = BlocProvider.of<CitiesCubit>(context);
     var formKey = GlobalKey<FormState>();
-    return BlocBuilder<CountriesCubit, CountriesState>(
+    return BlocConsumer<CountriesCubit, CountriesState>(
+      listener: (context,state) async {
+        if(state is CountriesSuccess){
+          if(countriesCubit.countriesList.length==1){
+            countriesCubit.selectedCountry = countriesCubit.countriesList[0];
+            await citiesCubit.getCities(context: context, countryId: countriesCubit.countriesList[0].id.toString());
+          }
+        }
+      },
         builder: (context, state) {
       if (state is CountriesSuccess) {
         return SizedBox(

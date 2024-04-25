@@ -7,6 +7,7 @@ import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/data/all_addresses_repo_impl.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_addresses_cubit.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/view/all_old_addresses_screen.dart';
+import 'package:hanot/features/check_out/check_out_screen/data/check_out_repo/check_out_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/coupon_repo/coupon_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo_impl.dart';
@@ -71,8 +72,7 @@ abstract class AppRouter {
     GoRoute(
       path: checkOutScreen,
       builder: (BuildContext context, GoRouterState state) {
-        return BlocProvider(
-            create: (context) => CheckOutCubit(),
+        return BlocProvider(create: (context) => CheckOutCubit(CheckOutRepoImpl()),
             child: BlocProvider(create: (context)=> ShippingCompaniesCubit(ShippingCompaniesRepoImpl()),
               child: BlocProvider(create: (context)=> ShippingFeesCubit(ShippingCompaniesRepoImpl()),
                 child: BlocProvider(create: (context)=> PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context),

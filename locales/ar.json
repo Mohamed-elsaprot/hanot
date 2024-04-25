@@ -48,7 +48,7 @@
   "Home Address": "عنوان المنزل",
   "Add Address": "اضافة عنوان",
   "more": "المزيد",
-  "Delivery Method": "طريقة التوصيل",
+  "Address": "العنوان",
   "Delivery To": "توصيل لعنوان",
   "Shipping Company": "شركة الشحن",
   "Pay By": "الدفع بواسطة",
@@ -68,6 +68,7 @@
   "Order Note": "ملاحظة على الطلب",
   "Use Selected Address": "استخدام العنوان المحدد",
   "Use the specified address": "استخدام العنوان المحدد",
+  "Self pick up": "استلام ذاتي",
   "Please Enter The Otp": "من فضلك ادخل الرقم السري المتغير"
 
 }

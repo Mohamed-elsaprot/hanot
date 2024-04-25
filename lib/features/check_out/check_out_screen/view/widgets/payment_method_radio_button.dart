@@ -21,7 +21,7 @@ class PaymentRadioButton extends StatelessWidget {
           ],
         ),
         activeColor: Styles.primary,
-        value: paymentMethodModel.id!, groupValue: paymentCubit.groupVal, onChanged: fun
+        value: paymentMethodModel.slug!, groupValue: paymentCubit.groupVal, onChanged: fun
     );
   }
 }

@@ -8,11 +8,13 @@ import '../../../../../consts.dart';
 import '../../../../../core/design/app_styles.dart';
 
 class LoadingCitiesContainer extends StatelessWidget {
-  const LoadingCitiesContainer({Key? key, }) : super(key: key);
+  const LoadingCitiesContainer({Key? key, required this.moreOne, }) : super(key: key);
+  final bool moreOne;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 180.w,
+      width:moreOne? 180.w:380,
+      // width: 180.w,
       child: DropdownButtonFormField(
         validator: (x){
           if(x==null){

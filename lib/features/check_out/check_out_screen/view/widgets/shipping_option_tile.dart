@@ -28,6 +28,8 @@ class _ShippingOptionTileState extends State<ShippingOptionTile> {
   void initState() {
     shippingCompaniesCubit = BlocProvider.of<ShippingCompaniesCubit>(context);
     oldAddressesCubit = BlocProvider.of<OldAddressesCubit>(context);
+    if(shippingCompaniesCubit.selectedCompany==null&&oldAddressesCubit.groupVal!=null&&shippingCompaniesCubit.firstBuild) shippingCompaniesCubit.getCompanies(addressId: oldAddressesCubit.selectedAddress!.id!, context: context);
+    shippingCompaniesCubit.firstBuild=false;
     super.initState();
   }
 
@@ -42,7 +44,8 @@ class _ShippingOptionTileState extends State<ShippingOptionTile> {
       margin: EdgeInsets.symmetric(vertical: 6.h),
       child: ExpansionTile(
           onExpansionChanged: (x) async {
-             if(shippingCompaniesCubit.selectedCompany==null&&oldAddressesCubit.groupVal!=null&&oldAddressesCubit.groupVal!=0)await shippingCompaniesCubit.getCompanies(addressId: oldAddressesCubit.selectedAddress!.id!, context: context);
+             // if(shippingCompaniesCubit.selectedCompany==null&&oldAddressesCubit.groupVal!=null&&oldAddressesCubit.groupVal!=0)
+             //   await shippingCompaniesCubit.getCompanies(addressId: oldAddressesCubit.selectedAddress!.id!, context: context);
             },
           leading: Icon(Icons.local_shipping_outlined, size: 30.w,),
           backgroundColor: Colors.white,
@@ -55,9 +58,9 @@ class _ShippingOptionTileState extends State<ShippingOptionTile> {
               }
             },
             builder: (context, state) {
-              if(state is ShippingCompaniesSuccess ){
+              if(state is ShippingCompaniesSuccess || state is ShippingCompaniesInitial){
                 return BlocBuilder<ShippingFeesCubit,ShippingFeesState>(builder: (context,feesState){
-                  if(feesState is ShippingFeesSuccess){
+                  if(feesState is ShippingFeesSuccess || feesState is ShippingFeesInitial){
                     return Styles.text('${Texts.shippingCompany.tr()}:  ${shippingCompaniesCubit.selectedCompany?.name ?? ''}', fontWeight: FontWeight.w900);
                   }else{
                     return Row(
@@ -68,9 +71,7 @@ class _ShippingOptionTileState extends State<ShippingOptionTile> {
                     );
                   }
                 });
-              }else if(state is ShippingCompaniesInitial){
-                return Styles.text('${Texts.shippingCompany.tr()}:  ', fontWeight: FontWeight.w900);
-              } else{
+              }else{
                 return Row(
                   children: [
                     Styles.text('${Texts.shippingCompany.tr()}:  ', fontWeight: FontWeight.w900),

@@ -19,20 +19,20 @@ class OptionsContainer extends StatelessWidget {
     return Column(
       children: [
         BlocConsumer<OldAddressesCubit, OldAddressesState>(
-          listener: (context,state) async {
+            builder: (context, state) {
+              return const OldAddressesOptionTile();
+        },
+          listener: (context,state){
             if(state is OldAddressesSuccess){
               if(oldAddressesCubit.selectedAddress!=null) {
-                await shippingCompaniesCubit.getCompanies(addressId: oldAddressesCubit.selectedAddress!.id!, context: context);
+                shippingCompaniesCubit.getCompanies(addressId: oldAddressesCubit.selectedAddress!.id!, context: context);
               }else{
-                print('deleteeeee');
                 shippingCompaniesCubit.deleteData();
                 shippingFeesCubit.deleteData();
               }
             }
           },
-            builder: (context, state) {
-          return const OldAddressesOptionTile();
-        }),
+        ),
         const ShippingOptionTile(),
         const PaymentOptionTile(),
 

@@ -20,6 +20,6 @@ class CouponRepoImpl implements CouponRepo{
       } else {
         return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
       }
-    }
+     }
     }
   }

@@ -36,14 +36,14 @@ class _OldAddressesOptionTileState extends State<OldAddressesOptionTile> {
           borderRadius: BorderRadius.circular(8.r),
           color: Colors.grey.shade200),
       margin: EdgeInsets.symmetric(vertical: 6.h),
-      child: BlocBuilder<OldAddressesCubit,OldAddressesState>(builder: (context,state){
-        return ExpansionTile(
+      child: BlocBuilder<OldAddressesCubit,OldAddressesState>(
+          builder: (context,state){
+            return ExpansionTile(
             leading: Icon(Icons.navigation_outlined, size: 30.w,),
             backgroundColor: Colors.white,
             iconColor: Styles.primary,
             textColor: Styles.primary,
-            title: Styles.text(Texts.deliveryMethod, fontWeight: FontWeight.w500).tr(),
-            subtitle: Styles.text('${Texts.deliveryTo.tr()}: ${oldAddressesCubit.selectedAddress?.city ?? ''}', fontWeight: FontWeight.w900),
+            title: Styles.text('${Texts.address.tr()}: ${oldAddressesCubit.selectedAddress?.city??''}', fontWeight: FontWeight.w900),
             children: [
               ...List.generate(
                   oldAddressesCubit.customerAddressesModel.addressesList!.length,
@@ -83,7 +83,8 @@ class _OldAddressesOptionTileState extends State<OldAddressesOptionTile> {
                 ],
               )
             ]);
-      }),
+      },
+      ),
     );
   }
 }

@@ -16,9 +16,10 @@ class CountryCityRow extends StatelessWidget {
   Widget build(BuildContext context) {
     var countriesCubit = BlocProvider.of<CountriesCubit>(context);
     var citiesCubit = BlocProvider.of<CitiesCubit>(context);
+    bool moreOne = countriesCubit.countriesList.length>1;
     return Row(
       children: [
-        SizedBox(
+        if(moreOne) SizedBox(
           width: 180.w,
           child: CustomDropDownMenu(
             title: Texts.country,
@@ -29,12 +30,13 @@ class CountryCityRow extends StatelessWidget {
             },
           ),
         ),
-        const Spacer(),
+        if(moreOne)const Spacer(),
         BlocBuilder<CitiesCubit, CitiesState>(
             builder: (context, state) {
               if (state is CitiesSuccess) {
                 return SizedBox(
-                  width: 180.w,
+                  width:moreOne? 180.w:380,
+                  // width: 180.w,
                   child: CustomDropDownMenu(
                     title: Texts.city,
                     valList: citiesCubit.citiesList,
@@ -44,7 +46,7 @@ class CountryCityRow extends StatelessWidget {
                   ),
                 );
               } else {
-                return const LoadingCitiesContainer();
+                return LoadingCitiesContainer(moreOne: moreOne,);
               }
             }),
       ],

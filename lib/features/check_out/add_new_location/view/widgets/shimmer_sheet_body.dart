@@ -29,8 +29,8 @@ class ShimmerSheetBody extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(flex: 1, child: shimmerWidget(height: 40.h, rad: 6,width: 50)),
-                      SizedBox(width: 20.w,),
-                      Expanded(flex: 1, child: shimmerWidget(height: 40.h, rad: 6,width: 50)),
+                      // SizedBox(width: 20.w,),
+                      // Expanded(flex: 1, child: shimmerWidget(height: 40.h, rad: 6,width: 50)),
                     ],
                   ),
                   SizedBox(height: 20.h,),

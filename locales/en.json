@@ -54,7 +54,7 @@
   "Add Note": "Add Note",
   "Send Order": "Send Order",
   "Order Note": "Order Note",
-  "Delivery Method": "Delivery Method",
+  "Address": "Address",
   "Delivery To": "Delivery To",
   "Add Coupon": "Add Coupon",
   "Cart Total": "Cart Total",
@@ -68,5 +68,6 @@
   "Shipping Company":"Shipping Company",
   "Use Selected Address": "Use Selected Address",
   "Use the specified address": "Use the specified address",
+  "Self pick up": "Self pick up",
   "Please Enter The Otp": "Please Enter The Otp"
 }

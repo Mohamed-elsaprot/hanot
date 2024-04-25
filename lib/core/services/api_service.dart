@@ -21,6 +21,7 @@ class ApiService {
   static const shippingFees = '/shipping-companies/shipping-company-fees';
   static const paymentMethods = '/payment-methods';
   static const applyCoupon = '/coupon';
+  static const checkout = '/checkout';
 
   static final Dio _dio = Dio(
     BaseOptions(

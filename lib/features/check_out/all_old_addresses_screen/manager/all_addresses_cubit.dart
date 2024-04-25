@@ -23,22 +23,11 @@ class AllAddressesCubit extends Cubit<AllAddressesState>{
   }
 
   deleteAddress({required String addressId,required int index,required BuildContext context,})async{
-    // Address? address;
-    // allAddressesList.removeAt(index);
-    // if(selectedIndex==index){
-    //   selectedIndex = 0;
-    //   if(allAddressesList.isNotEmpty){
-    //     address = allAddressesList[0];
-    //   }else{
-    //     address = null;
-    //   }
-    // }
     allAddressesList.removeAt(index);
     var res = await addressesRepoImpl.deleteAddress(addressId: addressId);
     res.fold((failure){
       errorDialog(context: context, message: failure.errorMessage);
     }, (map){});
   }
-
 
 }

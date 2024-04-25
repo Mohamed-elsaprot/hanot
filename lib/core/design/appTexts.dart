@@ -56,7 +56,7 @@ abstract class Texts {
   static const String noNotesAdded='No Notes Added';
   static const String addAddress='Add Address';
   static const String useSelectedAddress='Use Selected Address';
-  static const String deliveryMethod='Delivery Method';
+  static const String address='Address';
   static const String deliveryTo='Delivery To';
   static const String shippingCompany='Shipping Company';
   static const String payBy='Pay By';
@@ -72,5 +72,6 @@ abstract class Texts {
   static const String quantityIsCurrentlyUnavailable='Quantity is currently unavailable.';
   static const String pleaseChooseATitle='Please choose a title';
   static const String useTheSpecifiedAddress='Use the specified address';
+  static const String selfPickUp='Self pick up';
 
 }
