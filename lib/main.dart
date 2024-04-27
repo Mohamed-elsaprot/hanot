@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                         textStyle: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w600,)
                     )
                 ),
-                textTheme: TextTheme(
+                textTheme: const TextTheme(
                   // bodyMedium: TextStyle(fontSize: 15.sp,fontFamily: fontFamily),
                 ),
               ),

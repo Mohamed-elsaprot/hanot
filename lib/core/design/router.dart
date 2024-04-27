@@ -18,6 +18,7 @@ import 'package:hanot/features/check_out/check_out_screen/manager/note_cubit/not
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
+import 'package:hanot/features/check_out/payment_web_view/view/payment_web_vew.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.dart';
 import 'package:hanot/features/sub_category_screen/view/sub_category_screen.dart';
 import 'package:hanot/features/tabs_screen/model/category_details/Children.dart';
@@ -33,6 +34,8 @@ abstract class AppRouter {
   static const subCategoryScreen = '/subCategoryScreen';
   static const checkOutScreen = '/checkOutScreen';
   static const allOldAddressesScreen = '/allOldAddressesScreen';
+
+  // static const paymentWebView = '/paymentWebView';
 
   static final GoRouter router = GoRouter(routes: [
     GoRoute(
@@ -72,18 +75,16 @@ abstract class AppRouter {
     GoRoute(
       path: checkOutScreen,
       builder: (BuildContext context, GoRouterState state) {
-        return BlocProvider(create: (context) => CheckOutCubit(CheckOutRepoImpl()),
-            child: BlocProvider(create: (context)=> ShippingCompaniesCubit(ShippingCompaniesRepoImpl()),
-              child: BlocProvider(create: (context)=> ShippingFeesCubit(ShippingCompaniesRepoImpl()),
-                child: BlocProvider(create: (context)=> PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context),
-                  child: BlocProvider(create: (context)=> NoteCubit(),
-                    child: BlocProvider(create: (context)=> CouponCubit(CouponRepoImpl()),
-                      child: const CheckOut(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(create: (context) => CheckOutCubit(CheckOutRepoImpl())),
+            BlocProvider(create: (context) => ShippingCompaniesCubit(ShippingCompaniesRepoImpl())),
+            BlocProvider(create: (context) => ShippingFeesCubit(ShippingCompaniesRepoImpl())),
+            BlocProvider(create: (context) => PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context)),
+            BlocProvider(create: (context) => NoteCubit(),),
+            BlocProvider(create: (context) => CouponCubit(CouponRepoImpl())),
+          ],
+          child: const CheckOut(),
         );
       },
     ),
@@ -91,11 +92,18 @@ abstract class AppRouter {
       path: allOldAddressesScreen,
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider(
-          create: (context) => AllAddressesCubit(AllAddressesRepoImpl())
+          create: (_) => AllAddressesCubit(AllAddressesRepoImpl())
             ..getAllAddresses(context: context),
-          child: const AllOldAddressesScreen(),
+          child: BlocProvider.value(value: BlocProvider.of<ShippingCompaniesCubit>(state.extra as BuildContext),child: const AllOldAddressesScreen(),)
+          //BlocProvider.value(value:BlocProvider.of<ShippingCompaniesCubit>(context) ,child: const AllOldAddressesScreen(),),
         );
       },
     ),
+    // GoRoute(
+    //   path: paymentWebView,
+    //   builder: (BuildContext context, GoRouterState state) {
+    //     return const PaymentWebView();
+    //   },
+    // ),
   ]);
 }

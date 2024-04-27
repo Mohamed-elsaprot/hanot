@@ -26,6 +26,7 @@ class CheckOutRepoImpl implements CheckOutRepo {
             "notes": notes
           });
       orderModel = OrderModel.fromJson(res['data']);
+      print(res);
       return right(orderModel);
     } catch (e) {
       if (e is DioException) {

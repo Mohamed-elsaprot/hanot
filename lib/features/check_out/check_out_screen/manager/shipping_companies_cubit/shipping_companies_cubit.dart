@@ -9,7 +9,7 @@ import 'package:hanot/features/check_out/check_out_screen/models/shipping_compan
 class ShippingCompaniesCubit extends Cubit<ShippingCompaniesState> {
   ShippingCompaniesCubit(this.shippingCompaniesRepoImpl) : super(ShippingCompaniesInitial());
   final ShippingCompaniesRepoImpl shippingCompaniesRepoImpl;
-  List<ShippingCompany> companiesList = constComList;
+  List<ShippingCompany> companiesList = List.castFrom(constComList);
   late ShippingCompany? selectedCompany = companiesList[0];
   bool firstBuild = true;
   num? groupVal=0;
@@ -22,10 +22,6 @@ class ShippingCompaniesCubit extends Cubit<ShippingCompaniesState> {
       emit(ShippingCompaniesFailure(errorMessage: failure.errorMessage));
     }, (list) {
       companiesList = list;
-      // if (list.isNotEmpty) {
-      //   selectedCompany=list[0];
-      //   groupVal = list[0].priceId!;
-      // }
       emit(ShippingCompaniesSuccess());
     });
   }
@@ -40,12 +36,5 @@ class ShippingCompaniesCubit extends Cubit<ShippingCompaniesState> {
     groupVal=  0;
     selectedCompany= companiesList[0];
     emit(ShippingCompaniesSuccess());
-  }
-
-  deleteData(){
-    groupVal=null;
-    selectedCompany=null;
-    companiesList=[];
-    emit(ShippingCompaniesInitial());
   }
 }

@@ -13,7 +13,7 @@ class CheckOut extends StatelessWidget {
     return Scaffold(
       backgroundColor: Styles.scaffoldColor,
       appBar: AppBar(title: Styles.text(Texts.checkOut,size: 22).tr(),),
-      body: const CheckOutBody(),
+      body:  const CheckOutBody(),
     );
   }
 }

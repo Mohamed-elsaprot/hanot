@@ -8,7 +8,7 @@ import 'package:hanot/features/check_out/check_out_screen/models/order_model/Ord
 class CheckOutCubit extends Cubit<CheckOutState>{
   CheckOutCubit(this.checkOutRepoImpl):super(CheckOutInitial());
   final CheckOutRepoImpl checkOutRepoImpl;
-  late OrderModel orderModel;
+  OrderModel? orderModel;
   sendOrder({
     required BuildContext context,
     required String paymentMethod,
