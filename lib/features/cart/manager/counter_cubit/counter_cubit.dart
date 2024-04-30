@@ -30,7 +30,7 @@ class CounterCubit extends Cubit<CounterState>{
       }, (map){
         if(map['data']!=null){
           product.qty = map['data']['qty'];
-          product.total = map['data']['cost_price'] * product.qty;
+          product.total = map['data']['price'] * product.qty;
           newCartTotal = double.parse(map['cart']['total']);
         }else{
           errorDialog(context: context, message: Texts.quantityIsCurrentlyUnavailable.tr());
