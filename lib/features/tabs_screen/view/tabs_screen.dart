@@ -12,7 +12,6 @@ import '../manager/categories_cubit/category_state.dart';
 import '../manager/products_cubit/get_category_products_cubit.dart';
 import '../manager/products_cubit/get_category_products_state.dart';
 
-
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
 
@@ -76,24 +75,3 @@ class _TabsScreenState extends State<TabsScreen> with SingleTickerProviderStateM
     },);
   }
 }
-
-//NestedScrollView(
-//           physics: const NeverScrollableScrollPhysics(),
-//           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-//             return [
-//               SliverList(
-//                 delegate: SliverChildListDelegate(
-//                   [
-//                     appBar(),
-//                     CustomTabBar(controller: controller),
-//                   ],
-//                 ),
-//               )
-//             ];
-//           },
-//           body: BlocBuilder<CategoryProductsCubit,GetCategoryProductsState>(
-//             builder: (context,state){
-//               return TabBarViewBody(controller: controller);
-//             },
-//           ),
-//         )

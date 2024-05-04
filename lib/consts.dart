@@ -20,19 +20,27 @@ import 'features/tabs_screen/manager/products_cubit/get_category_products_cubit.
 import 'features/tabs_screen/view/tabs_screen.dart';
 
 List<Widget> tabsList = [
-  BlocProvider(
-    create: (context) => CategoryCubit(CategoryDetailsRepoImpl())..getCategories(),
-    child: BlocProvider(
-      create: (context) => CategoryProductsCubit(ProductsRepoImpl(),NextPageProductsRepoImpl()),
-      child: BlocProvider(create: (context)=> HomeCubit(HomeDataRepoImpl())..getHomeData(),child: const TabsScreen(),),
-    ),
+  MultiBlocProvider(
+    providers: [
+      BlocProvider(create: (context) => CategoryCubit(CategoryDetailsRepoImpl())..getCategories(),),
+      BlocProvider(create: (context) => CategoryProductsCubit(ProductsRepoImpl(), NextPageProductsRepoImpl()),),
+      BlocProvider(create: (context) => HomeCubit(HomeDataRepoImpl())..getHomeData(),),
+    ],
+    child: const TabsScreen(),
   ),
-  BlocProvider(create: (context)=> SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),child: const Categories()),
+  BlocProvider(create: (context) => SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),
+      child: const Categories()),
   const CartScreen(),
   const FavoritesScreen(),
   const SettingsScreen(),
 ];
 const String fontFamily = 'Noto Kufi Arabic';
 List<ShippingCompany> constComList = [
-  ShippingCompany(name: Texts.selfPickUp.tr(),id: 0,cost: '0',duration: Texts.selfPickUp.tr(),priceId: 0,supportedCities: [])
+  ShippingCompany(
+      name: Texts.selfPickUp.tr(),
+      id: 0,
+      cost: '0',
+      duration: Texts.selfPickUp.tr(),
+      priceId: 0,
+      supportedCities: [])
 ];

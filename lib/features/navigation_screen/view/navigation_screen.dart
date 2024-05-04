@@ -15,7 +15,6 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-
   int index=0;
 
   @override
