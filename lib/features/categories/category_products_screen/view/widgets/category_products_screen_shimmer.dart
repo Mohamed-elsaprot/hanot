@@ -15,11 +15,11 @@ class CategoryProductsScreenShimmer extends StatelessWidget {
           itemCount: 10,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 250.w,
-            mainAxisExtent: 300.h,
-            mainAxisSpacing: 5.h,
-            crossAxisSpacing: 5.w,
+            mainAxisExtent: 235.h,
+            mainAxisSpacing: 14.h,
+            crossAxisSpacing: 14.w,
           ), itemBuilder: (context,index){
-        return shimmerWidget(height: 220.h, width: double.infinity);
+        return shimmerWidget(height: 235.h, width: double.infinity,rad: 8);
       }),
     );
   }

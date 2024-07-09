@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/design/app_styles.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({Key? key,required this.fun, required this.title, this.click=true, this.textColor=Colors.white, this.padding,this.textSize=15, this.rad=12, this.titleWidget,}) : super(key: key);
+  const CustomButton({Key? key,required this.fun, required this.title, this.click=true, this.textColor=Colors.white, this.padding,this.textSize=15, this.rad=12, this.titleWidget, this.backGroundColor=Styles.primary,}) : super(key: key);
   final void Function() fun;
   final String title;
   final bool click;
-  final Color? textColor;
+  final Color? textColor,backGroundColor;
   final EdgeInsetsGeometry? padding;
   final double textSize;
   final double? rad;
@@ -23,7 +23,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(rad!.r,),
             side: BorderSide(color:click! ? Colors.transparent:Colors.black26,width: 1.5),
           ),
-          backgroundColor:click? Styles.primary:Colors.white
+          backgroundColor:click? backGroundColor:Colors.white
       ),
       onPressed: fun,
       child:titleWidget?? Styles.text(title,color:click! ? textColor! :Colors.black54,size: textSize),

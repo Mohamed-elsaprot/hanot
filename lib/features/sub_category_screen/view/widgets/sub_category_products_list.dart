@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_state.dart';
 
 import '../../../../core/design/app_styles.dart';
-import '../../../../general_widgets/products_list.dart';
+import '../../../../general_widgets/general_products_list.dart';
 import '../../../categories/category_products_screen/view/widgets/category_products_screen_shimmer.dart';
 import '../../manager/sub_category_cubit.dart';
 
@@ -16,7 +16,7 @@ class SubCategoryProductsList extends StatelessWidget {
     return BlocBuilder<SubCategoryCubit, SubCategoryState>(
       builder: (context, state) {
         if (state is SubCategorySuccess) {
-          return ProductsListBody(categoryModel: subCategoryCubit.subCategoryModel,scrollController: scrollController,last: subCategoryCubit.last,);
+          return GeneralProductsListBody(categoryModel: subCategoryCubit.subCategoryModel,scrollController: scrollController,last: subCategoryCubit.last,);
         }
         else if (state is SubCategoryFailure) {
           return Center(child: Styles.text(state.errorMessage));

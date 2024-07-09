@@ -11,7 +11,7 @@ class PaymentMethodCubit extends Cubit<PaymentMethodState>{
   final PaymentMethodRepoImpl paymentMethodRepoImpl;
   List<PaymentMethodModel> paymentMethodsList=[];
   PaymentMethodModel? selectedPaymentMethod;
-  String? groupVal;
+  String groupVal='cod';
   getPaymentMethods({required BuildContext context})async{
     emit(PaymentMethodLoading());
     var res = await paymentMethodRepoImpl.getPaymentMethods();

@@ -13,17 +13,15 @@ class CartRepoImpl implements CartRepo{
     try{
       var res = await ApiService.postDataWithToken(endPoint: ApiService.shoppingCart, postedData: body);
       if(res['data']==null){
-        // throw 'المنتج مضافة و الكمية غير متوفرة حالياٌ .';
         throw res['message'];
       }
+      // print(res['data']);
       return right(res['data']);
     }catch(e){
-      if(e is DioException){
+      if(e is DioException) {
         return left(ServerFailure.fromDioError(e));
-      }else if(e == 'المنتج مضافة و الكمية غير متوفرة حالياٌ .') {
-        return left(ServerFailure('المنتج مضافة و الكمية غير متوفرة حالياٌ .'));
       }else{
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(e.toString()));
       }
     }
   }
@@ -34,6 +32,8 @@ class CartRepoImpl implements CartRepo{
       SingleSkuDetails singleSkuDetails;
       var res = await ApiService.postDataWithToken(endPoint: ApiService.singleSkuDetails, postedData: body);
       singleSkuDetails = SingleSkuDetails.fromJson(res['data']);
+      // print('sku details');
+      // print(res['data']);
       return right(singleSkuDetails);
     }catch(e){
       if (e is DioException) {

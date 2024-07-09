@@ -10,7 +10,7 @@ class CitiesCubit extends Cubit<CitiesState>{
   CitiesCubit(this.citiesRepoImpl):super(CitiesInitial());
   final CitiesRepoImpl citiesRepoImpl;
   List<City> citiesList=[];
-  late City selectedCity;
+  City? selectedCity;
   getCities({required BuildContext context,required String countryId})async{
     emit(CitiesLoading());
     var res = await citiesRepoImpl.getCities(countryId: countryId);

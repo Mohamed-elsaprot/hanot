@@ -9,7 +9,6 @@ class CitiesRepoImpl implements CitiesRepo{
   @override
   Future<Either<Failure, List<City>>> getCities({required countryId}) async{
     try{
-
       List<City> citiesList=[];
       var res = await ApiService.getDataWithToken(endPoint: ApiService.cities+countryId);
       res['data'].forEach((e){

@@ -1,45 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
-import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
-import '../../../../../core/design/fun.dart';
-import '../../../../../general_widgets/custom_button.dart';
-import 'code_sheet_body.dart';
+import 'coupon_text_field.dart';
+import 'custom_continer.dart';
 
 class CouponContainer extends StatelessWidget {
   const CouponContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var couponCubit = BlocProvider.of<CouponCubit>(context);
-    return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.r), color: Colors.grey.shade200),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-      child: Row(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Styles.text(Texts.doYouHaveCoupon.tr(),),
-              Styles.text(couponCubit.couponCode,),
-            ],
-          ),
-          const Spacer(),
-          CustomButton(
-            fun: () {
-              bottomSheet(context, BlocProvider.value(value: BlocProvider.of<CouponCubit>(context), child: const CouponSheetBody(),)
-              );
-            },
-            title: Texts.addCoupon.tr(),
-            rad: 6,
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
-          )
-        ],
-      ),
+    return CustomContainer(
+        body: [
+          Styles.text(Texts.discountCoupon.tr()),
+          SizedBox(height: 8.h,),
+          CouponTextField()
+        ]
     );
   }
 }

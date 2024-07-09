@@ -1,7 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/cart/data/cart_repo_impl.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
@@ -16,9 +14,12 @@ class CartCubit extends Cubit<CartState>{
   late SingleSkuDetails skuDetails;
   num cartTotal = 0 ;
   List<CartProductModel> cartProductsList=[];
+  List<bool> selectedList=[];
+  bool allSelected=false;
   int cartLen = 0 ;
   num hintNum=0;
-  getSkuDetails({required bool isAddToCartButton,required List selectedOptionsList,required SingleProductModel product,required Map body,required BuildContext context})async{
+  getSkuDetails({required bool isAddToCartButton,num? count,required List selectedOptionsList,required SingleProductModel product,required Map body,required BuildContext context})async{
+    emit(CartLoading());
     if(isAddToCartButton)loadingDialog(context);
     var res = await cartRepoImpl.checkSkuDetails(body: body);
     res.fold((failure){
@@ -31,16 +32,10 @@ class CartCubit extends Cubit<CartState>{
         optionsMap[product.options![i].id.toString()]=selectedOptionsList[i];
       }
       hintNum = skuDetails.quantity!;
-      if(skuDetails.quantity! > 0){
         if(isAddToCartButton){
-          addToCart(body: {"product_id": product.id, "qty": 1, "sku_id": skuDetails.skuId, "options": optionsMap}, context: context);
+          addToCart(body: {"product_id": product.id, "qty": count, "sku_id": skuDetails.skuId, "options": optionsMap}, context: context);
         }
-      }else{
-        if(isAddToCartButton){
-          Navigator.pop(context);
-          errorDialog(context: context, message: Texts.thisProductNotAvailableNow.tr());
-        }
-      }
+      emit(CartSuccess());
     });
   }
 
@@ -66,6 +61,7 @@ class CartCubit extends Cubit<CartState>{
       cartProductsList = map['list'];
       cartTotal= double.parse( map['cart']['total']);
       cartLen=cartProductsList.length;
+      selectedList=List.generate(cartLen, (index) => false);
       emit(CartSuccess());
     });
   }
@@ -73,6 +69,7 @@ class CartCubit extends Cubit<CartState>{
   removeFromCart({required int index,required BuildContext context,})async{
     CartProductModel cartProductModel = cartProductsList[index];
     cartProductsList.removeAt(index);
+    selectedList.removeAt(index);
     cartLen=cartProductsList.length;
     emit(CartSuccess());
     var res = await cartRepoImpl.deleteCartProducts(rowId: cartProductModel.rowId!);
@@ -84,6 +81,17 @@ class CartCubit extends Cubit<CartState>{
       cartTotal = double.parse( map['cart']['total']);
       emit(CartSuccess());
     });
+  }
+
+  changeAllSelectedList(){
+    if(allSelected){
+      selectedList.fillRange(0, selectedList.length,false);
+      allSelected=false;
+    }else{
+      selectedList.fillRange(0, selectedList.length,true);
+      allSelected=true;
+    }
+    emit(CartSuccess());
   }
 
 

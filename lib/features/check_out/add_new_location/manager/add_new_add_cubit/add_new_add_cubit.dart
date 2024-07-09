@@ -7,8 +7,8 @@ import 'package:hanot/features/check_out/add_new_location/models/Country.dart';
 
 import '../../models/City.dart';
 
-class AddNewAddCubit extends Cubit<AddNewAddState>{
-  AddNewAddCubit(this.addNewAddressRepoImpl):super(AddNewAddInitial());
+class AddNewAddressCubit extends Cubit<AddNewAddressState>{
+  AddNewAddressCubit(this.addNewAddressRepoImpl):super(AddNewAddInitial());
   final AddNewAddressRepoImpl addNewAddressRepoImpl;
   final TextEditingController neighborhoodController=TextEditingController(),streetController=TextEditingController(),homeController=TextEditingController(),postalCodeController=TextEditingController();
 
@@ -24,6 +24,7 @@ class AddNewAddCubit extends Cubit<AddNewAddState>{
       emit(AddNewAddFailure(errorMessage: failure.errorMessage));
     }, (address){
       emit(AddNewAddSuccess(address: address));
+      Navigator.pop(context);
     });
   }
 }

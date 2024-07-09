@@ -7,15 +7,24 @@ import 'package:hanot/features/auth_screen/data/auth_repo_impl.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/cart/data/cart_repo_impl.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
+import 'package:hanot/features/check_out/all_old_addresses_screen/data/all_addresses_repo_impl.dart';
+import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_addresses_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
+import 'package:hanot/features/navigation_screen/manager/navigation_screen_manager.dart';
 import 'core/design/router.dart';
+import 'features/check_out/add_new_location/data/add_new_add_repo/add_new_add_repo_impl.dart';
+import 'features/check_out/add_new_location/manager/add_new_add_cubit/add_new_add_cubit.dart';
 import 'features/check_out/check_out_screen/data/get_first_addresses_repo/get_first_addresses_repo_impl.dart';
-import 'features/check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
+import 'features/check_out/check_out_screen/data/shipping_companies_repo/shipping_companies_repo_impl.dart';
+import 'features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
+import 'features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   // SecureStorage.deleteData();
+  // var sec = await SecureStorage.getToken();
+  // print(sec);
   runApp(
       EasyLocalization(
         startLocale: const Locale('ar'),
@@ -36,10 +45,13 @@ class MyApp extends StatelessWidget {
         builder: (_, child) {
           return MultiBlocProvider(
             providers: [
+              BlocProvider(create: (context)=> NavigationScreenCubit()),
               BlocProvider(create: (context)=>AuthCubit(AuthRepoImpl())..checkToken()),
               BlocProvider(create: (context)=>CartCubit(CartRepoImpl())..getCartProducts()),
               BlocProvider(create: (context)=>FavCubit()),
-              BlocProvider(create: (context)=>OldAddressesCubit(FirstAddressesRepoImpl())..getCustomerFirsAddresses(context: context))
+              BlocProvider(create: (context)=>AllAddressesCubit(AllAddressesRepoImpl())..getAllAddresses()),
+              BlocProvider(create: (context) => ShippingCompaniesCubit(ShippingCompaniesRepoImpl())),
+              BlocProvider(create: (context) => ShippingFeesCubit(ShippingCompaniesRepoImpl())),
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,
@@ -48,15 +60,16 @@ class MyApp extends StatelessWidget {
               locale: context.locale,
               theme: ThemeData(
                 scaffoldBackgroundColor: Colors.transparent,
-                appBarTheme: AppBarTheme(
+                appBarTheme: const AppBarTheme(
                   centerTitle: true,
-                  backgroundColor: Colors.grey.shade100,
+                  backgroundColor: Colors.white,
+                  surfaceTintColor: Colors.white,
                   elevation: 3,
                   shadowColor: Colors.black54,
-                  iconTheme: const IconThemeData(
+                  iconTheme: IconThemeData(
                       color: Colors.black
                   ),
-                  toolbarTextStyle: const TextStyle(color: Colors.black),
+                  toolbarTextStyle: TextStyle(color: Colors.black),
                 ),
                 textButtonTheme: TextButtonThemeData(
                     style: TextButton.styleFrom(

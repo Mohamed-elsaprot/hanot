@@ -13,6 +13,7 @@ class SingleProductRepoImpl implements SingleProductRepo{
       SingleProductModel singleProductModel;
       var res = await ApiService.getData(endPoint: ApiService.singleProductDetails+id);
       singleProductModel = SingleProductModel.fromJson(res['data']);
+      // print(res['data']);
       return right(singleProductModel);
     }catch(e){
       if (e is DioException) {

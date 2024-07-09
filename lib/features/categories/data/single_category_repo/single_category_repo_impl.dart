@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:hanot/core/errors/failure.dart';
 import 'package:hanot/features/categories/data/single_category_repo/single_category_repo.dart';
-import 'package:hanot/features/tabs_screen/model/category_details/CategoryDetails.dart';
 
 import '../../../../core/services/api_service.dart';
+import '../../model/category_details/CategoryDetails.dart';
 
 class SingleCategoryRepoImpl implements SingleCategoryRepo{
   @override

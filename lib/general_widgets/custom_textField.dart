@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -6,8 +5,8 @@ import '../consts.dart';
 import '../core/design/app_styles.dart';
 
 class CustomTextField extends StatelessWidget {
-  const CustomTextField({Key? key, required this.title, required this.controller, this.validator, this.maxLines=1, this.onChange, this.onTap, this.onSubmit, this.focusNode}) : super(key: key);
-  final String title;
+  const CustomTextField({Key? key, this.title, required this.controller, this.validator, this.maxLines=1, this.onChange, this.onTap, this.onSubmit, this.focusNode, this.icon, this.fillColor, this.inputBorder, this.hint, this.height}) : super(key: key);
+  final String? title,hint;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final int? maxLines;
@@ -15,22 +14,45 @@ class CustomTextField extends StatelessWidget {
   final void Function()? onTap;
   final void Function(String)? onSubmit;
   final FocusNode? focusNode;
+  final Icon? icon;
+  final Color? fillColor;
+  final InputBorder? inputBorder;
+  final double? height;
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onTap: onTap,
-      onChanged: onChange,
-      onFieldSubmitted: onSubmit,
-      controller: controller,
-      validator: validator,
-      cursorColor: Styles.primary,
-      maxLines: maxLines,
-      decoration: InputDecoration(
-          errorStyle: const TextStyle(fontFamily: fontFamily),
-          label: Styles.subTitle(title, size: 13),
-          alignLabelWithHint: true,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r)),
-          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15.r), borderSide: const BorderSide(color: Styles.primary))),
+    return SizedBox(
+      height: height?.h,
+      child: TextFormField(
+        onTap: onTap,
+        onChanged: onChange,
+        onFieldSubmitted: onSubmit,
+        controller: controller,
+        validator: validator,
+        cursorColor: Styles.primary,
+        maxLines: maxLines,
+        decoration: InputDecoration(
+            prefixIcon: icon,
+            hintText: hint,
+            prefixIconColor: Colors.grey.shade400,
+            hintStyle: const TextStyle(fontFamily: fontFamily,fontSize: 12),
+            iconColor: Styles.primary,
+            fillColor: fillColor??Colors.grey.shade100,
+            filled: true,
+            errorStyle: const TextStyle(fontFamily: fontFamily),
+            label: title!=null? Styles.subTitle(title!, size: 13):null,
+            alignLabelWithHint: true,
+            errorBorder: inputBorder??border(),
+            border: inputBorder??border(),
+            focusedBorder: inputBorder??border(),
+            enabledBorder: inputBorder??border(),
+        )
+      ),
+    );
+  }
+  border() {
+    return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(width: 0, color: Colors.transparent)
     );
   }
 }

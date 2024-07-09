@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.dart';
 import 'package:hanot/features/sub_category_screen/view/widgets/sub_category_products_list.dart';
-import 'package:hanot/features/tabs_screen/model/category_details/Children.dart';
 
 import '../../../core/design/app_styles.dart';
+import '../../categories/model/category_details/Children.dart';
 
 class SubCategoryScreen extends StatefulWidget {
   const SubCategoryScreen({Key? key, required this.children}) : super(key: key);

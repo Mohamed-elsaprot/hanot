@@ -1,11 +1,12 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hanot/core/design/appTexts.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/router.dart';
 import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/features/categories/categories_screen/view/shimmer_categories.dart';
 
+import '../../../../core/design/fun.dart';
 import '../../manager/small_category_cubit/small_category_cubit.dart';
 import '../../manager/small_category_cubit/small_category_state.dart';
 
@@ -16,29 +17,35 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     var smallCategoryCubit = BlocProvider.of<SmallCategoryCubit>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Styles.text(Texts.categories,size: 22).tr(),
-      ),
+      appBar: customAppBar(),
       body: BlocBuilder<SmallCategoryCubit,SmallCategoryState>(builder: (context,state){
         if(state is SmallCategorySuccess){
-          return ListView(
-              physics: const BouncingScrollPhysics(),
-              children: List.generate(smallCategoryCubit.smallCategoryList.length, (index) => Column(
+          return GridView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
+            physics: const BouncingScrollPhysics(),
+              itemCount: smallCategoryCubit.smallCategoryList.length,
+              gridDelegate:  SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 140.w,
+                      mainAxisExtent: 130.h,
+                  mainAxisSpacing: 18,
+                crossAxisSpacing: 10
+              ),
+              itemBuilder: (context,index){
+            return GestureDetector(
+              onTap: ()=>AppRouter.router.push(AppRouter.categoryProducts,extra: smallCategoryCubit.smallCategoryList[index]),
+              child: Column(
                 children: [
-                  ListTile(
-                    title: Styles.text(smallCategoryCubit.smallCategoryList[index].name!),
-                    onTap: (){
-                      AppRouter.router.push(AppRouter.categoryProducts,extra: smallCategoryCubit.smallCategoryList[index]);
-                    },
-                  ),
-                  const Divider(color: Colors.black54,)
+                  cachedImage(height: 100,smallCategoryCubit.smallCategoryList[index].image??'',rad: 8),
+                  SizedBox(height: 6.h,),
+                  Styles.text(smallCategoryCubit.smallCategoryList[index].name??'',size: 12,textAlign: TextAlign.center,overflow: TextOverflow.ellipsis)
                 ],
-              ))
-          );
+              ),
+            );
+          });
         }else if(state is SmallCategoryFailure){
           return Center(child: Styles.text(state.errorMessage),);
         }else{
-          return loadingIndicator();
+          return const ShimmerCategories();
         }
       }),
     );

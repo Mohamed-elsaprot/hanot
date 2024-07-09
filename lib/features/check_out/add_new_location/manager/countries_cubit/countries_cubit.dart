@@ -10,7 +10,7 @@ class CountriesCubit extends Cubit<CountriesState>{
   CountriesCubit(this.countriesRepoImpl):super(CountriesInitial());
   final CountriesRepoImpl countriesRepoImpl;
   List<Country> countriesList=[];
-  late Country selectedCountry;
+  Country? selectedCountry;
 
   getCountries({required BuildContext context})async{
     emit(CountriesLoading());
@@ -20,6 +20,9 @@ class CountriesCubit extends Cubit<CountriesState>{
       emit(CountriesFailure(errorMessage: failure.errorMessage));
     }, (list){
       countriesList = list;
+      // if(countriesList.length==1){
+      //   selectedCountry=countriesList[0];
+      // }
       emit(CountriesSuccess());
     });
   }

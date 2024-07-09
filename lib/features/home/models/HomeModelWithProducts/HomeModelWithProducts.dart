@@ -1,4 +1,5 @@
-import 'package:hanot/features/tabs_screen/model/category_model/Product.dart';
+
+import '../../../../core/models/category_model/Product.dart';
 
 class HomeModelWithProducts {
   HomeModelWithProducts({

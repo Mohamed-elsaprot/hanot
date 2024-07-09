@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/design/app_styles.dart';
-import '../../../../../general_widgets/products_list.dart';
-import '../../../../tabs_screen/view/widgets/sub_category_card.dart';
+import '../../../../../general_widgets/general_products_list.dart';
+import '../../../../../general_widgets/sub_category_card.dart';
 import '../../../manager/small_category_products_cubit/small_category_products_cubit.dart';
 import '../../../manager/small_category_products_cubit/small_category_products_state.dart';
 import 'category_products_screen_shimmer.dart';
@@ -35,7 +35,7 @@ class CategoryProductsBody extends StatelessWidget {
                       childrenImage: cubit.categoryDetails.children![ind].image,
                     ),
                   )),
-              ProductsListBody(categoryModel: cubit.categoryProductsModel,scrollController: scrollController,last: cubit.last,)
+              GeneralProductsListBody(categoryModel: cubit.categoryProductsModel,scrollController: scrollController,last: cubit.last,)
             ],
           );
         }

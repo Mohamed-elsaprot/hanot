@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
-import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/router.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
-import 'package:hanot/features/check_out/check_out_screen/view/widgets/code_sheet_body.dart';
+import 'package:hanot/features/cart/view/widgets/select_all_button.dart';
 
 import '../../../../core/design/app_styles.dart';
 import '../../../../general_widgets/custom_button.dart';
-import '../../../check_out/check_out_screen/manager/old_addresses_cubit/old_addresses_cubit.dart';
 
 class CompleteOrderContainer extends StatelessWidget {
   const CompleteOrderContainer({Key? key}) : super(key: key);
@@ -19,45 +17,30 @@ class CompleteOrderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
-    var oldAddCubit = BlocProvider.of<OldAddressesCubit>(context);
     return Container(
-      color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Colors.black12),bottom: BorderSide(color: Colors.black12))
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 8.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // InkWell(
-          //   onTap: (){
-          //     bottomSheet(context, const CodeSheetBody(),);
-          //   },
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.start,
-          //     children: [
-          //       Styles.text(Texts.doYouHaveCoupon,color: Colors.black.withOpacity(.7),size: 15).tr(),
-          //       Divider(color: Colors.black.withOpacity(.7),height: 0,endIndent: 250,thickness: 1.5,)
-          //     ],
-          //   ),
-          // ),
-          // Divider(color: Colors.black54,height: 25.h,),
-          SizedBox(height: 10.h,),
+          // const SelectAllButton(),
           BlocBuilder<CartCubit,CartState>(builder: (context,state){
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Styles.text('',color: Colors.black54,size: 18),
-                Styles.text('${cartCubit.cartTotal} PLN',color: Colors.black54,size: 18),
-              ],
-            );
+            return Styles.text('${Texts.total.tr()} ${cartCubit.cartTotal} ${Texts.currency}',size: 13);
           }),
-          SizedBox(height: 6.h,),
-          SizedBox(
-              width: double.infinity,
-              child: CustomButton(
-                  rad: 12,padding: EdgeInsets.symmetric(vertical: 8.h),
-                  fun: (){
-                      oldAddCubit.getCustomerFirsAddresses(context: context);
-                      AppRouter.router.push(AppRouter.checkOutScreen);
-                  }, title: Texts.completeOrder.tr()))
+          BlocBuilder<CartCubit,CartState>(builder: (context,state){
+            return CustomButton(
+                padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 6.h,),
+                rad: 50,
+                fun: () {
+                  AppRouter.router.push(AppRouter.checkOutScreen);
+                },
+                textSize: 12,
+                title: '${Texts.completeOrder.tr()} (${cartCubit.cartProductsList.length})');
+          }),
+
         ],
       ),
     );

@@ -18,13 +18,15 @@ class CheckOutCubit extends Cubit<CheckOutState>{
     required num? priceId
   })async{
     emit(CheckOutLoading());
+    loadingDialog(context);
     var res = await checkOutRepoImpl.sendOrder(paymentMethod: paymentMethod, deliveryMethod: deliveryMethod, notes: notes, addressId: addressId, priceId: priceId);
+    Navigator.pop(context);
     res.fold((failure){
       errorDialog(context: context, message: failure.errorMessage);
       emit(CheckOutFailure(errorMessage: failure.errorMessage));
     }, (model){
       orderModel = model;
-      emit(CheckOutSuccess());
+      emit(CheckOutSuccess(orderId: orderModel!.id!.toInt()));
     });
   }
 }

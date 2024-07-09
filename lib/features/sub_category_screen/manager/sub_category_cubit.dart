@@ -2,12 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_state.dart';
 
+import '../../../core/data/get_category_products_repo/products_repo_impl.dart';
+import '../../../core/data/next_page_products_repo/next_page_products_repo_impl.dart';
 import '../../../core/design/fun.dart';
-import '../../tabs_screen/data/get_category_products_repo/products_repo_impl.dart';
-import '../../tabs_screen/data/next_page_products_repo/next_page_products_repo_impl.dart';
-import '../../tabs_screen/model/category_model/CategoryModel.dart';
-import '../../tabs_screen/model/category_model/Product.dart';
-
+import '../../../core/models/category_model/CategoryModel.dart';
+import '../../../core/models/category_model/Product.dart';
 class SubCategoryCubit extends Cubit<SubCategoryState>{
   SubCategoryCubit(this.productsRepoImpl, this.nextPageProductsRepoImpl):super(SubCategoryInitial());
 

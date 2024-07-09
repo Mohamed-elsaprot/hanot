@@ -14,10 +14,17 @@ class CartEmptyBody extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(Images.cart,height: 250,width: 250.w,),
-          Styles.subTitle(Texts.cartEmpty,size: 25,color: Colors.black54).tr()
+          SizedBox(height: 120.h,),
+          Image.asset(Images.cart,width: 200.w,),
+          SizedBox(height: 20.h,),
+          Styles.text(Texts.cartEmpty.tr(),size: 22),
+          SizedBox(height: 10.h,),
+          Styles.subTitle(Texts.cartEmptyQuote.tr(),size: 13,textAlign: TextAlign.center),
+          SizedBox(height: 110.h,),
+          Styles.subTitle(Texts.availablePaymentMethods.tr(),size: 15,textAlign: TextAlign.center),
+          SizedBox(height: 8.h,),
+          Align(alignment: Alignment.bottomCenter,child: Image.asset(Images.paymentMethods))
         ],
       ),
     );

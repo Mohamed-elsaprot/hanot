@@ -22,6 +22,7 @@ class ApiService {
   static const paymentMethods = '/payment-methods';
   static const applyCoupon = '/coupon';
   static const checkout = '/checkout';
+  static const payment = '/payment';
 
   static final Dio _dio = Dio(
     BaseOptions(

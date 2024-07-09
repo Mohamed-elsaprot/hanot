@@ -8,22 +8,23 @@ class CouponCubit extends Cubit<CouponState>{
   CouponCubit(this.couponRepoImpl):super(CouponInitial());
   final CouponRepoImpl couponRepoImpl;
   final TextEditingController couponController= TextEditingController();
-  double? oldTotal,newTotal,couponDiscount;
+  double? oldTotal,newTotal,couponDiscount=0;
   String couponCode = '';
 
-   applyCouponAndUpdateCartTotal({required String coupon,required BuildContext context})async{
+   applyCouponAndUpdateCartTotal({required BuildContext context})async{
     emit(CouponLoading());
-    var res = await couponRepoImpl.applyCoupon(coupon: coupon);
+    var res = await couponRepoImpl.applyCoupon(coupon: couponController.text);
     res.fold((failure){
       errorDialog(context: context, message: failure.errorMessage);
+      couponDiscount=0;
       emit(CouponFailure(errorMessage: failure.errorMessage));
     }, (map){
-      oldTotal = double.tryParse(map['cart']['net_total']);
-      newTotal = double.tryParse(map['cart']['total']);
-      couponDiscount = double.tryParse(map['cart']['coupon_discount']);
-      couponCode = coupon;
-      emit(CouponSuccess());
-      Navigator.pop(context);
+        oldTotal = double.tryParse(map['cart']['net_total']);
+        newTotal = double.tryParse(map['cart']['total']);
+        couponDiscount = double.tryParse(map['cart']['coupon_discount']);
+        couponCode = couponController.text;
+        emit(CouponSuccess());
+
     });
   }
 

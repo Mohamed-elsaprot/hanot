@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/features/tabs_screen/model/category_model/Product.dart';
 
 import '../../../../core/design/app_styles.dart';
 import '../../../../features/cart/manager/cart_cubit/cart_cubit.dart';
 import '../../managers/hint_cubit/hint_cubit.dart';
 import '../../managers/hint_cubit/hint_state.dart';
 import '../../managers/single_products_details_cubit/single_products_details_cubit.dart';
+import '../../models/single_product_model/SingleProductModel.dart';
 
 class ChooseSizeContainer extends StatefulWidget {
   const ChooseSizeContainer({Key? key, required this.index, required this.product}) : super(key: key);
   final int index;
-  final Product product;
+  final SingleProductModel product;
   @override
   State<ChooseSizeContainer> createState() => _ChooseSizeContainerState();
 }
@@ -34,16 +34,13 @@ class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12.r),
-      ),
+      color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 15.w,vertical: 10.h),
       margin: EdgeInsets.symmetric(vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Styles.subTitle(singleProductCubit.singleProductModel.options![widget.index].name??'',size: 16),
+          Styles.text(singleProductCubit.singleProductModel.options![widget.index].name??'',size: 16),
           SizedBox(height: 10.h,),
           SizedBox(
             height: 28.h,
@@ -73,9 +70,8 @@ class _ChooseSizeContainerState extends State<ChooseSizeContainer> {
                         border: Border.all(color: Colors.black38),
                         color: choices[ind]==true?Colors.grey.shade300:Colors.white
                     ),
-                    padding: EdgeInsets.symmetric(horizontal: 12.w,vertical: 5.h),
+                    padding: EdgeInsets.symmetric(horizontal: 12.w,),
                     margin: EdgeInsets.symmetric(horizontal: 4.w),
-                    width: 60.w,
                     alignment: Alignment.center,
                     child: Styles.text(singleProductCubit.singleProductModel.options![widget.index].values![ind].name??'',textAlign: TextAlign.center,fontWeight: FontWeight.w500,size: 14),
                   ),

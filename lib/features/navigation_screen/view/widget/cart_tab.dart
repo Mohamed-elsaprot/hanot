@@ -15,20 +15,20 @@ class CartTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
-    return BlocBuilder<CartCubit,CartState>(builder: (context,state){
-      return Tab(icon:
-      cartCubit.cartProductsList.isNotEmpty? badges.Badge(
-          badgeContent: Text(
-            cartCubit.cartLen.toString(),
-            style: const TextStyle(color: Colors.white,fontSize: 14),
-          ),
-          position: badges.BadgePosition.custom(end: 14, bottom: 7,),
-          badgeStyle: badges.BadgeStyle(
-            padding: EdgeInsets.all(4.4.sp),
-            badgeColor: Colors.red,
-          ),
-          child: const Icon(Icons.shopping_cart)
-      ):const Icon(Icons.shopping_cart),child: Styles.text(Texts.cart,size: 11.w).tr());
+    return BlocBuilder<CartCubit, CartState>(builder: (context, state) {
+      return Tab(
+        text: Texts.cart.tr(),
+        icon: cartCubit.cartProductsList.isNotEmpty
+            ? badges.Badge(
+                badgeContent: Text(cartCubit.cartLen.toString(), style: const TextStyle(color: Colors.white, fontSize: 14),),
+                position: badges.BadgePosition.custom(end: 14, bottom: 7,),
+                badgeStyle: badges.BadgeStyle(
+                  padding: EdgeInsets.all(4.4.sp),
+                  badgeColor: Styles.primary,
+                ),
+                child: const Icon(Icons.shopping_cart_outlined))
+            : const Icon(Icons.shopping_cart_outlined),
+      );
     });
   }
 }

@@ -12,7 +12,9 @@ class ShippingFeesCubit extends Cubit<ShippingFeesState>{
   ShippingFeesModel? shippingFeesModel;
   getShippingFees({required num priceId,required BuildContext context})async{
     emit(ShippingFeesLoading());
+    loadingDialog(context);
     var res = await shippingCompaniesRepoImpl.getShippingFees(priceId: priceId);
+    Navigator.pop(context);
     res.fold((failure){
       errorDialog(context: context, message: failure.errorMessage);
       emit(ShippingFeesFailure(errorMessage: failure.errorMessage));
@@ -22,7 +24,7 @@ class ShippingFeesCubit extends Cubit<ShippingFeesState>{
     });
   }
 
-  deleteData(){
+  resetShippingFeesModel(){
     shippingFeesModel=null;
     emit(ShippingFeesInitial());
   }

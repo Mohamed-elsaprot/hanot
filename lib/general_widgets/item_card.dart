@@ -6,13 +6,13 @@ import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_state.dart';
 import 'package:hanot/general_widgets/item_price_row.dart';
-import 'package:hanot/general_widgets/red_sale_container.dart';
+import 'package:hanot/general_widgets/rating_stars.dart';
 
 import '../core/design/app_styles.dart';
 import '../core/design/widgets.dart';
+import '../core/models/category_model/Product.dart';
 import '../features/auth_screen/view/phone/phone_auth_screen.dart';
-import '../features/tabs_screen/model/category_model/Product.dart';
-import '../features/tabs_screen/view/widgets/fav_icon.dart';
+import 'fav_icon.dart';
 import 'add_to_cart_sheet/add_to_cart_sheet.dart';
 
 class ItemCard extends StatelessWidget {
@@ -23,39 +23,50 @@ class ItemCard extends StatelessWidget {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     return GestureDetector(
       onTap: () async {
-      if(!authCubit.isAuth) {
-        bottomSheet(context, const AuthScreen(),);
-      }else {
-        bottomSheet(context, AddToCartSheet(product: product), rad: 0);
-      }
+        if(!authCubit.isAuth) {
+          bottomSheet(context, const AuthScreen(),);
+        }else {
+          bottomSheet(context, AddToCartSheet(product: product), rad: 0);
+        }
       },
-      child: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(child: cachedImage(product.image??'',height: 170.h)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 5.h,),
-                    SizedBox(height: 20.h, child: Styles.subTitle(product.name??'No name', size: 13)),
-                    SizedBox(height: 2.h,),
-                    ItemPriceRow(product: product),
-                    SizedBox(height: 2.h,),
-                    if(product.discountPrice!=null&&product.discountPrice!=0)Styles.text('-${product.discountPrice}% discount',color: Colors.deepPurpleAccent.withOpacity(.5),size: 13,fontWeight: FontWeight.w400)
-                  ],
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.grey.shade200)
+        ),
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8.r),topRight: Radius.circular(8.r)),
+                    child: cachedImage(product.image??'',height: 150.h,)),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(height: 20.h,width: 100.w,child: Styles.subTitle(product.name??'No name', size: 13,overflow: TextOverflow.ellipsis),),
+                          RatingStars(product: product,),
+                        ],
+                      ),
+                      SizedBox(height: 2.h,),
+                      ItemPriceRow(product: product),
+                     ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          BlocBuilder<FavCubit,FavState>(builder: (context,state){
-            return Positioned(top: 10, right: 10, child: FavIcon(product: product));
-          }),
-          if(product.discountPrice!=null&&product.discountPrice!=0)RedSaleContainer(product: product),
-        ],
+                SizedBox(height: 10.h,)
+              ],
+            ),
+            BlocBuilder<FavCubit,FavState>(builder: (context,state){
+              return const PositionedDirectional(top: 15, end: 15, child: FavIcon());
+            }),
+          ],
+        ),
       ),
     );
   }

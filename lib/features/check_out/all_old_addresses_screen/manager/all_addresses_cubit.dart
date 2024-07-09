@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/design/fun.dart';
@@ -9,18 +11,39 @@ class AllAddressesCubit extends Cubit<AllAddressesState>{
   AllAddressesCubit(this.addressesRepoImpl):super(AllAddressesInitial());
   final AllAddressesRepoImpl addressesRepoImpl;
   List<Address> allAddressesList = [];
+  Address? selectedAddress;
+  num? selectedAddressId;
 
-  getAllAddresses({required BuildContext context})async{
+  getAllAddresses()async{
     emit(AllAddressesLoading());
     var res = await addressesRepoImpl.getAllAddresses();
     res.fold((failure) {
-      errorDialog(context: context, message: failure.errorMessage);
       emit(AllAddressesFailure(errorMessage: failure.errorMessage));
     }, (list){
       allAddressesList = list;
+      if(allAddressesList.isNotEmpty){
+        selectedAddress=allAddressesList[allAddressesList.length-1];
+        selectedAddressId=selectedAddress!.id;
+      }
       emit(AllAddressesSuccess());
     });
   }
+
+  setSelectedAddress({required int index,required num id}){
+    if(allAddressesList.isNotEmpty){
+      selectedAddress = allAddressesList[index];
+      selectedAddressId = id;
+      emit(AllAddressesSuccess());
+    }
+  }
+
+  setNewAddress({required Address newAddress}){
+    allAddressesList.add(newAddress);
+    selectedAddress = newAddress;
+    selectedAddressId = newAddress.id;
+    emit(AllAddressesSuccess());
+  }
+
 
   deleteAddress({required String addressId,required BuildContext context,})async{
     var res = await addressesRepoImpl.deleteAddress(addressId: addressId);

@@ -6,10 +6,12 @@ import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
+import 'package:hanot/features/cart/view/widgets/cart_appBar.dart';
 import 'package:hanot/features/cart/view/widgets/cart_empty_body.dart';
 import 'package:hanot/features/cart/view/widgets/cart_item.dart';
 import 'package:hanot/features/cart/view/widgets/cart_screen_shimmer.dart';
 import 'package:hanot/features/cart/view/widgets/complete_order_container.dart';
+
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -22,24 +24,14 @@ class CartScreen extends StatelessWidget {
         return const CartScreeShimmer();
       }else{
         return cartCubit.cartProductsList.isNotEmpty? Scaffold(
-          appBar: AppBar(title: Styles.text(Texts.cart,size: 22).tr(),),
+          appBar: AppBar(elevation: 0, title: const CartAppBar(),),
           backgroundColor: Colors.transparent,
-          body: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 8.h,),
-                Row(
-                  children: [
-                    Styles.text(Texts.itemsCount).tr(),
-                    Styles.text(' ${cartCubit.cartProductsList.length}'),
-                  ],
-                ),
-                ...List.generate(cartCubit.cartProductsList.length, (index) => CartItem(index: index,)),
-              ],
-            ),
+          body: ListView.separated(
+            padding: EdgeInsets.only(top: 10.h),
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (context,index)=>CartItem(index: index,),
+              separatorBuilder: (context,index)=> Container(color: Colors.white,child: Divider(indent: 30.w, endIndent: 30.w, height: 10.h,)),
+              itemCount: cartCubit.cartProductsList.length
           ),
           bottomNavigationBar: const CompleteOrderContainer(),
         ): const CartEmptyBody();

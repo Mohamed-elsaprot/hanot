@@ -10,6 +10,6 @@ class TabItem extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
-    return Tab(icon: Icon(iconData),child: Styles.text(title,size: 11.w).tr(),);
+    return Tab(icon: Icon(iconData),text: title,);
   }
 }

@@ -1,6 +1,6 @@
 
 abstract class Texts {
-  static const String currency='₪';
+  static const String currency='ر.س';
   static const String hello='hello';
   static const String lang='lang';
   static const String home='Home';
@@ -10,7 +10,12 @@ abstract class Texts {
   static const String favorites='favorites';
   static const String cart='cart';
   static const String cartEmpty='cart empty';
+  static const String cartEmptyQuote='cartEmptyQuote';
+  static const String availablePaymentMethods='availablePaymentMethods';
   static const String itemsCount='Items Count';
+  static const String youDidNotAddAnyProduct='youDidNotAddAnyProduct';
+  static const String favEmptyQuote='favEmptyQuote';
+  static const String favProducts='favProducts';
   static const String top='top';
   static const String close='close';
   static const String edit='Edit';
@@ -72,6 +77,30 @@ abstract class Texts {
   static const String quantityIsCurrentlyUnavailable='Quantity is currently unavailable.';
   static const String pleaseChooseATitle='Please choose a title';
   static const String useTheSpecifiedAddress='Use the specified address';
-  static const String selfPickUp='Self pick up';
+  static const String description='des';
+  static const String leftoverPieces='Leftover pieces';
+  static const String pricesIncludeTax='Prices include tax';
+  static const String showAll='show all';
+  static const String deliveryLoc='delivery address';
+  static const String notChosenYet='notChosenYet';
+  static const String changeLoc='changeLoc';
+  static const String selfPickUp='selfPickUp';
+  static const String changeShippingCompany='changeShippingCompany';
+  static const String chooseShippingCompany='chooseShippingCompany';
+  static const String paymentMethod='paymentMethod';
+  static const String discountCoupon='discountCoupon';
+  static const String activation='activation';
+  static const String enterDiscountCoupon='enterDiscountCoupon';
+  static const String doYouHaveNoteOnOrder='Do you have a note on the order?';
+  static const String costSummary='costSummary';
+  static const String productsCount='productsCount';
+  static const String productsPrice='productsPrice';
+  static const String confirmOrder='confirmOrder';
+  static const String yourOrderHasBeenConfirmedSuccessfully='Your order has been confirmed successfully';
+  static const String myOrders='myOrders';
+  static const String discounts='Discounts';
+  static const String activated='activated';
+  static const String homeDescription='Home Description';
+
 
 }

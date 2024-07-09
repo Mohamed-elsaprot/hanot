@@ -3,13 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/categories/data/single_category_repo/single_category_repo_impl.dart';
 import 'package:hanot/features/categories/manager/small_category_products_cubit/small_category_products_state.dart';
-import 'package:hanot/features/tabs_screen/model/category_details/CategoryDetails.dart';
-import '../../../tabs_screen/data/get_category_products_repo/products_repo_impl.dart';
-import '../../../tabs_screen/data/next_page_products_repo/next_page_products_repo_impl.dart';
-import '../../../tabs_screen/model/category_model/CategoryModel.dart';
-import '../../../tabs_screen/model/category_model/Product.dart';
-
-
+import '../../../../core/data/get_category_products_repo/products_repo_impl.dart';
+import '../../../../core/data/next_page_products_repo/next_page_products_repo_impl.dart';
+import '../../../../core/models/category_model/CategoryModel.dart';
+import '../../../../core/models/category_model/Product.dart';
+import '../../model/category_details/CategoryDetails.dart';
 
 class SmallCategoryProductsAndChildrenCubit extends Cubit<SmallCategoryProductsState>{
   SmallCategoryProductsAndChildrenCubit(this.productsRepoImpl, this.nextPageProductsRepoImpl, this.singleCategoryRepoImpl):super(SmallCategoryProductsInitial());
