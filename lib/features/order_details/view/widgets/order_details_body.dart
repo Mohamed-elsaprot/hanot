@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/router.dart';
+import 'package:hanot/features/my_orders/data/models/orders_model.dart';
 import 'package:hanot/features/my_orders/view/widgets/order_container.dart';
 import 'package:hanot/features/order_details/view/widgets/order_loc_container.dart';
 import 'package:hanot/features/order_details/view/widgets/order_price_container.dart';
@@ -12,14 +13,15 @@ import 'package:hanot/general_widgets/custom_button.dart';
 class OrderDetailsBody extends StatelessWidget {
   const OrderDetailsBody(
       {Key? key,
-      this.statusName,
-      this.color,
-      this.day,
-      this.month,
-      this.year,
-      this.time})
+      // this.statusName,
+      // this.color,
+      // this.day,
+      // this.month,
+      // this.year,
+      // this.time
+      })
       : super(key: key);
-  final String? statusName, color, day, month, year, time;
+  // final String? statusName, color, day, month, year, time;
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +40,10 @@ class OrderDetailsBody extends StatelessWidget {
           children: [
             const OrderStateContainer(),
             OrderContainer(
-              statusName: statusName,
-              color: color,
-              day: day,
-              month: month,
-              time: time,
-              year: year,
+              day: 'day',
+              month: 'month',
+              time: 'time',
+              year: 'year', order: Order(id: 11111,statusColor: StatusColor(color: '#f55157')),
             ),
             const OrderLocContainer(),
             const OrderProductsContainer(),

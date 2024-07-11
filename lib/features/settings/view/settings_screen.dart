@@ -10,6 +10,7 @@ import 'package:hanot/features/settings/view/dark_mode_tile.dart';
 import '../../../core/design/appTexts.dart';
 import '../../../core/design/app_styles.dart';
 import '../../../core/design/fun.dart';
+import '../../../general_widgets/terms_widget.dart';
 import '../../payment_web_view/view/payment_web_vew.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -71,7 +72,7 @@ class SettingsScreen extends StatelessWidget {
                     CustomTile(fun: (){}, title: Texts.contactUs.tr(), icon: CupertinoIcons.mail),
                     CustomTile(fun: (){}, title: 'عنوان التوصيل', icon: Icons.location_on_outlined),
                     CustomTile(fun: (){}, title: 'الاسئلة الشائعة', icon: CupertinoIcons.text_bubble),
-                    CustomTile(fun: (){}, title: Texts.termsOfUse.tr(), icon: CupertinoIcons.text_alignright),
+                    CustomTile(fun: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>const TermsWidget(fromSheet: false,))), title: Texts.termsOfUse.tr(), icon: CupertinoIcons.text_alignright),
                     CustomTile(fun: (){}, title: Texts.whatsApp.tr(), icon: CupertinoIcons.phone_circle),
                     CustomTile(fun: (){}, title: Texts.logOut.tr(), icon: Icons.logout,iconColor: Colors.red,textColor: Colors.red.shade400,),
 

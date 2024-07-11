@@ -11,7 +11,7 @@ import 'package:hanot/general_widgets/custom_button.dart';
 import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/images.dart';
-import '../phone/widgets/phone_sheet_close_button.dart';
+import '../phone/widgets/auth_sheet_close_button.dart';
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({Key? key}) : super(key: key);

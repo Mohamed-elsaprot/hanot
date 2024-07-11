@@ -1,7 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/features/my_orders/data/repositories/orders_repo.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/design/fun.dart';
 import '../data/models/orders_model.dart';
@@ -42,13 +41,13 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   Future<void> getCurrentNextOrders(BuildContext context) async {
     if (orderModel.nextPageUrl != null) {
-      List<Data> cache = orderModel.data!;
+      List<Order> cache = orderModel.ordersList!;
       var res = await ordersRepo.getCurrentNextPageOrders(
           link: orderModel.nextPageUrl!);
       res.fold((failure) {
         errorDialog(context: context, message: failure.errorMessage);
       }, (ordersModel) {
-        cache.addAll(ordersModel.data!);
+        cache.addAll(ordersModel.ordersList!);
         orderModel =
             orderModel.copyWith(next: ordersModel.nextPageUrl, list: cache);
       });

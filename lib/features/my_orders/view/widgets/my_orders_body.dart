@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
-import 'package:hanot/features/my_orders/logic/orders_cubit.dart';
 import 'package:hanot/features/my_orders/view/widgets/my_orders_nav_row.dart';
 import 'package:hanot/features/my_orders/view/widgets/order_container.dart';
 import 'package:hanot/features/my_orders/view/widgets/search_app_bar.dart';
 import '../../../../core/design/widgets.dart';
 import '../../../cart/view/widgets/cart_appBar.dart';
 import '../../data/models/orders_model.dart';
+import '../../manager/orders_cubit.dart';
 import 'orders_empty_body.dart';
 
 class MyOrdersBody extends StatefulWidget {
@@ -82,7 +82,7 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
                           current is OrdersLoading,
                       builder: (context, state) {
                         if (state is OrdersSuccess) {
-                          return state.orders.data == null
+                          return state.orders.ordersList == null
                               ? const OrdersEmptyBody()
                               : Expanded(
                                   child: ListView(
@@ -92,7 +92,7 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: OrdersColumn(
-                                          dataList: state.orders.data!,
+                                          ordersList: state.orders.ordersList!,
                                           last: ordersCubit.last,
                                         ),
                                       ),
@@ -125,11 +125,11 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
 class OrdersColumn extends StatelessWidget {
   const OrdersColumn({
     super.key,
-    required this.dataList,
+    required this.ordersList,
     required this.last,
   });
 
-  final List<Data> dataList;
+  final List<Order> ordersList;
   final bool last;
 
   @override
@@ -137,17 +137,16 @@ class OrdersColumn extends StatelessWidget {
     return Column(
       children: [
         Column(
-          children: List.generate(dataList.length, (index) {
+          children: List.generate(ordersList.length, (index) {
             var day = DateFormat.d().format(
-                DateTime.parse(dataList[index].createdAt!.split(' | ').first));
+                DateTime.parse(ordersList[index].createdAt!.split(' | ').first));
             var month = DateFormat.MMMM('ar').format(
-                DateTime.parse(dataList[index].createdAt!.split(' | ').first));
+                DateTime.parse(ordersList[index].createdAt!.split(' | ').first));
             var year = DateFormat.y().format(
-                DateTime.parse(dataList[index].createdAt!.split(' | ').first));
-            var time = dataList[index].createdAt!.split(' | ').last;
+                DateTime.parse(ordersList[index].createdAt!.split(' | ').first));
+            var time = ordersList[index].createdAt!.split(' | ').last;
             return OrderContainer(
-              statusName: dataList[index].statusName,
-              color: dataList[index].statusColor!.color,
+              order: ordersList[index],
               day: day,
               month: month,
               year: year,

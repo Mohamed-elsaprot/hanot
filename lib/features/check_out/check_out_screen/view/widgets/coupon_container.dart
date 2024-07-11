@@ -16,7 +16,7 @@ class CouponContainer extends StatelessWidget {
         body: [
           Styles.text(Texts.discountCoupon.tr()),
           SizedBox(height: 8.h,),
-          CouponTextField()
+          const CouponTextField()
         ]
     );
   }
