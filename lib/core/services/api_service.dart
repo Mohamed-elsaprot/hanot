@@ -30,60 +30,68 @@ class ApiService {
         receiveDataWhenStatusError: true),
   );
 
-  static Future<Map<String, dynamic>> getData({required String endPoint,}) async {
+  static Future<Map<String, dynamic>> getData({
+    required String endPoint,
+  }) async {
     Response res = await _dio.get(
-      baseUrl + endPoint!,
+      baseUrl + endPoint,
     );
     return res.data;
   }
 
-  static Future postData({required String endPoint,required postedData}) async {
-    Response res = await _dio.post(baseUrl+endPoint,data: postedData);
+  static Future postData(
+      {required String endPoint, required postedData}) async {
+    Response res = await _dio.post(baseUrl + endPoint, data: postedData);
     return res.data;
   }
 
-  static Future getDataWithToken({required String endPoint,}) async {
+  static Future getDataWithToken({
+    required String endPoint,
+  }) async {
     String? token = await SecureStorage.getToken();
-    if(token!=null){
-      _dio.options.headers['Authorization']='Bearer $token';
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
     }
     Response res = await _dio.get(
-      baseUrl + endPoint!,
+      baseUrl + endPoint,
     );
     return res.data;
   }
 
-  static Future postDataWithToken({required String endPoint,required postedData}) async {
+  static Future postDataWithToken(
+      {required String endPoint, required postedData}) async {
     String? token = await SecureStorage.getToken();
-    if(token!=null){
-      _dio.options.headers['Authorization']='Bearer $token';
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
     }
-    Response res = await _dio.post(baseUrl+endPoint,data: postedData);
+    Response res = await _dio.post(baseUrl + endPoint, data: postedData);
     return res.data;
   }
 
   static Future delete({required String endPoint}) async {
     String? token = await SecureStorage.getToken();
-    if(token!=null){
-      _dio.options.headers['Authorization']='Bearer $token';
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
     }
-    Response res = await _dio.delete(baseUrl+endPoint);
+    Response res = await _dio.delete(baseUrl + endPoint);
     return res.data;
   }
 
-  static Future update({required String endPoint,required Map body}) async {
+  static Future update({required String endPoint, required Map body}) async {
     String? token = await SecureStorage.getToken();
-    if(token!=null){
-      _dio.options.headers['Authorization']='Bearer $token';
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
     }
-    Response res = await _dio.put(baseUrl+endPoint,data: body);
+    Response res = await _dio.put(baseUrl + endPoint, data: body);
     return res.data;
   }
 
-  static Future getCategoryProducts({required String catId,}) async {
+  static Future getCategoryProducts({
+    required String catId,
+  }) async {
     String? token = await SecureStorage.getToken();
-    if(token!=null){
-      _dio.options.headers['Authorization']='Bearer $token';
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
     }
     Response res = await _dio.get(
       '$baseUrl/categories/$catId?page=1&pre_page=26',
@@ -93,8 +101,8 @@ class ApiService {
 
   static Future getNextPageProducts({required String link}) async {
     String? token = await SecureStorage.getToken();
-    if(token!=null){
-      _dio.options.headers['Authorization']='Bearer $token';
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
     }
     Response res = await _dio.get(
       '$link&pre_page=26',
@@ -102,4 +110,30 @@ class ApiService {
     return res.data;
   }
 
+  static Future getNextPageOrders({required String link}) async {
+    String? token = await SecureStorage.getToken();
+    if (token != null) {
+      _dio.options.headers['Authorization'] = 'Bearer $token';
+    }
+    Response res = await _dio.get(
+      '$link&pre_page=15',
+    );
+    return res.data;
+  }
+
+  static Future getOrders({required String link}) async {
+    String? token = await SecureStorage.getToken();
+
+    _dio.interceptors.add(LogInterceptor(responseBody: true));
+    Response res = await _dio.get(
+      options: Options(
+        headers: {
+          'Authorization':
+              'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510'
+        },
+      ),
+      '$baseUrl$link',
+    );
+    return res.data;
+  }
 }

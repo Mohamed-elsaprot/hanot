@@ -4,18 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:hanot/features/categories/category_products_screen/view/category_products_screen.dart';
 import 'package:hanot/features/categories/data/single_category_repo/single_category_repo_impl.dart';
 import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
-import 'package:hanot/features/check_out/all_old_addresses_screen/data/all_addresses_repo_impl.dart';
-import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_addresses_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/check_out_repo/check_out_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/coupon_repo/coupon_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo_impl.dart';
-import 'package:hanot/features/check_out/check_out_screen/data/shipping_companies_repo/shipping_companies_repo_impl.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/check_out_cubit/check_out_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/note_cubit/note_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
-import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
-import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/check_out_screen.dart';
 import 'package:hanot/features/favorites/view/favorites_screen.dart';
 import 'package:hanot/features/order_details/view/order_details.dart';
@@ -25,8 +20,14 @@ import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.da
 import 'package:hanot/features/sub_category_screen/view/sub_category_screen.dart';
 import 'package:hanot/features/navigation_screen/view/navigation_screen.dart';
 
+import '../../features/categories/data/small_category_model/small_category_repo_impl.dart';
+import '../../features/categories/manager/small_category_cubit/small_category_cubit.dart';
 import '../../features/categories/manager/small_category_products_cubit/small_category_products_cubit.dart';
 import '../../features/categories/model/category_details/Children.dart';
+import '../../features/home/data/home_data_repo_impl.dart';
+import '../../features/home/manager/home_cubit.dart';
+import '../../features/my_orders/data/repositories/orders_repo.dart';
+import '../../features/my_orders/logic/orders_cubit.dart';
 import '../data/get_category_products_repo/products_repo_impl.dart';
 import '../data/next_page_products_repo/next_page_products_repo_impl.dart';
 
@@ -44,7 +45,20 @@ abstract class AppRouter {
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const NavigationScreen();
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeCubit(HomeDataRepoImpl())..getHomeData()
+            ),
+            BlocProvider(
+              create: (context) =>    SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),
+            ),
+            BlocProvider(
+              create: (context) =>  OrdersCubit(ordersRepo: OrdersRepo()),
+            ),
+          ],
+          child: const NavigationScreen(),
+        );
       },
     ),
     GoRoute(
@@ -80,10 +94,17 @@ abstract class AppRouter {
       builder: (BuildContext context, GoRouterState state) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => CheckOutCubit(CheckOutRepoImpl())),
-            BlocProvider(create: (context) => GetPaymentLinkCubit(GetPaymentLinkRepoImpl())),
-            BlocProvider(create: (context) => PaymentMethodCubit(PaymentMethodRepoImpl())..getPaymentMethods(context: context)),
-            BlocProvider(create: (context) => NoteCubit(),),
+            BlocProvider(
+                create: (context) => CheckOutCubit(CheckOutRepoImpl())),
+            BlocProvider(
+                create: (context) =>
+                    GetPaymentLinkCubit(GetPaymentLinkRepoImpl())),
+            BlocProvider(
+                create: (context) => PaymentMethodCubit(PaymentMethodRepoImpl())
+                  ..getPaymentMethods(context: context)),
+            BlocProvider(
+              create: (context) => NoteCubit(),
+            ),
             BlocProvider(create: (context) => CouponCubit(CouponRepoImpl())),
           ],
           child: const CheckOutScreen(),
@@ -99,7 +120,15 @@ abstract class AppRouter {
     GoRoute(
       path: orderDetails,
       builder: (BuildContext context, GoRouterState state) {
-        return const OrderDetails();
+        var model = state.extra as List<String?>;
+        return OrderDetails(
+          statusName: model[0],
+          color: model[1],
+          day: model[2],
+          month: model[3],
+          time: model[5],
+          year: model[4],
+        );
       },
     ),
     // GoRoute(
