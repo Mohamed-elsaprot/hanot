@@ -53,6 +53,12 @@ class OrdersModel {
     to = json['to'];
     total = json['total'];
   }
+
+  OrdersModel copyWith({required next, required List<Data> list}) =>
+      OrdersModel(
+        data: list,
+        nextPageUrl: next,
+      );
 }
 
 class Data {

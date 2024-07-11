@@ -45,15 +45,20 @@ class ApiService {
     return res.data;
   }
 
-  static Future getDataWithToken({
-    required String endPoint,
-  }) async {
+  static Future getDataWithToken(
+      {required String endPoint, String? perPage}) async {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
+    } else {
+      _dio.options.headers['Authorization'] =
+          'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510';
     }
+    _dio.interceptors.add(LogInterceptor(responseBody: true));
     Response res = await _dio.get(
-      baseUrl + endPoint,
+      perPage == null
+          ? baseUrl + endPoint
+          : '$baseUrl$endPoint?page=1&pre_page=$perPage',
     );
     return res.data;
   }
@@ -99,40 +104,17 @@ class ApiService {
     return res.data;
   }
 
-  static Future getNextPageProducts({required String link}) async {
+  static Future getNextPage(
+      {required String link, required String perPage}) async {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
+    } else {
+      _dio.options.headers['Authorization'] =
+          'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510';
     }
     Response res = await _dio.get(
-      '$link&pre_page=26',
-    );
-    return res.data;
-  }
-
-  static Future getNextPageOrders({required String link}) async {
-    String? token = await SecureStorage.getToken();
-    if (token != null) {
-      _dio.options.headers['Authorization'] = 'Bearer $token';
-    }
-    Response res = await _dio.get(
-      '$link&pre_page=15',
-    );
-    return res.data;
-  }
-
-  static Future getOrders({required String link}) async {
-    String? token = await SecureStorage.getToken();
-
-    _dio.interceptors.add(LogInterceptor(responseBody: true));
-    Response res = await _dio.get(
-      options: Options(
-        headers: {
-          'Authorization':
-              'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510'
-        },
-      ),
-      '$baseUrl$link',
+      '$link&pre_page=$perPage',
     );
     return res.data;
   }

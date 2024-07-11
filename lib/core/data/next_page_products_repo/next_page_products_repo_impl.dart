@@ -11,7 +11,7 @@ class NextPageProductsRepoImpl implements NextPageProductsRepo{
   Future<Either<Failure, CategoryProductsModel>> getNextPageProducts({required String nextLink,}) async{
     try {
       late CategoryProductsModel categoryModel;
-      var res = await ApiService.getNextPageProducts(link: nextLink);
+      var res = await ApiService.getNextPage(link: nextLink,perPage: '26');
       categoryModel = CategoryProductsModel.fromJson(res);
       return right(categoryModel);
     } catch (e) {
