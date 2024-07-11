@@ -14,7 +14,7 @@ class OrdersColumn extends StatelessWidget {
     required this.last,
   });
 
-  final List<Data> dataList;
+  final List<Order> dataList;
   final bool last;
 
   @override
@@ -31,8 +31,7 @@ class OrdersColumn extends StatelessWidget {
                 DateTime.parse(dataList[index].createdAt!.split(' | ').first));
             var time = dataList[index].createdAt!.split(' | ').last;
             return OrderContainer(
-              statusName: dataList[index].statusName,
-              color: dataList[index].statusColor!.color,
+              order: dataList[index],
               day: day,
               month: month,
               year: year,

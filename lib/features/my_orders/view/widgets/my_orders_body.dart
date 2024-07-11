@@ -6,6 +6,7 @@ import 'package:hanot/features/my_orders/view/widgets/my_orders_nav_row.dart';
 import 'package:hanot/features/my_orders/view/widgets/search_app_bar.dart';
 import '../../../../core/design/widgets.dart';
 import '../../../cart/view/widgets/cart_appBar.dart';
+import '../../manager/orders_cubit.dart';
 import 'orders_column.dart';
 import 'orders_empty_body.dart';
 
@@ -89,7 +90,7 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: OrdersColumn(
-                                          ordersList: state.orders.ordersList!,
+                                          dataList: state.orders.ordersList!,
                                           last: ordersCubit.last,
                                         ),
                                       ),
