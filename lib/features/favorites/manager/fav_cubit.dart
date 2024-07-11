@@ -69,6 +69,7 @@ class FavCubit extends Cubit<FavState> {
   }
 
   getNextPageFavorites(BuildContext context) async {
+    emit(NextFavoritesLoading());
     if (favoritesModel.links!.next != null) {
       List<Data> cache = favoritesModel.data!;
       var res = await getFavoritesRepo.getCurrentNextPageOrders(
