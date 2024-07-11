@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/design/fun.dart';
-import 'package:hanot/features/home/view/widgets/new_products.dart';
 import 'package:hanot/features/home/view/widgets/home_products_list.dart';
 import 'package:hanot/general_widgets/search_text_field.dart';
 
@@ -12,12 +11,24 @@ import '../../manager/home_state.dart';
 import 'banner_slider.dart';
 import 'hor_category_List.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({Key? key}) : super(key: key);
 
   @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  late HomeCubit homeCubit;
+  @override
+  void initState() {
+     homeCubit = BlocProvider.of<HomeCubit>(context);
+     homeCubit.getHomeData();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    var homeCubit = BlocProvider.of<HomeCubit>(context);
+    
     return Scaffold(
       appBar: customAppBar(),
       body: BlocBuilder<HomeCubit,HomeState>(builder: (context,state){

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
-import 'package:hanot/core/design/images.dart';
 import 'package:hanot/core/design/router.dart';
 import 'package:hanot/features/my_orders/view/widgets/order_container.dart';
 import 'package:hanot/features/order_details/view/widgets/order_loc_container.dart';
@@ -11,7 +10,16 @@ import 'package:hanot/features/order_details/view/widgets/order_state_container.
 import 'package:hanot/general_widgets/custom_button.dart';
 
 class OrderDetailsBody extends StatelessWidget {
-  const OrderDetailsBody({Key? key}) : super(key: key);
+  const OrderDetailsBody(
+      {Key? key,
+      this.statusName,
+      this.color,
+      this.day,
+      this.month,
+      this.year,
+      this.time})
+      : super(key: key);
+  final String? statusName, color, day, month, year, time;
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +27,37 @@ class OrderDetailsBody extends StatelessWidget {
       backgroundColor: Styles.secScaffoldColor,
       appBar: AppBar(
         elevation: 0,
-        leading: IconButton(onPressed: ()=>AppRouter.router.pop(), icon: const Icon(Icons.arrow_back_ios_rounded)),
+        leading: IconButton(
+            onPressed: () => AppRouter.router.pop(),
+            icon: const Icon(Icons.arrow_back_ios_rounded)),
         title: Styles.text('تفاصيل الطلب'),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 40.h),
         child: Column(
           children: [
-            OrderStateContainer(),
-            OrderContainer(index: 0),
-            OrderLocContainer(),
-            OrderProductsContainer(),
-            OrderPriceContainer()
+            const OrderStateContainer(),
+            OrderContainer(
+              statusName: statusName,
+              color: color,
+              day: day,
+              month: month,
+              time: time,
+              year: year,
+            ),
+            const OrderLocContainer(),
+            const OrderProductsContainer(),
+            const OrderPriceContainer()
           ],
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: CustomButton(
-          rad: 100,backGroundColor: Colors.red,
+          rad: 100,
+          backGroundColor: Colors.red,
           title: 'الغاء الطلب',
-          fun: (){},
+          fun: () {},
         ),
       ),
     );
