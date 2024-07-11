@@ -20,10 +20,18 @@ class MyOrdersBody extends StatefulWidget {
 
 class _MyOrdersBodyState extends State<MyOrdersBody> {
   late OrdersCubit ordersCubit;
+  late final ScrollController scrollController;
   @override
   void initState() {
+    scrollController = ScrollController();
     ordersCubit = BlocProvider.of<OrdersCubit>(context);
     ordersCubit.getOrders();
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent ==
+          scrollController.offset) {
+        ordersCubit.getNextOrders(context);
+      }
+    });
     super.initState();
   }
 
@@ -51,8 +59,10 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
             if (state is OrdersSuccess) {
               return state.orders.data == null
                   ? const OrdersEmptyBody()
+                  // ToDo  add loading indicator at the end of scrolling 
                   : Expanded(
                       child: ListView.builder(
+                        controller: scrollController,
                         padding: EdgeInsets.symmetric(vertical: 10.h),
                         itemCount: state.orders.data!.length,
                         itemBuilder: (context, index) {
