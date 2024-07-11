@@ -54,7 +54,6 @@ class ApiService {
       _dio.options.headers['Authorization'] =
           'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510';
     }
-    _dio.interceptors.add(LogInterceptor(responseBody: true));
     Response res = await _dio.get(
       perPage == null
           ? baseUrl + endPoint
