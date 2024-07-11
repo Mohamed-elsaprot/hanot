@@ -48,13 +48,14 @@ abstract class AppRouter {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => HomeCubit(HomeDataRepoImpl())..getHomeData()
+                create: (context) =>
+                    HomeCubit(HomeDataRepoImpl())),
+            BlocProvider(
+              create: (context) => SmallCategoryCubit(SmallCategoryRepoImpl())
+                ..getSmallCategories(),
             ),
             BlocProvider(
-              create: (context) =>    SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),
-            ),
-            BlocProvider(
-              create: (context) =>  OrdersCubit(ordersRepo: OrdersRepo()),
+              create: (context) => OrdersCubit(ordersRepo: OrdersRepo()),
             ),
           ],
           child: const NavigationScreen(),
@@ -126,8 +127,8 @@ abstract class AppRouter {
           color: model[1],
           day: model[2],
           month: model[3],
-          time: model[5],
           year: model[4],
+          time: model[5],
         );
       },
     ),

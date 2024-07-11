@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:hanot/features/my_orders/data/repositories/orders_repo.dart';
@@ -13,20 +11,28 @@ part 'orders_state.dart';
 class OrdersCubit extends Cubit<OrdersState> {
   late OrdersRepo ordersRepo;
   late OrdersModel orderModel;
+  int orderNavIsSelected = 0;
   bool last = false;
 
   OrdersCubit({required this.ordersRepo}) : super(OrdersInitial());
 
-  Future<void> getOrders() async {
+  void changeOrderNav({required int index}) {
+    orderNavIsSelected = index;
+    emit(NavChanged());
+  }
+
+  void resetLastValue() {
+    last = false;
+  }
+
+  Future<void> getCurrentOrders() async {
     emit(OrdersLoading());
     try {
-      var result = await ordersRepo.getOrders();
-
+      var result = await ordersRepo.getCurrentOrders();
       result.fold((failure) {
         emit(OrdersFailure(errorMessage: failure.errorMessage));
       }, (ordersModel) {
         orderModel = ordersModel;
-        log('${ordersModel.data}');
         emit(OrdersSuccess(orders: ordersModel));
       });
     } catch (e) {
@@ -34,17 +40,17 @@ class OrdersCubit extends Cubit<OrdersState> {
     }
   }
 
-  Future<void> getNextOrders(BuildContext context) async {
+  Future<void> getCurrentNextOrders(BuildContext context) async {
     if (orderModel.nextPageUrl != null) {
-      log(orderModel.nextPageUrl!);
       List<Data> cache = orderModel.data!;
-      var res =
-          await ordersRepo.getNextPageOrders(link: orderModel.nextPageUrl!);
+      var res = await ordersRepo.getCurrentNextPageOrders(
+          link: orderModel.nextPageUrl!);
       res.fold((failure) {
         errorDialog(context: context, message: failure.errorMessage);
       }, (ordersModel) {
         cache.addAll(ordersModel.data!);
-        orderModel = orderModel.copyWith(links: ordersModel.links, list: cache);
+        orderModel =
+            orderModel.copyWith(next: ordersModel.nextPageUrl, list: cache);
       });
     } else {
       last = true;

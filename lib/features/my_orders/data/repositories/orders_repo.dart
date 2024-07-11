@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:hanot/core/services/api_service.dart';
@@ -8,10 +7,12 @@ import '../../../../core/errors/failure.dart';
 
 class OrdersRepo {
   //=================================================================================
+
   // To get all orders or to get first page of orders
-  Future<Either<Failure, OrdersModel>> getOrders() async {
+  Future<Either<Failure, OrdersModel>> getCurrentOrders() async {
     try {
-      var response = await ApiService.getOrders(link: '/orders');
+      var response =
+          await ApiService.getDataWithToken(endPoint: '/orders', perPage: '10');
       OrdersModel result = OrdersModel.fromJson(response);
       return Right(result);
     } catch (e) {
@@ -24,11 +25,12 @@ class OrdersRepo {
   }
 
 //=================================================================================
+
 // To get next page of orders.
-  Future<Either<Failure, OrdersModel>> getNextPageOrders(
+  Future<Either<Failure, OrdersModel>> getCurrentNextPageOrders(
       {required String link}) async {
     try {
-      var response = await ApiService.getNextPageOrders(link: link);
+      var response = await ApiService.getNextPage(link: link, perPage: '10');
       var result = OrdersModel.fromJson(response);
       return Right(result);
     } catch (e) {
