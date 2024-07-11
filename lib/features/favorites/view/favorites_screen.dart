@@ -56,29 +56,30 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       ),
                       Expanded(
                         child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return FavItemCard(
-                                  product: favCubit.favList[index]);
-                            },
-                            itemCount: state.favorites.data!.length),
+                          physics: const BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return FavItemCard(
+                                product: favCubit.favList[index]);
+                          },
+                          itemCount: state.favorites.data!.length,
+                        ),
                       ),
                     ],
                   );
           }
-           if (state is FavoritesFailure) {
-                          return Expanded(
-                            child: Center(
-                              child: Styles.text(state.errorMessage),
-                            ),
-                          );
-                        } else {
-                          return Expanded(
-                            child: Center(
-                              child: loadingIndicator(),
-                            ),
-                          );
-                        }
+          if (state is FavoritesFailure) {
+            return Expanded(
+              child: Center(
+                child: Styles.text(state.errorMessage),
+              ),
+            );
+          } else {
+            return Expanded(
+              child: Center(
+                child: loadingIndicator(),
+              ),
+            );
+          }
         },
       ),
     );
