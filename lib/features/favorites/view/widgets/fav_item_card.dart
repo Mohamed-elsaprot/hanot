@@ -14,16 +14,34 @@ import '../../../auth_screen/view/phone/phone_auth_screen.dart';
 import '../../../../general_widgets/fav_icon.dart';
 
 class FavItemCard extends StatelessWidget {
-  const FavItemCard({Key? key, required this.product}) : super(key: key);
+  final String? salePrice,
+      image,
+      productName,
+      discountPrice,
+      availableQuantity,
+      costPrice;
   final Product product;
+  const FavItemCard(
+      {Key? key,
+      this.salePrice,
+      this.image,
+      this.productName,
+      this.discountPrice,
+      this.availableQuantity,
+      this.costPrice,
+      required this.product})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
     return GestureDetector(
       onTap: () async {
-        if(!authCubit.isAuth) {
-          bottomSheet(context, const AuthScreen(),);
-        }else {
+        if (!authCubit.isAuth) {
+          bottomSheet(
+            context,
+            const AuthScreen(),
+          );
+        } else {
           bottomSheet(context, AddToCartSheet(product: product), rad: 0);
         }
       },
@@ -42,23 +60,44 @@ class FavItemCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: cachedImage(product.image ?? '', rad: 10, height: 100, width: 120),),
-                  SizedBox(width: 10.w,),
+                    child: cachedImage(image ?? '',
+                        rad: 10, height: 100, width: 120),
+                  ),
+                  SizedBox(
+                    width: 10.w,
+                  ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 200.w, child: Styles.text(product.name ?? '', size: 13, overflow: TextOverflow.ellipsis)),
-                      SizedBox(height: 8.h,),
-                      SizedBox(width: 200.w, child: Styles.subTitle(product.image ?? '', size: 11, overflow: TextOverflow.ellipsis)),
-                      SizedBox(height: 8.h,),
-                      Styles.subTitle('متبقي 12 قطعة', color: Colors.red),
-                      SizedBox(height: 15.h,),
+                      SizedBox(
+                          width: 200.w,
+                          child: Styles.text(productName ?? '',
+                              size: 13, overflow: TextOverflow.ellipsis)),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      SizedBox(
+                          width: 200.w,
+                          child: Styles.subTitle('منتوجات مستوردة',
+                              size: 11, overflow: TextOverflow.ellipsis)),
+                      SizedBox(
+                        height: 8.h,
+                      ),
+                      Styles.subTitle('متبقي $availableQuantity قطعة',
+                          color: Colors.red),
+                      SizedBox(
+                        height: 15.h,
+                      ),
                       Row(
                         children: [
-                          Styles.text('${product.salePrice ?? product.salePrice ?? 0}${Texts.currency}', color: Styles.primary),
-                          SizedBox(width: 10.w,),
-                          if (product.salePrice != null && product.salePrice != product.costPrice)RemovedPrice(removedPrice: product.costPrice??0),
+                          Styles.text('$salePrice ${Texts.currency}',
+                              color: Styles.primary),
+                          SizedBox(
+                            width: 10.w,
+                          ),
+                          if (salePrice != null && salePrice != costPrice)
+                            RemovedPrice(removedPrice: num.parse(costPrice!)),
                         ],
                       )
                     ],
@@ -67,7 +106,7 @@ class FavItemCard extends StatelessWidget {
               ),
             ),
           ),
-          PositionedDirectional(end: 25,top: 25,child: FavIcon())
+          const PositionedDirectional(end: 25, top: 25, child: FavIcon())
         ],
       ),
     );

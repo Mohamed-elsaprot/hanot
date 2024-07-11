@@ -15,3 +15,4 @@ final class FavoritesFailure extends FavState {
 }
 
 final class FavoritesLoading extends FavState {}
+final class NextFavoritesLoading extends FavState {}

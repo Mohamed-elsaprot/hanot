@@ -50,9 +50,6 @@ class ApiService {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
-    } else {
-      _dio.options.headers['Authorization'] =
-          'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510';
     }
     Response res = await _dio.get(
       perPage == null
@@ -108,9 +105,6 @@ class ApiService {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
-    } else {
-      _dio.options.headers['Authorization'] =
-          'Bearer 36|EgD820q3e1FnUqyFRblOX3wuAOibF0wtUPy0Kewd73e29510';
     }
     Response res = await _dio.get(
       '$link&pre_page=$perPage',
