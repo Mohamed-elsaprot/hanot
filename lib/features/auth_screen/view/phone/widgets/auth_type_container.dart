@@ -8,7 +8,7 @@ import 'package:hanot/features/auth_screen/manager/auth_state.dart';
 
 import '../../../../../core/design/app_styles.dart';
 // import '../../../../../core/design/fun.dart';
-// import '../phone_auth_screen.dart';
+// import '../auth_screen.dart';
 
 class AuthTypeContainer extends StatelessWidget {
   const AuthTypeContainer({Key? key, required this.focusNode, required this.controller}) : super(key: key);

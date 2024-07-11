@@ -9,8 +9,8 @@ import 'package:hanot/features/auth_screen/manager/auth_state.dart';
 
 import '../../../../../core/design/app_styles.dart';
 
-class PhoneTextField extends StatelessWidget {
-   const PhoneTextField({Key? key, this.focusNode, required this.controller,}) : super(key: key);
+class AuthTextField extends StatelessWidget {
+   const AuthTextField({Key? key, this.focusNode, required this.controller,}) : super(key: key);
   final FocusNode? focusNode;
   final TextEditingController controller;
   @override
@@ -29,7 +29,7 @@ class PhoneTextField extends StatelessWidget {
               return null;
             }
           }else{
-            if(!x!.contains('@')){
+            if(!x!.contains('@gmail.com')){
               return 'must have @gmail.com';
             }else {
               return null;

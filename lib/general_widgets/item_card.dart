@@ -11,7 +11,7 @@ import 'package:hanot/general_widgets/rating_stars.dart';
 import '../core/design/app_styles.dart';
 import '../core/design/widgets.dart';
 import '../core/models/category_model/Product.dart';
-import '../features/auth_screen/view/phone/phone_auth_screen.dart';
+import '../features/auth_screen/view/phone/auth_screen.dart';
 import 'fav_icon.dart';
 import 'add_to_cart_sheet/add_to_cart_sheet.dart';
 

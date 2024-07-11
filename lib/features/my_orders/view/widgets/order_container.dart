@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/router.dart';
+import 'package:hanot/features/my_orders/data/models/orders_model.dart';
 
 import '../../../../consts.dart';
 import '../../../../core/design/app_styles.dart';
@@ -9,17 +10,17 @@ import '../../../../core/design/images.dart';
 class OrderContainer extends StatelessWidget {
   const OrderContainer(
       {Key? key,
-      required this.statusName,
-      required this.color,
       required this.day,
       required this.month,
       required this.year,
-      required this.time})
+      required this.time, required this.order})
       : super(key: key);
 
-  final String? statusName, color, day, month, year, time;
+  final String?  day, month, year, time;
+  final Order order;
   @override
   Widget build(BuildContext context) {
+    print(order.id);
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r), color: Colors.white),
@@ -39,7 +40,7 @@ class OrderContainer extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Styles.text('رقم الطلب : 2578951235'),
+                  Styles.text('رقم الطلب : ${order.id}'),
                   SizedBox(
                     height: 4.h,
                   ),
@@ -56,13 +57,12 @@ class OrderContainer extends StatelessWidget {
           Row(
             children: [
               Styles.text('حالة الطلب : ', color: Colors.black54, size: 12),
-              Styles.text(statusName!,
-                  size: 12, color: HexColor.fromHex(color!)),
+              Styles.text(order.statusName??'state name', size: 12, color: HexColor.fromHex(order.statusColor!.color!)),//
               const Spacer(),
               GestureDetector(
                   onTap: () {
                     AppRouter.router.push(AppRouter.orderDetails,
-                        extra:<String?> [statusName, color, day, month, year, time]);
+                        extra:<String?> [order.statusName, order.statusColor!.color!, day, month, year, time]);
                   },
                   child: Styles.text('عرض التفاصيل', size: 12)),
             ],

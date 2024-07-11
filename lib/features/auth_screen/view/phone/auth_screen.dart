@@ -5,8 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/auth_button.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/auth_type_container.dart';
-import 'package:hanot/features/auth_screen/view/phone/widgets/phone_sheet_close_button.dart';
+import 'package:hanot/features/auth_screen/view/phone/widgets/auth_sheet_close_button.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/phone_text_field.dart';
+import 'package:hanot/features/auth_screen/view/phone/widgets/terms_button.dart';
 
 import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
@@ -60,11 +61,11 @@ class _AuthScreenState extends State<AuthScreen> {
                       SizedBox(height: 15.h,),
                       Styles.subTitle(Texts.pleaseLogInToCompleteYourShopping,size: 16,color: Colors.black54).tr(),
                       SizedBox(height: 20.h,),
-                       AuthTypeContainer(controller: controller,focusNode: _focusNode),
+                      AuthTypeContainer(controller: controller,focusNode: _focusNode),
                       SizedBox(height: 35.h,),
                       Form(
                         key: formKey,
-                        child: PhoneTextField(controller: controller,focusNode: _focusNode),
+                        child: AuthTextField(controller: controller,focusNode: _focusNode),
                       ),
                       SizedBox(height: 20.h,),
                       SizedBox(
@@ -76,7 +77,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               formKey.currentState!.save();
                               await authCubit.sendOtp(context: context);
                             }
-                          } ,title: Texts.logIn.tr(),rad: 12,textSize: 20,))
+                          } ,title: Texts.logIn.tr(),rad: 12,textSize: 20,)),
+                      SizedBox(height: 15.h,),
+                      const TermsButton()
                     ],
                   ),
                 ),
@@ -85,7 +88,8 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
           Padding(
               padding: EdgeInsetsDirectional.only(top: 20.sp,end: 15.sp),
-              child: const SheetCloseButton()),
+              child: const SheetCloseButton()
+          ),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 class OrdersModel {
   int? currentPage;
-  List<Data>? data;
+  List<Order>? ordersList;
   String? firstPageUrl;
   int? from;
   int? lastPage;
@@ -15,7 +15,7 @@ class OrdersModel {
 
   OrdersModel(
       {this.currentPage,
-      this.data,
+      this.ordersList,
       this.firstPageUrl,
       this.from,
       this.lastPage,
@@ -31,9 +31,9 @@ class OrdersModel {
   OrdersModel.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = <Data>[];
+      ordersList = <Order>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        ordersList!.add(Order.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -54,14 +54,14 @@ class OrdersModel {
     total = json['total'];
   }
 
-  OrdersModel copyWith({required next, required List<Data> list}) =>
+  OrdersModel copyWith({required next, required List<Order> list}) =>
       OrdersModel(
-        data: list,
+        ordersList: list,
         nextPageUrl: next,
       );
 }
 
-class Data {
+class Order {
   int? id;
   Customer? customer;
   String? paymentMethod;
@@ -80,7 +80,7 @@ class Data {
   int? discount;
   String? total;
 
-  Data(
+  Order(
       {this.id,
       this.customer,
       this.paymentMethod,
@@ -99,7 +99,7 @@ class Data {
       this.discount,
       this.total});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  Order.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     customer =
         json['customer'] != null ? Customer.fromJson(json['customer']) : null;

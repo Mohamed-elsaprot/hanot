@@ -19,7 +19,7 @@ class AuthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-          padding:EdgeInsets.symmetric(vertical: 10.h),
+          padding:EdgeInsets.symmetric(vertical: 8.h),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(rad!.r,),
             side: const BorderSide(color:Colors.black26,width: 1.5),

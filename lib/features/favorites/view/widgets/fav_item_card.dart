@@ -10,7 +10,7 @@ import '../../../../core/design/fun.dart';
 import '../../../../core/design/widgets.dart';
 import '../../../../core/models/category_model/Product.dart';
 import '../../../../general_widgets/add_to_cart_sheet/add_to_cart_sheet.dart';
-import '../../../auth_screen/view/phone/phone_auth_screen.dart';
+import '../../../auth_screen/view/phone/auth_screen.dart';
 import '../../../../general_widgets/fav_icon.dart';
 
 class FavItemCard extends StatelessWidget {

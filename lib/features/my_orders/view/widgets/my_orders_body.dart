@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
-import 'package:hanot/features/my_orders/logic/orders_cubit.dart';
 import 'package:hanot/features/my_orders/view/widgets/my_orders_nav_row.dart';
 import 'package:hanot/features/my_orders/view/widgets/search_app_bar.dart';
 import '../../../../core/design/widgets.dart';
@@ -80,7 +79,7 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
                           current is OrdersLoading,
                       builder: (context, state) {
                         if (state is OrdersSuccess) {
-                          return state.orders.data == null
+                          return state.orders.ordersList == null
                               ? const OrdersEmptyBody()
                               : Expanded(
                                   child: ListView(
@@ -90,7 +89,7 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
                                         child: OrdersColumn(
-                                          dataList: state.orders.data!,
+                                          ordersList: state.orders.ordersList!,
                                           last: ordersCubit.last,
                                         ),
                                       ),

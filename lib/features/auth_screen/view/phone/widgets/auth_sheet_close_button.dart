@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
 class SheetCloseButton extends StatelessWidget {
-  const SheetCloseButton({Key? key,}) : super(key: key);
-
+  const SheetCloseButton({Key? key, this.size,}) : super(key: key);
+  final double? size;
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.topLeft,
       child: CircleAvatar(
+        radius: size,
         backgroundColor: Colors.black12,
-        child: CloseButton(color: Colors.black,),
+        child: const CloseButton(color: Colors.black,),
       ),
     );
   }

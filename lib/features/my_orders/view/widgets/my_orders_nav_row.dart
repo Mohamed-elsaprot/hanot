@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/design/app_styles.dart';
-import '../../logic/orders_cubit.dart';
+import '../../manager/orders_cubit.dart';
 
 class MyOrdersNavRow extends StatefulWidget {
   const MyOrdersNavRow({

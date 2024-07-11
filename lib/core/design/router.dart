@@ -27,7 +27,7 @@ import '../../features/categories/model/category_details/Children.dart';
 import '../../features/home/data/home_data_repo_impl.dart';
 import '../../features/home/manager/home_cubit.dart';
 import '../../features/my_orders/data/repositories/orders_repo.dart';
-import '../../features/my_orders/logic/orders_cubit.dart';
+import '../../features/my_orders/manager/orders_cubit.dart';
 import '../data/get_category_products_repo/products_repo_impl.dart';
 import '../data/next_page_products_repo/next_page_products_repo_impl.dart';
 
@@ -48,14 +48,13 @@ abstract class AppRouter {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-                create: (context) =>
-                    HomeCubit(HomeDataRepoImpl())),
-            BlocProvider(
-              create: (context) => SmallCategoryCubit(SmallCategoryRepoImpl())
-                ..getSmallCategories(),
+              create: (context) => HomeCubit(HomeDataRepoImpl())
             ),
             BlocProvider(
-              create: (context) => OrdersCubit(ordersRepo: OrdersRepo()),
+              create: (context) =>    SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),
+            ),
+            BlocProvider(
+              create: (context) =>  OrdersCubit(ordersRepo: OrdersRepo()),
             ),
           ],
           child: const NavigationScreen(),
@@ -121,14 +120,14 @@ abstract class AppRouter {
     GoRoute(
       path: orderDetails,
       builder: (BuildContext context, GoRouterState state) {
-        var model = state.extra as List<String?>;
+        // var model = state.extra as List<String?>;
         return OrderDetails(
-          statusName: model[0],
-          color: model[1],
-          day: model[2],
-          month: model[3],
-          year: model[4],
-          time: model[5],
+          // statusName: model[0],
+          // color: model[1],
+          // day: model[2],
+          // month: model[3],
+          // time: model[5],
+          // year: model[4],
         );
       },
     ),
