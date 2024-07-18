@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,7 +5,7 @@ import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/router.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
-import 'package:hanot/features/cart/view/widgets/select_all_button.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../core/design/app_styles.dart';
 import '../../../../general_widgets/custom_button.dart';
@@ -17,6 +16,7 @@ class CompleteOrderContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -28,7 +28,7 @@ class CompleteOrderContainer extends StatelessWidget {
         children: [
           // const SelectAllButton(),
           BlocBuilder<CartCubit,CartState>(builder: (context,state){
-            return Styles.text('${Texts.total.tr()} ${cartCubit.cartTotal} ${Texts.currency}',size: 13);
+            return Styles.text('${textsMap['mobile_Total']} ${cartCubit.cartTotal} ${Texts.currency}',size: 13);
           }),
           BlocBuilder<CartCubit,CartState>(builder: (context,state){
             return CustomButton(
@@ -38,7 +38,7 @@ class CompleteOrderContainer extends StatelessWidget {
                   AppRouter.router.push(AppRouter.checkOutScreen);
                 },
                 textSize: 12,
-                title: '${Texts.completeOrder.tr()} (${cartCubit.cartProductsList.length})');
+                title: '${textsMap['mobile_complete_order']} (${cartCubit.cartProductsList.length})');
           }),
 
         ],

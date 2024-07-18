@@ -9,11 +9,28 @@ class OrdersRepo {
   //=================================================================================
 
   // To get all orders or to get first page of orders
-  Future<Either<Failure, OrdersModel>> getCurrentOrders() async {
+  Future<Either<Failure, List<MyOrderModel>>> getCurrentOrders() async {
     try {
-      var response =
-          await ApiService.getDataWithToken(endPoint: '/orders', perPage: '10');
-      OrdersModel result = OrdersModel.fromJson(response);
+      var response = await ApiService.getDataWithToken(endPoint: ApiService.currentOrders,);
+      List<MyOrderModel> list=[];
+      response.forEach((x)=> list.add(MyOrderModel.fromJson(x)));
+      return right(list);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+      }
+    }
+  }
+
+  //=================================================================================
+
+  // To get all orders or to get first page of orders
+  Future<Either<Failure, OrdersModelRes>> getPrevOrders() async {
+    try {
+      var response = await ApiService.getDataWithToken(endPoint: ApiService.prevOrders, perPage: '10');
+      OrdersModelRes result = OrdersModelRes.fromJson(response);
       return Right(result);
     } catch (e) {
       if (e is DioException) {
@@ -27,11 +44,11 @@ class OrdersRepo {
 //=================================================================================
 
 // To get next page of orders.
-  Future<Either<Failure, OrdersModel>> getCurrentNextPageOrders(
+  Future<Either<Failure, OrdersModelRes>> getPrevNextPageOrders(
       {required String link}) async {
     try {
       var response = await ApiService.getNextPage(link: link, perPage: '10');
-      var result = OrdersModel.fromJson(response);
+      var result = OrdersModelRes.fromJson(response);
       return Right(result);
     } catch (e) {
       if (e is DioException) {

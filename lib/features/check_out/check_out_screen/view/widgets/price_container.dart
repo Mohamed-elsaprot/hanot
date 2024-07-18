@@ -7,6 +7,7 @@ import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/c
 import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_state.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../core/design/appTexts.dart';
 import '../../../../../core/design/app_styles.dart';
@@ -18,6 +19,7 @@ class PriceContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var cartCubit = BlocProvider.of<CartCubit>(context);
     var shippingFeestCubit = BlocProvider.of<ShippingFeesCubit>(context);
     var couponCubit = BlocProvider.of<CouponCubit>(context);
@@ -27,13 +29,13 @@ class PriceContainer extends StatelessWidget {
             children: [
               Image.asset(Images.priceLogo),
               SizedBox(width: 6.w,),
-              Styles.text(Texts.costSummary.tr()),
+              Styles.text(textsMap['mobile_costSummary']),
             ],
           ),
           Divider(height: 14.h),
           Row(
             children: [
-              Styles.subTitle(Texts.productsCount.tr(),size: 15),
+              Styles.subTitle(textsMap['mobile_productsCount'],size: 15),
               const Spacer(),
               Styles.text(cartCubit.cartLen.toString()),
             ],
@@ -42,7 +44,7 @@ class PriceContainer extends StatelessWidget {
           BlocBuilder<CouponCubit,CouponState>(builder: (context,state){
             return Row(
               children: [
-                Styles.subTitle(Texts.discounts.tr(),size: 15),
+                Styles.subTitle(textsMap['mobile_Discounts'],size: 15),
                 const Spacer(),
                 Styles.text('${couponCubit.couponDiscount??0} ${Texts.currency.tr()}'),
               ],
@@ -51,7 +53,7 @@ class PriceContainer extends StatelessWidget {
           SizedBox(height: 6.h,),
           Row(
             children: [
-              Styles.subTitle(Texts.productsPrice.tr(),size: 15),
+              Styles.subTitle(textsMap['mobile_productsPrice'],size: 15),
               const Spacer(),
               Styles.text('${cartCubit.cartTotal} ${Texts.currency}'),
             ],
@@ -60,7 +62,7 @@ class PriceContainer extends StatelessWidget {
           BlocBuilder<ShippingFeesCubit,ShippingFeesState>(builder: (context,state){
             return Row(
               children: [
-                Styles.subTitle(Texts.shippingFees.tr(),size: 15),
+                Styles.subTitle(textsMap['mobile_Shipping_Fees'],size: 15),
                 const Spacer(),
                 Styles.text('${shippingFeestCubit.shippingFeesModel?.shippingFees??0} ${Texts.currency}'),
               ],

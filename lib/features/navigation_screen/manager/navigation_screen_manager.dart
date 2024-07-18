@@ -28,8 +28,8 @@ class NavigationScreenCubit extends Cubit<NavigationScreenState> {
     }
     emit(NavigationScreenState());
   }
-  resetNavScreen(){
-    index=0;
+  resetNavScreen({required int x}){
+    index=x;
     emit(NavigationScreenReset());
   }
 }

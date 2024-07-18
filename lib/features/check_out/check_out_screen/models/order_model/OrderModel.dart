@@ -31,7 +31,7 @@ class OrderModel {
     coupon = json['coupon'];
     status = json['status'];
     statusName = json['status_name'];
-    statusColor = json['status_color'] != null ? StatusColor.fromJson(json['status_color']) : null;
+    statusColor = json['status_color']; //!= null ? StatusColor.fromJson(json['status_color']) : null;
     address = json['address'] != null ? Address.fromJson(json['address']) : null;
     shippingCompany = json['shipping_company'];
     timeDiff = json['time_diff'];
@@ -49,7 +49,8 @@ class OrderModel {
   String? coupon;
   num? status;
   String? statusName;
-  StatusColor? statusColor;
+  // StatusColor? statusColor;
+  String? statusColor;
   Address? address;
   String? shippingCompany;
   String? timeDiff;
@@ -66,7 +67,8 @@ OrderModel copyWith({  num? id,
   String? coupon,
   num? status,
   String? statusName,
-  StatusColor? statusColor,
+  // StatusColor? statusColor,
+  String? statusColor,
   Address? address,
   String? shippingCompany,
   String? timeDiff,
@@ -106,7 +108,7 @@ OrderModel copyWith({  num? id,
     map['status'] = status;
     map['status_name'] = statusName;
     if (statusColor != null) {
-      map['status_color'] = statusColor?.toJson();
+      map['status_color'] = statusColor;//?.toJson();
     }
     if (address != null) {
       map['address'] = address?.toJson();

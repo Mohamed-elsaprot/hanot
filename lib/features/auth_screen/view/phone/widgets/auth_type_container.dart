@@ -1,14 +1,11 @@
-import'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/auth_screen/manager/auth_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
-// import '../../../../../core/design/fun.dart';
-// import '../auth_screen.dart';
 
 class AuthTypeContainer extends StatelessWidget {
   const AuthTypeContainer({Key? key, required this.focusNode, required this.controller}) : super(key: key);
@@ -17,6 +14,7 @@ class AuthTypeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     return BlocBuilder<AuthCubit,AuthState>(builder: (context,state){
       return Container(
         decoration: BoxDecoration(
@@ -42,7 +40,7 @@ class AuthTypeContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       color: authCubit.authType=='email'? Colors.transparent :Colors.white,
                     ),
-                    child: Styles.text(Texts.mobileNumber,color: authCubit.authType=='email'? Colors.black38:Colors.black).tr()),
+                    child: Styles.text(textsMap['mobile_Mobile_Number'],color: authCubit.authType=='email'? Colors.black38:Colors.black)),
               ),
             ),
             SizedBox(width: 3.w,),
@@ -64,7 +62,7 @@ class AuthTypeContainer extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       color: authCubit.authType=='phone'? Colors.transparent :Colors.white,
                     ),
-                    child: Styles.text(Texts.email,color: authCubit.authType=='phone'? Colors.black38:Colors.black).tr()),
+                    child: Styles.text(textsMap['mobile_email'],color: authCubit.authType=='phone'? Colors.black38:Colors.black)),
               ),
             ),
           ],

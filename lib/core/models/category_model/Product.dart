@@ -14,7 +14,9 @@ class Product {
       this.length,
       dynamic barcode, 
       this.image,
-      this.images,});
+      this.images,
+      this.inFavorites,
+  });
 
   Product.fromJson(dynamic json) {
     id = json['id'];
@@ -24,6 +26,7 @@ class Product {
     discountPrice = json['discount_price'];
     hasCampaign = json['has_campaign'];
     hasOptions = json['has_options'];
+    inFavorites = json['in_favorites'];
     quantity = json['quantity'];
     weight = json['weight'];
     width = json['width'];
@@ -40,6 +43,7 @@ class Product {
   num? discountPrice;
   bool? hasCampaign;
   bool? hasOptions;
+  bool? inFavorites;
   num? quantity;
   String? weight;
   num? width;
@@ -49,25 +53,5 @@ class Product {
   dynamic barcode;
   String? image;
   List<String>? images;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['sale_price'] = salePrice;
-    map['cost_price'] = costPrice;
-    map['discount_price'] = discountPrice;
-    map['has_campaign'] = hasCampaign;
-    map['has_options'] = hasOptions;
-    map['quantity'] = quantity;
-    map['weight'] = weight;
-    map['width'] = width;
-    map['height'] = height;
-    map['length'] = length;
-    map['barcode'] = barcode;
-    map['image'] = image;
-    map['images'] = images;
-    return map;
-  }
 
 }

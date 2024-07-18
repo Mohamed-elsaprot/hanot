@@ -1,22 +1,16 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/consts.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/images.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/coupon_cubit/coupon_state.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/widgets/activate_coupon_button.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/general_widgets/custom_button.dart';
 
 class CouponTextField extends StatefulWidget {
   const CouponTextField({Key? key, }) : super(key: key);
-  // final TextEditingController controller;
-  // final void Function() onTap;
-  // final void Function(String) onSubmit;
-  // final FocusNode? focusNode;
 
   @override
   State<CouponTextField> createState() => _CouponTextFieldState();
@@ -24,8 +18,10 @@ class CouponTextField extends StatefulWidget {
 
 class _CouponTextFieldState extends State<CouponTextField> {
   late CouponCubit couponCubit;
+  late Map textsMap;
   @override
   void initState() {
+    textsMap = BlocProvider.of<LangCubit>(context).texts;
     couponCubit = BlocProvider.of<CouponCubit>(context);
     super.initState();
   }
@@ -57,7 +53,7 @@ class _CouponTextFieldState extends State<CouponTextField> {
               ],
             ),
           ),
-          hintText: Texts.enterDiscountCoupon.tr(),
+          hintText: textsMap['mobile_enterDiscountCoupon'],
           hintStyle: const TextStyle(fontFamily: fontFamily,fontSize: 13),
           focusedBorder: border(state is CouponFailure),
           focusColor: Colors.black12,

@@ -1,6 +1,6 @@
-class OrdersModel {
+class OrdersModelRes {
   int? currentPage;
-  List<Order>? ordersList;
+  List<MyOrderModel>? ordersList;
   String? firstPageUrl;
   int? from;
   int? lastPage;
@@ -13,7 +13,7 @@ class OrdersModel {
   int? to;
   int? total;
 
-  OrdersModel(
+  OrdersModelRes(
       {this.currentPage,
       this.ordersList,
       this.firstPageUrl,
@@ -28,12 +28,12 @@ class OrdersModel {
       this.to,
       this.total});
 
-  OrdersModel.fromJson(Map<String, dynamic> json) {
+  OrdersModelRes.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      ordersList = <Order>[];
+      ordersList = <MyOrderModel>[];
       json['data'].forEach((v) {
-        ordersList!.add(Order.fromJson(v));
+        ordersList!.add(MyOrderModel.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -54,14 +54,14 @@ class OrdersModel {
     total = json['total'];
   }
 
-  OrdersModel copyWith({required next, required List<Order> list}) =>
-      OrdersModel(
+  OrdersModelRes copyWith({required next, required List<MyOrderModel> list}) =>
+      OrdersModelRes(
         ordersList: list,
         nextPageUrl: next,
       );
 }
 
-class Order {
+class MyOrderModel {
   int? id;
   Customer? customer;
   String? paymentMethod;
@@ -70,7 +70,7 @@ class Order {
   String? coupon;
   int? status;
   String? statusName;
-  StatusColor? statusColor;
+  String? statusColor;
   Address? address;
   String? shippingCompany;
   String? timeDiff;
@@ -80,7 +80,7 @@ class Order {
   int? discount;
   String? total;
 
-  Order(
+  MyOrderModel(
       {this.id,
       this.customer,
       this.paymentMethod,
@@ -99,7 +99,7 @@ class Order {
       this.discount,
       this.total});
 
-  Order.fromJson(Map<String, dynamic> json) {
+  MyOrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     customer =
         json['customer'] != null ? Customer.fromJson(json['customer']) : null;
@@ -109,9 +109,7 @@ class Order {
     coupon = json['coupon'];
     status = json['status'];
     statusName = json['status_name'];
-    statusColor = json['status_color'] != null
-        ? StatusColor.fromJson(json['status_color'])
-        : null;
+    statusColor = json['status_color'];
     address =
         json['address'] != null ? Address.fromJson(json['address']) : null;
     shippingCompany = json['shipping_company'];
@@ -142,23 +140,6 @@ class Customer {
   }
 }
 
-class StatusColor {
-  int? id;
-  String? key;
-  String? title;
-  String? icon;
-  String? color;
-
-  StatusColor({this.id, this.key, this.title, this.icon, this.color});
-
-  StatusColor.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    key = json['key'];
-    title = json['title'];
-    icon = json['icon'];
-    color = json['color'];
-  }
-}
 
 class Address {
   int? id;
@@ -202,3 +183,5 @@ class Links {
     active = json['active'];
   }
 }
+
+

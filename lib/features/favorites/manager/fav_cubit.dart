@@ -8,60 +8,21 @@ import '../../../core/models/category_model/Product.dart';
 import '../data/repositories/get_favorites_repo.dart';
 
 class FavCubit extends Cubit<FavState> {
+  FavCubit({required this.getFavoritesRepo}) : super(FavInitial());
   late GetFavoritesRepo getFavoritesRepo;
   late GetFavoritesModel favoritesModel;
   bool last = false;
-  FavCubit({required this.getFavoritesRepo}) : super(FavInitial());
-  List<Product> favList = [
-    Product(
-        name: 'product 1',
-        costPrice: 100,
-        discountPrice: 120,
-        id: 1,
-        salePrice: 150,
-        quantity: 10,
-        image:
-            'https://hips.hearstapps.com/hmg-prod/images/2020-03-10-use-a-drill-final-clean-00-01-57-10-still053-1584632505.jpg'),
-    Product(
-        name: 'product 2',
-        costPrice: 34,
-        discountPrice: 55,
-        id: 0,
-        salePrice: 122,
-        quantity: 3,
-        image:
-            'https://hips.hearstapps.com/hmg-prod/images/2020-03-10-use-a-drill-final-clean-00-01-57-10-still053-1584632505.jpg'),
-    Product(
-        name: 'product 3',
-        costPrice: 65,
-        discountPrice: 44,
-        id: 9,
-        salePrice: 1233,
-        quantity: 5,
-        image:
-            'https://hips.hearstapps.com/hmg-prod/images/2020-03-10-use-a-drill-final-clean-00-01-57-10-still053-1584632505.jpg'),
-  ];
-
-  changeFavList({required int index, required Product product}) {
-    if (index == -1) {
-      favList.add(product);
-    } else {
-      favList.removeAt(index);
-    }
-    emit(FavInitial());
-  }
-
+  List<Product> favList = [];
+  late int changedId;
   Future<void> getFavorites() async {
     emit(FavoritesLoading());
     try {
       var result = await getFavoritesRepo.getFavorites();
-
       result.fold((failure) {
         emit(FavoritesFailure(errorMessage: failure.errorMessage));
       }, (favModel) {
         favoritesModel = favModel;
-
-        emit(FavoritesSuccess(favorites: favModel));
+        emit(FavoritesSuccess());
       });
     } catch (e) {
       emit(FavoritesFailure(errorMessage: e.toString()));
@@ -71,19 +32,35 @@ class FavCubit extends Cubit<FavState> {
   getNextPageFavorites(BuildContext context) async {
     emit(NextFavoritesLoading());
     if (favoritesModel.links!.next != null) {
-      List<Data> cache = favoritesModel.data!;
+      List<FavItemModel> cache = favoritesModel.favItemsList!;
       var res = await getFavoritesRepo.getCurrentNextPageOrders(
           link: favoritesModel.links!.next!);
       res.fold((failure) {
         errorDialog(context: context, message: failure.errorMessage);
       }, (favModel) {
-        cache.addAll(favModel.data!);
-        favoritesModel = favoritesModel.copyWith(
-            links: favModel.links, meta: favModel.meta, data: cache);
+        cache.addAll(favModel.favItemsList!);
+        favoritesModel = favoritesModel.copyWith(links: favModel.links, meta: favModel.meta, data: cache);
       });
     } else {
       last = true;
     }
-    emit(FavoritesSuccess(favorites: favoritesModel));
+    emit(FavoritesSuccess());
+  }
+
+  setFavNewVal({required int productId,required bool favVal}) async {
+    emit(ChangeFavValLoading());
+    changedId = productId;
+    var res = favVal? await getFavoritesRepo.removeFav(productId: productId): await getFavoritesRepo.setFav(productId: productId);
+    res.fold((failure){
+      emit(ChangeFavValFailure(errorMessage: failure.errorMessage));
+    }, ((x){
+      emit(ChangeFavValSuccess());
+    }));
+
+  }
+
+  removeFromFavList({required int index}){
+    favoritesModel.favItemsList!.removeAt(index);
+    emit(FavoritesSuccess());
   }
 }

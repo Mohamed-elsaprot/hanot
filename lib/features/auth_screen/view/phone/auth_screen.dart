@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +8,9 @@ import 'package:hanot/features/auth_screen/view/phone/widgets/auth_sheet_close_b
 import 'package:hanot/features/auth_screen/view/phone/widgets/phone_text_field.dart';
 import 'package:hanot/features/auth_screen/view/phone/widgets/terms_button.dart';
 
-import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/images.dart';
+import '../../../lang/manager/lang_cubit.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
@@ -22,10 +21,12 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   late AuthCubit authCubit;
+  late Map textsMap;
   late TextEditingController controller;
   @override
   void initState() {
     authCubit = BlocProvider.of<AuthCubit>(context);
+    textsMap = BlocProvider.of<LangCubit>(context).texts;
     controller = TextEditingController();
     super.initState();
   }
@@ -51,15 +52,15 @@ class _AuthScreenState extends State<AuthScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Styles.text(Texts.logIn,).tr(),
+                          Styles.text(textsMap['mobile_Log_in'],),
                         ],
                       ),
                       SizedBox(height: 50.h,),
                       ClipRRect(borderRadius: BorderRadius.circular(40.r), child: Image.asset(Images.logIn,height: 110.h,),),
                       SizedBox(height: 15.h,),
-                      Styles.text(Texts.helloOurDearVisitor,size: 24).tr(),
+                      Styles.text(textsMap['mobile_Hello_our_dear_visitor'],size: 24),
                       SizedBox(height: 15.h,),
-                      Styles.subTitle(Texts.pleaseLogInToCompleteYourShopping,size: 16,color: Colors.black54).tr(),
+                      Styles.subTitle(textsMap['mobile_Please_log_in_to_complete_your_shopping'],size: 16,color: Colors.black54),
                       SizedBox(height: 20.h,),
                       AuthTypeContainer(controller: controller,focusNode: _focusNode),
                       SizedBox(height: 35.h,),
@@ -77,7 +78,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               formKey.currentState!.save();
                               await authCubit.sendOtp(context: context);
                             }
-                          } ,title: Texts.logIn.tr(),rad: 12,textSize: 20,)),
+                          } ,title: textsMap['mobile_Log_in'],rad: 12,textSize: 20,)),
                       SizedBox(height: 15.h,),
                       const TermsButton()
                     ],
@@ -86,10 +87,9 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
           ),
-          Padding(
-              padding: EdgeInsetsDirectional.only(top: 20.sp,end: 15.sp),
-              child: const SheetCloseButton()
-          ),
+          const PositionedDirectional(
+              end: 20,top: 20,
+              child: SheetCloseButton()),
         ],
       ),
     );

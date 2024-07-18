@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
+import 'package:hanot/features/lang/model/LangModel.dart';
 
 import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
@@ -15,9 +17,10 @@ class CartTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var cartCubit = BlocProvider.of<CartCubit>(context);
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     return BlocBuilder<CartCubit, CartState>(builder: (context, state) {
       return Tab(
-        text: Texts.cart.tr(),
+        text: textsMap['mobile_cart'],
         icon: cartCubit.cartProductsList.isNotEmpty
             ? badges.Badge(
                 badgeContent: Text(cartCubit.cartLen.toString(), style: const TextStyle(color: Colors.white, fontSize: 14),),

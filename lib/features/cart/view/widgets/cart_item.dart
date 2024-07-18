@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/cart/view/widgets/cart_item_details.dart';
-import 'package:hanot/features/cart/view/widgets/selected_check_button.dart';
 import '../../../../core/design/widgets.dart';
 import '../../manager/cart_cubit/cart_cubit.dart';
 

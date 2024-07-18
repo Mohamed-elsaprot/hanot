@@ -1,10 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/general_widgets/add_to_cart_sheet/managers/hint_cubit/hint_cubit.dart';
 import 'package:hanot/general_widgets/add_to_cart_sheet/managers/hint_cubit/hint_state.dart';
 import 'package:hanot/general_widgets/add_to_cart_sheet/models/single_product_model/SingleProductModel.dart';
@@ -19,6 +19,7 @@ class SheetTitleRow extends StatelessWidget {
   final SingleProductModel product;
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var cartCubit = BlocProvider.of<CartCubit>(context);
     var singleProductCubit = BlocProvider.of<SingleProductCubit>(context);
 
@@ -38,7 +39,7 @@ class SheetTitleRow extends StatelessWidget {
         SizedBox(height: 10.h,),
         BlocBuilder<HintCubit,HintState>(builder: (context,state){
           if(state is HintInitial){
-            return Styles.subTitle('${cartCubit.skuDetails.quantity} ${Texts.leftoverPieces.tr()}',color: Colors.red.shade300,size: 12);
+            return Styles.subTitle('${cartCubit.skuDetails.quantity} ${textsMap['mobile_Leftover_pieces']}',color: Colors.red.shade300,size: 12);
           }else{
             return shimmerWidget(height: 14, width: 100,rad: 20);
           }
@@ -55,7 +56,7 @@ class SheetTitleRow extends StatelessWidget {
             Container(
               color:Colors.grey.shade200,
               padding: EdgeInsets.symmetric(horizontal: 8.w,vertical: 4.h),
-              child: Styles.subTitle(Texts.pricesIncludeTax.tr(),size: 11),
+              child: Styles.subTitle(textsMap['mobile_Prices_include_tax'],size: 11),
             )
           ],
         )

@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 
-class Local {
+class Localization {
   static changeLang(BuildContext c) {
     Locale? currentLocal = EasyLocalization.of(c)!.currentLocale;
     if (currentLocal == const Locale('en')) {

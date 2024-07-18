@@ -1,9 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/consts.dart';
-import 'package:hanot/core/design/appTexts.dart';
+import 'package:hanot/features/auth_screen/manager/auth_state.dart';
+import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 
+import '../../../../lang/manager/lang_cubit.dart';
 import '../../../manager/auth_cubit.dart';
 
 class OtpTextField extends StatelessWidget {
@@ -11,11 +12,17 @@ class OtpTextField extends StatelessWidget {
   final FocusNode focusNode;
   @override
   Widget build(BuildContext context) {
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     var authCubit = BlocProvider.of<AuthCubit>(context);
-    return TextFormField(
+    return BlocListener<AuthCubit,AuthState>(listener: (context,state){
+      if(authCubit.isAuth){
+        var cartCubit = BlocProvider.of<CartCubit>(context);
+        cartCubit.getCartProducts();
+      }
+    },child: TextFormField(
       validator: (x){
         if(x==null || x.isEmpty || x.length!=4){
-          return Texts.pleaseEnter4Num.tr();
+          return textsMap['mobile_pleaseEnter4Num'];
         }else {
           return null;
         }
@@ -34,7 +41,7 @@ class OtpTextField extends StatelessWidget {
         enabledBorder: border(),
         filled: true,
       ),
-    );
+    ),);
   }
 
   border() {

@@ -33,7 +33,8 @@ class _SliderState extends State<SliderContainer> {
                 itemBuilder: (context, index, realIndex) {
                   return Padding(
                     padding: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 15.h),
-                    child: cachedImage(widget.homeModelWithBannerItems.bannerItem![index].path??'',rad: 25),
+                    // child: cachedImage(widget.homeModelWithBannerItems.bannerItem![index].path??'',rad: 25),
+                    child: cachedImage('https://graphicsfamily.com/wp-content/uploads/edd/2023/05/Website-Food-Banner-Design-1180x664.jpg'??'',rad: 25),
                   );
                 },
                 options: CarouselOptions(

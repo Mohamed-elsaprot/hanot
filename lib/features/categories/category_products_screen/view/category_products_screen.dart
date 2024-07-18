@@ -30,7 +30,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Styles.text(widget.smallCategoryModel.name!, size: 22),),
+        appBar: AppBar(title: Styles.text(widget.smallCategoryModel.name??'No Name', size: 22),),
         backgroundColor: Colors.white,
         body: CategoryProductsBody(scrollController: scrollController,)
     );

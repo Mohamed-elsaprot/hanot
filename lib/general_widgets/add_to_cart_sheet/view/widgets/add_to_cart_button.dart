@@ -1,9 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
@@ -20,6 +19,7 @@ class AddToCartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var singleProductCubit = BlocProvider.of<SingleProductCubit>(context);
     var cartCubit = BlocProvider.of<CartCubit>(context);
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     return BlocBuilder<CartCubit,CartState>(
         builder: (context,state){
             return ElevatedButton(
@@ -50,7 +50,7 @@ class AddToCartButton extends StatelessWidget {
                   children: [
                     Image.asset(Images.shoppingBag,width: 15.w,color: Colors.white,),
                     SizedBox(width: 8.w,),
-                    Styles.text(Texts.addToCart.tr(),color: Colors.white,size: 12),
+                    Styles.text(textsMap['mobile_Add_To_Cart'],color: Colors.white,size: 12),
                     SizedBox(
                       width: 70.w,
                       child: FittedBox(

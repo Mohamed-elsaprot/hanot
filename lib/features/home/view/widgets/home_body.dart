@@ -31,39 +31,45 @@ class _HomeBodyState extends State<HomeBody> {
     
     return Scaffold(
       appBar: customAppBar(),
-      body: BlocBuilder<HomeCubit,HomeState>(builder: (context,state){
-        if(state is HomeSuccess){
-          return SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                Column(
-                  children: [
-                    const SearchTextField(),
-                    ...List.generate(homeCubit.homeList.length, (index){
-                      if(homeCubit.homeList[index].type=="banner"){
-                        return SliderContainer(homeModelWithBannerItems: homeCubit.homeList[index]);
-                      }else if(homeCubit.homeList[index].type=="categories"){
-                        return HorizontalCategoriesList(categoriesList: homeCubit.homeList[index].categoriesList);
-                      }else if(homeCubit.homeList[index].type=="slide_products"){
-                        return HomeProductsList(homeModelWithProducts: homeCubit.homeList[index]);
-                      } else {
-                        return const SizedBox();
-                      }
-                    }),
-                    // const NewProducts()
-                  ],
-                ),
-              ],
-            ),
-          );
-        }else if(state is HomeFailure){
-          return Center(child: Styles.text(state.errorMessage),);
-        }
-        else{
-          return loadingIndicator();
-        }
-      }),
+      body: RefreshIndicator(
+        color: Styles.primary,
+        onRefresh: ()async{
+          homeCubit.getHomeData();
+        },
+        child: BlocBuilder<HomeCubit,HomeState>(builder: (context,state){
+          if(state is HomeSuccess){
+            return SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  Column(
+                    children: [
+                      const SearchTextField(readOnly: true,),
+                      ...List.generate(homeCubit.homeList.length, (index){
+                        if(homeCubit.homeList[index].type=="banner"){
+                          return SliderContainer(homeModelWithBannerItems: homeCubit.homeList[index]);
+                        }else if(homeCubit.homeList[index].type=="categories"){
+                          return HorizontalCategoriesList(categoriesList: homeCubit.homeList[index].categoriesList);
+                        }else if(homeCubit.homeList[index].type=="slide_products"){
+                          return HomeProductsList(homeModelWithProducts: homeCubit.homeList[index]);
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
+                      // const NewProducts()
+                    ],
+                  ),
+                ],
+              ),
+            );
+          }else if(state is HomeFailure){
+            return Center(child: Styles.text(state.errorMessage),);
+          }
+          else{
+            return loadingIndicator();
+          }
+        }),
+      ),
     );
   }
 }

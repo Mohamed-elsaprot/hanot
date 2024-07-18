@@ -1,9 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/features/home/models/HomeModelWithProducts/HomeModelWithProducts.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/general_widgets/item_card.dart';
 
 class HomeProductsList extends StatelessWidget {
@@ -11,6 +11,7 @@ class HomeProductsList extends StatelessWidget {
   final HomeModelWithProducts homeModelWithProducts;
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 5.h),
       padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -24,7 +25,7 @@ class HomeProductsList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Styles.text(homeModelWithProducts.title??''),
-                Styles.text(Texts.showAll.tr(),size: 12,color: Styles.primary,fontWeight: FontWeight.w900)
+                Styles.text(textsMap['mobile_show_all'],size: 12,color: Styles.primary,fontWeight: FontWeight.w900)
               ],
             ),
           ),

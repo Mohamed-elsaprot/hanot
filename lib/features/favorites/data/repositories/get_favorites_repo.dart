@@ -41,4 +41,30 @@ class GetFavoritesRepo {
       }
     }
   }
+
+  Future<Either<Failure, dynamic>> setFav({required int productId}) async {
+    try {
+      var response = await ApiService.postDataWithToken(endPoint: ApiService.favorites, postedData: {"product_id": productId});
+      return Right(response);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+      }
+    }
+  }
+  
+  Future<Either<Failure, dynamic>> removeFav({required int productId}) async {
+    try {
+      var response = await ApiService.delete(endPoint: '${ApiService.favorites}/$productId');
+      return Right(response);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+      }
+    }
+  }
 }

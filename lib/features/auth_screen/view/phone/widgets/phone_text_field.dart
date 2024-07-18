@@ -1,11 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/consts.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/auth_screen/manager/auth_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
 
@@ -16,6 +15,7 @@ class AuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     return BlocBuilder<AuthCubit,AuthState>(builder: (context,state) {
       return TextFormField(
         controller: controller,
@@ -23,8 +23,8 @@ class AuthTextField extends StatelessWidget {
         onSaved: (x) {if(authCubit.authType=='phone'){authCubit.phone='+972${x!}';}else{authCubit.email=x;}},
         validator: (x){
           if(authCubit.authType=='phone'){
-            if(x!.length!=10){
-              return '10 num needed';
+            if(x!.isEmpty){
+              return 'required';
             }else {
               return null;
             }
@@ -39,7 +39,7 @@ class AuthTextField extends StatelessWidget {
         keyboardType:authCubit.authType=='phone'? TextInputType.phone:TextInputType.emailAddress,
         textAlign: TextAlign.end,
         decoration: InputDecoration(
-            hintText: authCubit.authType=='phone'?Texts.enterMobileNumberHere.tr():'your@email.com',
+            hintText: authCubit.authType=='phone'?textsMap['mobile_Enter_mobile_number_here']:'your@email.com',
             hintStyle: const TextStyle(fontFamily: fontFamily,color: Colors.black38,),
             suffix: authCubit.authType=='phone'? Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(12, 0, 0 ,0),

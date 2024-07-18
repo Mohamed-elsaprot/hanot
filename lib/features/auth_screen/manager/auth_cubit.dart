@@ -48,7 +48,7 @@ class AuthCubit extends Cubit<AuthState>{
       if(map['token']!=null){
         isAuth=true;
         await SecureStorage.setToken(map['token']);
-        print(map['token']);
+        await SecureStorage.setUserId(id.toString());
         Navigator.pop(context);
         emit(AuthSuccess());
       }
@@ -60,6 +60,5 @@ class AuthCubit extends Cubit<AuthState>{
     String? token = await SecureStorage.getToken();
     if(token!=null) isAuth = true;
     print(token);
-    print(isAuth);
   }
 }

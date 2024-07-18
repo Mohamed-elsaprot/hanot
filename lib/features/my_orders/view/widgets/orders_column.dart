@@ -11,11 +11,11 @@ class OrdersColumn extends StatelessWidget {
   const OrdersColumn({
     super.key,
     required this.dataList,
-    required this.last,
+    required this.last, required this.isPrev,
   });
 
-  final List<Order> dataList;
-  final bool last;
+  final List<MyOrderModel> dataList;
+  final bool last,isPrev;
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +23,11 @@ class OrdersColumn extends StatelessWidget {
       children: [
         Column(
           children: List.generate(dataList.length, (index) {
-            var day = DateFormat.d().format(
-                DateTime.parse(dataList[index].createdAt!.split(' | ').first));
-            var month = DateFormat.MMMM('ar').format(
-                DateTime.parse(dataList[index].createdAt!.split(' | ').first));
-            var year = DateFormat.y().format(
-                DateTime.parse(dataList[index].createdAt!.split(' | ').first));
-            var time = dataList[index].createdAt!.split(' | ').last;
-            return OrderContainer(
-              order: dataList[index],
-              day: day,
-              month: month,
-              year: year,
-              time: time,
-            );
+            return OrderContainer(order: dataList[index], inDetailsScreen: false,);
           }),
         ),
         SizedBox(height: 8.h),
-        last || dataList.length <= 4 ? const SizedBox() : loadingIndicator(),
+        if(isPrev)last || dataList.length <= 9 ? const SizedBox() : loadingIndicator(),
       ],
     );
   }

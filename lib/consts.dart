@@ -19,14 +19,15 @@ List<Widget> tabsList = [
   const SettingsScreen(),
 ];
 const String fontFamily = 'Noto Kufi Arabic';
+
 List<ShippingCompany> constComList = [
-  ShippingCompany(
-      name: Texts.selfPickUp.tr(),
-      id: 0,
-      cost: '0',
-      duration: Texts.selfPickUp.tr(),
-      priceId: 0,
-      supportedCities: [])
+  // ShippingCompany(
+  //     name: Texts.selfPickUp.tr(),
+  //     id: 0,
+  //     cost: '0',
+  //     duration: Texts.selfPickUp.tr(),
+  //     priceId: 0,
+  //     supportedCities: [])
 ];
 
 extension HexColor on Color {

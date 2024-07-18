@@ -6,6 +6,7 @@ import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/paymentMethod_state.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
 import '../../../../../core/design/images.dart';
@@ -22,8 +23,10 @@ class PaymentMethodsContainer extends StatefulWidget {
 class _PaymentMethodsContainerState extends State<PaymentMethodsContainer> {
 
   late PaymentMethodCubit paymentMethodCubit;
+  late Map textsMap;
   @override
   void initState() {
+    textsMap = BlocProvider.of<LangCubit>(context).texts;
     paymentMethodCubit = BlocProvider.of<PaymentMethodCubit>(context);
     super.initState();
   }
@@ -35,7 +38,7 @@ class _PaymentMethodsContainerState extends State<PaymentMethodsContainer> {
             children: [
               Image.asset(Images.cardLogo, scale: 4,),
               SizedBox(width: 10.w,),
-              Styles.text(Texts.paymentMethod.tr(), size: 14)
+              Styles.text(textsMap['mobile_paymentMethod'], size: 14)
             ],
           ),
           Divider(endIndent: 5, indent: 5, height: 20.h,),

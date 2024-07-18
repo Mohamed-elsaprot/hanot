@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +10,7 @@ import 'package:hanot/features/check_out/check_out_screen/manager/note_cubit/not
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/features/payment_web_view/manager/get_payment_link_cubit.dart';
 import 'package:hanot/features/payment_web_view/manager/get_payment_link_state.dart';
 import '../../../../../core/design/appTexts.dart';
@@ -26,6 +26,7 @@ class CompleteOrderContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     var cartCubit = BlocProvider.of<CartCubit>(context);
     var couponCubit = BlocProvider.of<CouponCubit>(context);
     var shippingFeesCubit = BlocProvider.of<ShippingFeesCubit>(context);
@@ -46,7 +47,7 @@ class CompleteOrderContainer extends StatelessWidget {
                     builder: (context, couponState) {
                   num? totalWithShipping = shippingFeesCubit.shippingFeesModel?.total;
                   if (totalWithShipping != null) totalWithShipping -= couponCubit.couponDiscount!;
-                  return Styles.text('${Texts.orderTotal.tr()} ${totalWithShipping ?? cartCubit.cartTotal - couponCubit.couponDiscount!} ${Texts.currency}');
+                  return Styles.text('${textsMap['mobile_Order_Total']} ${totalWithShipping ?? cartCubit.cartTotal - couponCubit.couponDiscount!} ${Texts.currency}');
                 });
               })),
           Expanded(
@@ -85,7 +86,7 @@ class CompleteOrderContainer extends StatelessWidget {
                           addressId: add.selectedAddressId,
                           priceId: ship.groupVal);
                     },
-                    title: Texts.confirmOrder.tr(),
+                    title: textsMap['mobile_confirmOrder'],
                     rad: 30,
                     padding: EdgeInsets.symmetric(vertical: 7.h),
                   ),) ;

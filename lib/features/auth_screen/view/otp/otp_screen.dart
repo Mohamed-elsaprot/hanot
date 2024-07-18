@@ -6,9 +6,9 @@ import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/auth_screen/manager/auth_state.dart';
 import 'package:hanot/features/auth_screen/view/otp/widgets/otp_text_field.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/general_widgets/custom_button.dart';
 
-import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/images.dart';
 import '../phone/widgets/auth_sheet_close_button.dart';
@@ -19,6 +19,7 @@ class OtpScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     focusNode.requestFocus();
     return SizedBox(
       height: 660.h,
@@ -37,15 +38,15 @@ class OtpScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Styles.text(Texts.password,).tr(),
+                          Styles.text(textsMap['mobile_Password'],).tr(),
                         ],
                       ),
                       SizedBox(height: 50.h,),
                       ClipRRect(borderRadius: BorderRadius.circular(40.r), child: Image.asset(Images.otp,height: 110.h,),),
                       SizedBox(height: 15.h,),
-                      Styles.text(Texts.toContinueTheLoginProcess,size: 22).tr(),
+                      Styles.text(textsMap['mobile_To_Continue_Login_process'],size: 22).tr(),
                       SizedBox(height: 15.h,),
-                      Styles.subTitle(Texts.pleaseEnterTheOtp,size: 16,color: Colors.black54).tr(),
+                      Styles.subTitle(textsMap['mobile_Please_Enter_The_Otp'],size: 16,color: Colors.black54).tr(),
                       SizedBox(height: 50.h,),
                       Form(key: formKey,child: OtpTextField(focusNode: focusNode)),
                       SizedBox(height: 30.h,),
@@ -61,7 +62,7 @@ class OtpScreen extends StatelessWidget {
                                     focusNode.unfocus();
                                     formKey.currentState!.save();
                                   }
-                                }, title: Texts.confirm.tr(),textSize: 20,rad: 20,));
+                                }, title: textsMap['mobile_Confirm'],textSize: 20,rad: 20,));
                         }
                       })
 

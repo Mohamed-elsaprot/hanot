@@ -8,6 +8,7 @@ import 'package:hanot/features/check_out/check_out_screen/manager/shipping_compa
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_state.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/change_shipping_company_sheet/change_shipping_company_sheet.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
 import '../../../../../core/design/images.dart';
@@ -20,6 +21,7 @@ class ShippingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var shippingCubit = BlocProvider.of<ShippingCompaniesCubit>(context);
     return CustomContainer(
         body:[
@@ -27,7 +29,7 @@ class ShippingContainer extends StatelessWidget {
             children: [
               Image.asset(Images.shippingLogo, scale: 4,),
               SizedBox(width: 10.w,),
-              Styles.text(Texts.shippingCompany.tr(), size: 14)
+              Styles.text(textsMap['mobile_Shipping_Company'], size: 14)
             ],
           ),
           Divider(endIndent: 5, indent: 5, height: 20.h,),
@@ -53,7 +55,7 @@ class ShippingContainer extends StatelessWidget {
                 children: [
                   cachedImage('https://arqam.news/wp-content/uploads/2024/03/talabat.jpg',width: 40,height: 32,rad: 50),
                   SizedBox(width: 8.w,),
-                  Styles.text(Texts.selfPickUp.tr(), size: 14),
+                  Styles.text(textsMap['mobile_selfPickUp'], size: 14),
                 ],
               );
             }
@@ -65,7 +67,7 @@ class ShippingContainer extends StatelessWidget {
               fun: () {
                 bottomSheet(context, const ChangeShippingCompanySheet());
               },
-              textSize: 13,rad: 30, title: Texts.changeShippingCompany.tr(),
+              textSize: 13,rad: 30, title: textsMap['changeShippingCompany'],
               backGroundColor: Colors.grey.shade200,
               textColor: Colors.black,
             ),

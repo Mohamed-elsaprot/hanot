@@ -1,28 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hanot/features/order_details/data/get_single_order_repo.dart';
+import 'package:hanot/features/order_details/data/get_states_repo.dart';
+import 'package:hanot/features/order_details/manager/single_order_cubit.dart';
 import 'package:hanot/features/order_details/view/widgets/order_details_body.dart';
 
 class OrderDetails extends StatelessWidget {
-  const OrderDetails(
-      {Key? key,
-      // required this.statusName,
-      // this.color,
-      // this.day,
-      // this.month,
-      // this.year,
-      // this.time
-      })
-      : super(key: key);
-  // final String? statusName, color, day, month, year, time;
+  const OrderDetails({Key? key, required this.orderId,}) : super(key: key);
+  final int orderId;
 
   @override
   Widget build(BuildContext context) {
-    return OrderDetailsBody(
-      // color: color,
-      // statusName: statusName,
-      // day: day,
-      // month: month,
-      // year: year,
-      // time: time,
+    return BlocProvider(
+      create: (context) =>
+          SingleOrderCubit(GetSingleOrderRepo(), GetStatesRepo())
+            ..getSingleOrder(orderId: orderId),
+      child: OrderDetailsBody(orderId: orderId,),
     );
   }
 }

@@ -16,6 +16,7 @@ import 'package:hanot/features/favorites/view/favorites_screen.dart';
 import 'package:hanot/features/order_details/view/order_details.dart';
 import 'package:hanot/features/payment_web_view/data/get_payment_link_repo_impl.dart';
 import 'package:hanot/features/payment_web_view/manager/get_payment_link_cubit.dart';
+import 'package:hanot/features/search/view/search.dart';
 import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.dart';
 import 'package:hanot/features/sub_category_screen/view/sub_category_screen.dart';
 import 'package:hanot/features/navigation_screen/view/navigation_screen.dart';
@@ -38,6 +39,7 @@ abstract class AppRouter {
   static const allOldAddressesScreen = '/allOldAddressesScreen';
   static const favScreen = '/favScreen';
   static const orderDetails = '/orderDetails';
+  static const search = '/search';
 
   // static const paymentWebView = '/paymentWebView';
 
@@ -47,15 +49,9 @@ abstract class AppRouter {
       builder: (BuildContext context, GoRouterState state) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-              create: (context) => HomeCubit(HomeDataRepoImpl())
-            ),
-            BlocProvider(
-              create: (context) =>    SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),
-            ),
-            BlocProvider(
-              create: (context) =>  OrdersCubit(ordersRepo: OrdersRepo()),
-            ),
+            BlocProvider(create: (context) => HomeCubit(HomeDataRepoImpl())),
+            BlocProvider(create: (context) =>    SmallCategoryCubit(SmallCategoryRepoImpl())..getSmallCategories(),),
+            BlocProvider(create: (context) =>  OrdersCubit(ordersRepo: OrdersRepo()),),
           ],
           child: const NavigationScreen(),
         );
@@ -120,15 +116,13 @@ abstract class AppRouter {
     GoRoute(
       path: orderDetails,
       builder: (BuildContext context, GoRouterState state) {
-        // var model = state.extra as List<String?>;
-        return OrderDetails(
-          // statusName: model[0],
-          // color: model[1],
-          // day: model[2],
-          // month: model[3],
-          // time: model[5],
-          // year: model[4],
-        );
+        return OrderDetails(orderId: state.extra as int,);
+      },
+    ),
+    GoRoute(
+      path: search,
+      builder: (BuildContext context, GoRouterState state) {
+        return const Search();
       },
     ),
     // GoRoute(

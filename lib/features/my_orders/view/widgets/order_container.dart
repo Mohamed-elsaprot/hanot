@@ -8,19 +8,11 @@ import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/images.dart';
 
 class OrderContainer extends StatelessWidget {
-  const OrderContainer(
-      {Key? key,
-      required this.day,
-      required this.month,
-      required this.year,
-      required this.time, required this.order})
-      : super(key: key);
-
-  final String?  day, month, year, time;
-  final Order order;
+  const OrderContainer({Key? key, required this.order, required this.inDetailsScreen}) : super(key: key);
+  final bool inDetailsScreen;
+  final MyOrderModel order;
   @override
   Widget build(BuildContext context) {
-    print(order.id);
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.r), color: Colors.white),
@@ -30,23 +22,14 @@ class OrderContainer extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(
-                Images.orderIcon,
-                width: 40.w,
-              ),
-              SizedBox(
-                width: 10.w,
-              ),
+              Image.asset(Images.orderIcon, width: 40.w,),
+              SizedBox(width: 10.w,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Styles.text('رقم الطلب : ${order.id}'),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Styles.subTitle(
-                      'تاريخ الطلب : $day $month $year - $time صباحاً',
-                      size: 11),
+                  SizedBox(height: 4.h,),
+                  Styles.subTitle('تاريخ الطلب : ${order.createdAt}', size: 11),
                 ],
               )
             ],
@@ -57,12 +40,11 @@ class OrderContainer extends StatelessWidget {
           Row(
             children: [
               Styles.text('حالة الطلب : ', color: Colors.black54, size: 12),
-              Styles.text(order.statusName??'state name', size: 12, color: HexColor.fromHex(order.statusColor!.color!)),//
+              Styles.text(order.statusName??'state name', size: 12, color: HexColor.fromHex(order.statusColor!)),//
               const Spacer(),
-              GestureDetector(
+              if(!inDetailsScreen)GestureDetector(
                   onTap: () {
-                    AppRouter.router.push(AppRouter.orderDetails,
-                        extra:<String?> [order.statusName, order.statusColor!.color!, day, month, year, time]);
+                    AppRouter.router.push(AppRouter.orderDetails, extra: order.id);
                   },
                   child: Styles.text('عرض التفاصيل', size: 12)),
             ],

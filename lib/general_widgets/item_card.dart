@@ -63,7 +63,7 @@ class ItemCard extends StatelessWidget {
               ],
             ),
             BlocBuilder<FavCubit,FavState>(builder: (context,state){
-              return const PositionedDirectional(top: 15, end: 15, child: FavIcon());
+              return PositionedDirectional(top: 15, end: 15, child: FavIcon(product: product,));
             }),
           ],
         ),

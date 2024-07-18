@@ -1,9 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/images.dart';
 import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../consts.dart';
 import '../../general_widgets/custom_button.dart';
@@ -11,6 +13,7 @@ import 'app_styles.dart';
 
 errorDialog({required BuildContext context,required String message,})async{
   showDialog(context: context, builder: (context){
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     return AlertDialog(
       shape: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
       title: Column(
@@ -21,7 +24,7 @@ errorDialog({required BuildContext context,required String message,})async{
           CustomButton(
             padding: EdgeInsets.symmetric(horizontal: 45.w,vertical: 10.h),
             fun: () => Navigator.pop(context),
-            title: Texts.close.tr(),
+            title: textsMap['mobile_close'],
             rad: 50,textSize: 12,
           )
         ],

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dio/dio.dart';
 import 'package:hanot/core/local_storage/secure_storage.dart';
 
@@ -23,6 +25,14 @@ class ApiService {
   static const applyCoupon = '/coupon';
   static const checkout = '/checkout';
   static const payment = '/payment';
+  static const currentOrders = '/orders/current';
+  static const prevOrders = '/orders';
+  static const favorites = '/favorites';
+  static const search = '/search?key=';
+  static const states = '/orders/status';
+  static const translations = '/translations';
+  static const languages = '/languages';
+  static const defaultLang = '/languages/default';
 
   static final Dio _dio = Dio(
     BaseOptions(
@@ -33,6 +43,14 @@ class ApiService {
   static Future<Map<String, dynamic>> getData({
     required String endPoint,
   }) async {
+    String? userId = await SecureStorage.getUserId();
+    if(userId!=null){
+      _dio.options.headers['user-id'] = int.parse(userId);
+    }
+    String? lang = await SecureStorage.getUserLang();
+    if(lang!=null){
+      _dio.options.headers['locale'] = lang;
+    }
     Response res = await _dio.get(
       baseUrl + endPoint,
     );
@@ -41,6 +59,10 @@ class ApiService {
 
   static Future postData(
       {required String endPoint, required postedData}) async {
+    String? lang = await SecureStorage.getUserLang();
+    if(lang!=null){
+      _dio.options.headers['locale'] = lang;
+    }
     Response res = await _dio.post(baseUrl + endPoint, data: postedData);
     return res.data;
   }
@@ -51,10 +73,16 @@ class ApiService {
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
     }
+    String? userId = await SecureStorage.getUserId();
+    if(userId!=null){
+      _dio.options.headers['user-id'] = int.parse(userId);
+    }
+    String? lang = await SecureStorage.getUserLang();
+    if(lang!=null){
+      _dio.options.headers['locale'] = lang;
+    }
     Response res = await _dio.get(
-      perPage == null
-          ? baseUrl + endPoint
-          : '$baseUrl$endPoint?page=1&pre_page=$perPage',
+      perPage == null ? baseUrl + endPoint : '$baseUrl$endPoint?page=1&pre_page=$perPage',
     );
     return res.data;
   }
@@ -64,6 +92,14 @@ class ApiService {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
+    }
+    String? userId = await SecureStorage.getUserId();
+    if(userId!=null){
+      _dio.options.headers['user-id'] = int.parse(userId);
+    }
+    String? lang = await SecureStorage.getUserLang();
+    if(lang!=null){
+      _dio.options.headers['locale'] = lang;
     }
     Response res = await _dio.post(baseUrl + endPoint, data: postedData);
     return res.data;
@@ -87,12 +123,18 @@ class ApiService {
     return res.data;
   }
 
-  static Future getCategoryProducts({
-    required String catId,
-  }) async {
+  static Future getCategoryProducts({required String catId,}) async {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
+    }
+    String? userId = await SecureStorage.getUserId();
+    if(userId!=null){
+      _dio.options.headers['user-id'] = int.parse(userId);
+    }
+    String? lang = await SecureStorage.getUserLang();
+    if(lang!=null){
+      _dio.options.headers['locale'] = lang;
     }
     Response res = await _dio.get(
       '$baseUrl/categories/$catId?page=1&pre_page=26',
@@ -100,15 +142,23 @@ class ApiService {
     return res.data;
   }
 
-  static Future getNextPage(
-      {required String link, required String perPage}) async {
+  static Future getNextPage({required String link, required String perPage}) async {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
+    }
+    String? userId = await SecureStorage.getUserId();
+    if(userId!=null){
+      _dio.options.headers['user-id'] = int.parse(userId);
+    }
+    String? lang = await SecureStorage.getUserLang();
+    if(lang!=null){
+      _dio.options.headers['locale'] = lang;
     }
     Response res = await _dio.get(
       '$link&pre_page=$perPage',
     );
     return res.data;
   }
+
 }

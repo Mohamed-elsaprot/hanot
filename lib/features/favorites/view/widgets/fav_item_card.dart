@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
+import 'package:hanot/features/favorites/data/models/get_favorites_model.dart';
+import 'package:hanot/general_widgets/item_price_row.dart';
 import 'package:hanot/general_widgets/removed_price.dart';
 
 import '../../../../core/design/appTexts.dart';
@@ -10,30 +12,19 @@ import '../../../../core/design/fun.dart';
 import '../../../../core/design/widgets.dart';
 import '../../../../core/models/category_model/Product.dart';
 import '../../../../general_widgets/add_to_cart_sheet/add_to_cart_sheet.dart';
-import '../../../auth_screen/view/phone/auth_screen.dart';
 import '../../../../general_widgets/fav_icon.dart';
+import '../../../auth_screen/view/phone/auth_screen.dart';
+import '../../manager/fav_cubit.dart';
 
 class FavItemCard extends StatelessWidget {
-  final String? salePrice,
-      image,
-      productName,
-      discountPrice,
-      availableQuantity,
-      costPrice;
-  final Product product;
-  const FavItemCard(
-      {Key? key,
-      this.salePrice,
-      this.image,
-      this.productName,
-      this.discountPrice,
-      this.availableQuantity,
-      this.costPrice,
-      required this.product})
-      : super(key: key);
+  const FavItemCard({Key? key, required this.favItemModel, required this.index}) : super(key: key);
+  final FavItemModel favItemModel;
+  final int index;
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
+    var favCubit = BlocProvider.of<FavCubit>(context);
+    bool checkPrice= favItemModel.discountPrice!=null&&favItemModel.discountPrice!=0;
     return GestureDetector(
       onTap: () async {
         if (!authCubit.isAuth) {
@@ -42,7 +33,7 @@ class FavItemCard extends StatelessWidget {
             const AuthScreen(),
           );
         } else {
-          bottomSheet(context, AddToCartSheet(product: product), rad: 0);
+          bottomSheet(context, AddToCartSheet(product: Product(id: favItemModel.productId, inFavorites: true)), rad: 0);
         }
       },
       child: Stack(
@@ -60,45 +51,35 @@ class FavItemCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: cachedImage(image ?? '',
-                        rad: 10, height: 100, width: 120),
-                  ),
-                  SizedBox(
-                    width: 10.w,
-                  ),
+                    child: cachedImage(favItemModel.image ?? '', rad: 10, height: 100, width: 120),),
+                  SizedBox(width: 10.w,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
                           width: 200.w,
-                          child: Styles.text(productName ?? '',
-                              size: 13, overflow: TextOverflow.ellipsis)),
-                      SizedBox(
-                        height: 8.h,
+                          child: Styles.text(favItemModel.name ?? '', size: 13, overflow: TextOverflow.ellipsis),
                       ),
+                      // SizedBox(
+                      //   height: 8.h,
+                      // ),
+                      // SizedBox(
+                      //     width: 200.w,
+                      //     child: Styles.subTitle(favItemModel.,
+                      //         size: 11, overflow: TextOverflow.ellipsis)),
+                      SizedBox(height: 8.h,),
+                      Styles.subTitle('متبقي ${favItemModel.quantity} قطعة', color: Colors.red),
+                      SizedBox(height: 15.h,),
                       SizedBox(
-                          width: 200.w,
-                          child: Styles.subTitle('منتوجات مستوردة',
-                              size: 11, overflow: TextOverflow.ellipsis)),
-                      SizedBox(
-                        height: 8.h,
-                      ),
-                      Styles.subTitle('متبقي $availableQuantity قطعة',
-                          color: Colors.red),
-                      SizedBox(
-                        height: 15.h,
-                      ),
-                      Row(
-                        children: [
-                          Styles.text('$salePrice ${Texts.currency}',
-                              color: Styles.primary),
-                          SizedBox(
-                            width: 10.w,
-                          ),
-                          if (salePrice != null && salePrice != costPrice)
-                            RemovedPrice(removedPrice: num.parse(costPrice!)),
-                        ],
+                        height: 20.h,
+                        child: Row(
+                          children: [
+                            Styles.text('${checkPrice? favItemModel.discountPrice : favItemModel.salePrice} ${Texts.currency}',color: Styles.primary,size: 13),
+                            SizedBox(width: 5.w,),
+                            if(checkPrice)RemovedPrice(removedPrice: favItemModel.salePrice??0),
+                          ],
+                        ),
                       )
                     ],
                   )
@@ -106,7 +87,7 @@ class FavItemCard extends StatelessWidget {
               ),
             ),
           ),
-          const PositionedDirectional(end: 25, top: 25, child: FavIcon())
+          PositionedDirectional(end: 25, top: 25, child: FavIcon(product: Product(inFavorites: true,id: favItemModel.productId),))
         ],
       ),
     );

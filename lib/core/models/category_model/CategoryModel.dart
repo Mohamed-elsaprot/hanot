@@ -26,21 +26,6 @@ class CategoryProductsModel {
   Meta? meta;
   String? message;
 
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    if (productsList != null) {
-      map['data'] = productsList?.map((v) => v.toJson()).toList();
-    }
-    // if (links != null) {
-    //   map['links'] = links?.toJson();
-    // }
-    if (meta != null) {
-      map['meta'] = meta?.toJson();
-    }
-    map['message'] = message;
-    return map;
-  }
-
   CategoryProductsModel copyWith({ required List<Product>? list, required Links? links, required Meta? meta, required String? message,
   }) => CategoryProductsModel(
     productsList: list ,

@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../core/design/app_styles.dart';
 import '../../../../../general_widgets/custom_textField.dart';
@@ -13,12 +12,13 @@ class NoteContainer extends StatelessWidget {
   const NoteContainer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var noteCubit = BlocProvider.of<NoteCubit>(context);
     return CustomContainer(
         body: [
-          Styles.text(Texts.doYouHaveNoteOnOrder.tr()),
+          Styles.text(textsMap['mobile_Do_you_have_a_note_on_the_order?']),
           SizedBox(height: 8.h,),
-          CustomTextField(hint: Texts.addNote.tr(),icon: const Icon(CupertinoIcons.chat_bubble_2), controller: noteCubit.noteController)
+          CustomTextField(hint: textsMap['mobile_Add_Note'],icon: const Icon(CupertinoIcons.chat_bubble_2), controller: noteCubit.noteController)
         ]
     );
   }

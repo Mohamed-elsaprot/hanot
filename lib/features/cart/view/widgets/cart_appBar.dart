@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,8 +16,8 @@ class CartAppBar extends StatelessWidget {
         Image.asset(Images.c,width: 30.w,),
         const Spacer(),
         CircleAvatar(backgroundColor: Styles.primary.withOpacity(.05), child: const Icon(Icons.notifications_none_rounded,color: Styles.primary,)),
-        SizedBox(width: 10.w,),
-        CircleAvatar(backgroundColor: Styles.primary.withOpacity(.05),child: const Icon(CupertinoIcons.delete_simple,color: Styles.primary,)),
+        // SizedBox(width: 10.w,),
+        // CircleAvatar(backgroundColor: Styles.primary.withOpacity(.05),child: const Icon(CupertinoIcons.delete_simple,color: Styles.primary,)),
       ],
     );
   }

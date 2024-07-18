@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/general_widgets/add_to_cart_sheet/managers/hint_cubit/hint_cubit.dart';
 import 'package:hanot/general_widgets/add_to_cart_sheet/managers/single_products_details_cubit/single_products_details_state.dart';
@@ -36,10 +37,13 @@ class AddToCartSheet extends StatelessWidget {
                   context: context);
               hintCubit.emit(HintInitial());
             }
+            if(state is SingleProductDetailsFailure){
+              errorDialog(context: context, message: state.errorMessage);
+            }
           },
           builder: (BuildContext context, SingleProductDetailsState state) {
           if(state is SingleProductDetailsSuccess){
-            return const SheetBody();
+            return SheetBody(product: product,);
           }else{
             return loadingIndicator();
           }

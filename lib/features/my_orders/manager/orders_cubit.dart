@@ -9,7 +9,8 @@ part 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {
   late OrdersRepo ordersRepo;
-  late OrdersModel orderModel;
+  late OrdersModelRes orderModel;
+  List<MyOrderModel> currentOrdersList=[];
   int orderNavIsSelected = 0;
   bool last = false;
 
@@ -24,36 +25,42 @@ class OrdersCubit extends Cubit<OrdersState> {
     last = false;
   }
 
-  Future<void> getCurrentOrders() async {
+  Future<void> getCurrentOrders(BuildContext context)async{
     emit(OrdersLoading());
-    try {
-      var result = await ordersRepo.getCurrentOrders();
+    var result = await ordersRepo.getCurrentOrders();
+    result.fold((failure) {
+      emit(OrdersFailure(errorMessage: failure.errorMessage));
+    }, (list) {
+      currentOrdersList=list;
+      emit(OrdersSuccess(currentOrders: currentOrdersList));
+    });
+  }
+
+  Future<void> getPrevOrders(BuildContext context) async {
+    emit(OrdersLoading());
+      var result = await ordersRepo.getPrevOrders();
       result.fold((failure) {
         emit(OrdersFailure(errorMessage: failure.errorMessage));
       }, (ordersModel) {
         orderModel = ordersModel;
-        emit(OrdersSuccess(orders: ordersModel));
+        emit(OrdersSuccess(prevOrdersModelRes: ordersModel));
       });
-    } catch (e) {
-      emit(OrdersFailure(errorMessage: e.toString()));
-    }
   }
 
-  Future<void> getCurrentNextOrders(BuildContext context) async {
+  Future<void> getPrevNextOrders(BuildContext context) async {
     if (orderModel.nextPageUrl != null) {
-      List<Order> cache = orderModel.ordersList!;
-      var res = await ordersRepo.getCurrentNextPageOrders(
+      List<MyOrderModel> cache = orderModel.ordersList!;
+      var res = await ordersRepo.getPrevNextPageOrders(
           link: orderModel.nextPageUrl!);
       res.fold((failure) {
         errorDialog(context: context, message: failure.errorMessage);
       }, (ordersModel) {
         cache.addAll(ordersModel.ordersList!);
-        orderModel =
-            orderModel.copyWith(next: ordersModel.nextPageUrl, list: cache);
+        orderModel = orderModel.copyWith(next: ordersModel.nextPageUrl, list: cache);
       });
     } else {
       last = true;
     }
-    emit(OrdersSuccess(orders: orderModel));
+    emit(OrdersSuccess(prevOrdersModelRes: orderModel));
   }
 }

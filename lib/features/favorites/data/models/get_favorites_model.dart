@@ -1,33 +1,33 @@
 class GetFavoritesModel {
-  List<Data>? data;
+  List<FavItemModel>? favItemsList;
   Links? links;
   Meta? meta;
 
-  GetFavoritesModel({this.data, this.links, this.meta});
+  GetFavoritesModel({this.favItemsList, this.links, this.meta});
 
   GetFavoritesModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      favItemsList = <FavItemModel>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        favItemsList!.add(FavItemModel.fromJson(v));
       });
     }
     links = json['links'] != null ? Links.fromJson(json['links']) : null;
     meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
   }
   GetFavoritesModel copyWith({
-    required List<Data>? data,
+    required List<FavItemModel>? data,
     required Links? links,
     required Meta? meta,
   }) =>
       GetFavoritesModel(
-        data: data,
+        favItemsList: data,
         links: links,
         meta: meta,
       );
 }
 
-class Data {
+class FavItemModel {
   int? id;
   int? productId;
   String? name;
@@ -48,7 +48,7 @@ class Data {
   List<dynamic>? options;
   List<dynamic>? skus;
 
-  Data(
+  FavItemModel(
       {this.id,
       this.productId,
       this.name,
@@ -69,7 +69,7 @@ class Data {
       this.options,
       this.skus});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  FavItemModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     productId = json['product_id'];
     name = json['name'];

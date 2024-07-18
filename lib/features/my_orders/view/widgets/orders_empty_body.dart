@@ -10,8 +10,8 @@ class OrdersEmptyBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: 60.h,),
         Image.asset(Images.ordersEmpty,width: 200.w,),
         Styles.text('لا توجد طلبات جارية ',size: 18),
         SizedBox(height: 10.h,),

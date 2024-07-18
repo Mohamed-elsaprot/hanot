@@ -5,6 +5,7 @@ import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_cubit.dart';
 import 'package:hanot/features/cart/manager/counter_cubit/counter_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../data/cart_repo_impl.dart';
 import '../../models/CartProductModel.dart';
@@ -18,6 +19,7 @@ class CounterCubit extends Cubit<CounterState>{
 
   updateProduct({required String op,required String rowId,required CartProductModel product,required BuildContext context})async{
     var cartCubit = BlocProvider.of<CartCubit>(context);
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     if(!(product.qty == 1 && op =='-')){
       emit(CounterLoading());
       num? cacheQun = product.qty;
@@ -33,7 +35,7 @@ class CounterCubit extends Cubit<CounterState>{
           product.total = map['data']['price'] * product.qty;
           newCartTotal = double.parse(map['cart']['total']);
         }else{
-          errorDialog(context: context, message: Texts.quantityIsCurrentlyUnavailable.tr());
+          errorDialog(context: context, message: textsMap['mobile_Quantity_is_currently_unavailable.']);
           product.qty = cacheQun;
         }
         cartCubit.emit(CartInitial());

@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/widgets.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/add_new_add_cubit/add_new_add_cubit.dart';
@@ -14,12 +12,14 @@ import 'package:hanot/features/check_out/add_new_location/view/widgets/city_drop
 import 'package:hanot/features/check_out/add_new_location/view/widgets/country_drop_down_button.dart';
 import 'package:hanot/features/check_out/add_new_location/view/widgets/location_item_text_field.dart';
 import 'package:hanot/features/check_out/add_new_location/view/widgets/save_location_button.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 class AddNewLocationSheet extends StatelessWidget {
   const AddNewLocationSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var citiesCubit = BlocProvider.of<CitiesCubit>(context);
     var countriesCubit = BlocProvider.of<CountriesCubit>(context);
     var newAddressCubit = BlocProvider.of<AddNewAddressCubit>(context);
@@ -58,16 +58,16 @@ class AddNewLocationSheet extends StatelessWidget {
                               const CityDropDownButton(),
                             ],
                           ),
-                          LocationItemTextField(title: Texts.neighborhood.tr(),validator: (x){
+                          LocationItemTextField(title: textsMap['mobile_Neighborhood'],validator: (x){
                             if(x!.isEmpty){
-                              return Texts.required.tr();
+                              return textsMap['mobile_required'];
                             }else{
                               return null;
                             }
                           },required: true,controller: newAddressCubit.neighborhoodController,iconData: CupertinoIcons.scribble,),
-                          LocationItemTextField(title: Texts.homeDescription.tr(),required: false,controller: newAddressCubit.homeController,iconData: CupertinoIcons.chat_bubble_text,),
-                          LocationItemTextField(title: Texts.streetName.tr(),required: false,controller: newAddressCubit.streetController,iconData: Icons.receipt_long,),
-                          LocationItemTextField(title: Texts.postalCode.tr(),required: false,controller: newAddressCubit.postalCodeController,iconData: Icons.password_outlined,),
+                          LocationItemTextField(title: textsMap['mobile_Home_Description'],required: false,controller: newAddressCubit.homeController,iconData: CupertinoIcons.chat_bubble_text,),
+                          LocationItemTextField(title: textsMap['mobile_Street_Name'],required: false,controller: newAddressCubit.streetController,iconData: Icons.receipt_long,),
+                          LocationItemTextField(title: textsMap['mobile_Postal_Code'],required: false,controller: newAddressCubit.postalCodeController,iconData: Icons.password_outlined,),
                         ],
                       ),
                     ),

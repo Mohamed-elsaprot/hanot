@@ -6,8 +6,9 @@ final class OrdersInitial extends OrdersState {}
 final class NavChanged extends OrdersState {}
 
 final class OrdersSuccess extends OrdersState {
-  final OrdersModel orders;
-  OrdersSuccess({required this.orders});
+  final OrdersModelRes? prevOrdersModelRes;
+  final List<MyOrderModel>? currentOrders;
+  OrdersSuccess({ this.prevOrdersModelRes,this.currentOrders});
 }
 
 final class OrdersFailure extends OrdersState {

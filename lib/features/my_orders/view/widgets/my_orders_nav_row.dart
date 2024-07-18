@@ -6,9 +6,7 @@ import '../../../../core/design/app_styles.dart';
 import '../../manager/orders_cubit.dart';
 
 class MyOrdersNavRow extends StatefulWidget {
-  const MyOrdersNavRow({
-    Key? key,
-  }) : super(key: key);
+  const MyOrdersNavRow({Key? key,}) : super(key: key);
 
   @override
   State<MyOrdersNavRow> createState() => _MyOrdersNavRowState();
@@ -26,18 +24,15 @@ class _MyOrdersNavRowState extends State<MyOrdersNavRow> {
       child: Row(
         children: [
           navItem('الجارية', orderCubit.orderNavIsSelected == 0, () {
-            setState(() {});
-            orderCubit.orderNavIsSelected == 1
-                ? orderCubit.getCurrentOrders()
-                : null;
-            orderCubit.orderNavIsSelected == 1
-                ? orderCubit.resetLastValue()
-                : null;
+            orderCubit.orderNavIsSelected == 1 ? orderCubit.getCurrentOrders(context) : null;
             orderCubit.changeOrderNav(index: 0);
+            setState(() {});
           }),
           navItem('السابقة', orderCubit.orderNavIsSelected == 1, () {
-            setState(() {});
+            orderCubit.orderNavIsSelected == 0 ? orderCubit.getPrevOrders(context) : null;
+            orderCubit.orderNavIsSelected == 0 ? orderCubit.resetLastValue() : null;
             orderCubit.changeOrderNav(index: 1);
+            setState(() {});
           }),
         ],
       ),

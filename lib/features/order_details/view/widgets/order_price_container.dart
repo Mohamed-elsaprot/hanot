@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hanot/core/design/appTexts.dart';
+import 'package:hanot/features/order_details/models/single_order.dart';
 
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/images.dart';
 
 class OrderPriceContainer extends StatelessWidget {
-  const OrderPriceContainer({Key? key}) : super(key: key);
-
+  const OrderPriceContainer({Key? key, required this.singleOrder}) : super(key: key);
+  final SingleOrder singleOrder;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,27 +28,27 @@ class OrderPriceContainer extends StatelessWidget {
             ],
           ),
           Divider(height: 30.h,color: Colors.black26,),
-          priceRow('عدد المنتجات', 1),
-          priceRow('سعر المنتجات', 265.00),
-          priceRow('الخصومات', 10.00),
-          priceRow('رسوم التوصيل', 50),
-          priceRow('الضريبة المضافة 15%', 15),
+          priceRow('عدد المنتجات', singleOrder.detailsList.length.toString()),
+          priceRow('سعر المنتجات', '${double.tryParse(singleOrder.orderModel.subtotal!)??0} ${Texts.currency}'),
+          priceRow('الخصومات', '${singleOrder.orderModel.discount??0} ${Texts.currency}'),
+          priceRow('رسوم التوصيل','${singleOrder.orderModel.deliveryFee??0} ${Texts.currency}'),
+          // priceRow('الضريبة المضافة 15%', 15),
           Divider(height: 30.h,color: Colors.black26,),
-          priceRow('السعر الاجمالي', 15,main: true),
+          priceRow('السعر الاجمالي', '${double.tryParse(singleOrder.orderModel.total!)??0} ${Texts.currency}',main: true),
 
         ],
       ),
     );
   }
   
-  Widget priceRow(String title,num price,{bool? main=false}){
+  Widget priceRow(String title,String price,{bool? main=false}){
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
           Styles.text(title,color:main!?Colors.black :Colors.black26),
           const Spacer(),
-          Styles.text('$price ر.س'),
+          Styles.text(price),
         ],
       ),
     );

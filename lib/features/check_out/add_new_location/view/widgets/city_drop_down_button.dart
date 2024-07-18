@@ -1,11 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/cities_cubit/cities_cubit.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/cities_cubit/cities_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
-import '../../../../../../core/design/appTexts.dart';
 import '../../../../../../core/design/app_styles.dart';
 import '../../../../../../core/design/fun.dart';
 import '../../../../../../core/design/images.dart';
@@ -16,6 +15,7 @@ class CityDropDownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var citiesCubit = BlocProvider.of<CitiesCubit>(context);
     return Expanded(
       child: Column(
@@ -35,7 +35,7 @@ class CityDropDownButton extends StatelessWidget {
               return DropdownButtonFormField(
                 validator: (x){
                   if(x==null){
-                    return Texts.required.tr();
+                    return textsMap['mobile_required'];
                   }else {
                     return null;
                   }

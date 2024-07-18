@@ -25,22 +25,4 @@ class HomeModelWithProducts {
   String? type;
   List<Product>? productsList;
 
-
-  // Map<String, dynamic> toJson() {
-  //   final map = <String, dynamic>{};
-  //   map['id'] = id;
-  //   map['title'] = title;
-  //   map['type'] = type;
-  //   return map;
-  // }
-
-
-  // HomeModelWithProducts copyWith({  num? id,
-  //   String? title,
-  //   String? type,
-  // }) => HomeModelWithProducts(  id: id ?? this.id,
-  //   title: title ?? this.title,
-  //   type: type ?? this.type,
-  // );
-
 }

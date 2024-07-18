@@ -4,13 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/design/widgets.dart';
 
 class CategoryProductsScreenShimmer extends StatelessWidget {
-  const CategoryProductsScreenShimmer({Key? key,}) : super(key: key);
+  const CategoryProductsScreenShimmer({Key? key, this.padding=10,}) : super(key: key);
+  final double? padding;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: GridView.builder(
-          padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 10.w),
+          padding: EdgeInsets.symmetric(vertical: padding!.h,horizontal: padding!.w),
           physics: const BouncingScrollPhysics(),
           itemCount: 10,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

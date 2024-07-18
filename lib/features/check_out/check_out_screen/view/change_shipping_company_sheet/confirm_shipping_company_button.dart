@@ -1,10 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_state.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../general_widgets/custom_button.dart';
 import '../../manager/shipping_companies_cubit/shipping_companies_cubit.dart';
@@ -16,6 +15,7 @@ class ConfirmShippingCompanyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var shippingCompanyCubit = BlocProvider.of<ShippingCompaniesCubit>(context);
     var shippingFeesCubit = BlocProvider.of<ShippingFeesCubit>(context);
+    var textsMap = BlocProvider.of<LangCubit>(context).texts;
     return BlocListener<ShippingFeesCubit,ShippingFeesState>(listener: (context,state){
       if(state is ShippingFeesSuccess){
         shippingCompanyCubit.setSelectedCompany(index: newIndex.toInt());
@@ -26,7 +26,7 @@ class ConfirmShippingCompanyButton extends StatelessWidget {
       padding: EdgeInsets.only(left: 15.w,right: 15.w,bottom: 20.h,top: 10.h),
       child: CustomButton(fun: (){
         shippingFeesCubit.getShippingFees(priceId: shippingCompanyCubit.companiesList[newIndex.toInt()].priceId!, context: context);
-      }, title: Texts.confirm.tr(),rad: 50,),
+      }, title: textsMap['mobile_Confirm'],rad: 50,),
     ),);
   }
 }
