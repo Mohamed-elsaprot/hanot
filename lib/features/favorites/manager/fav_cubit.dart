@@ -12,11 +12,10 @@ class FavCubit extends Cubit<FavState> {
   late GetFavoritesRepo getFavoritesRepo;
   late GetFavoritesModel favoritesModel;
   bool last = false;
-  List<Product> favList = [];
   late int changedId;
+
   Future<void> getFavorites() async {
     emit(FavoritesLoading());
-    try {
       var result = await getFavoritesRepo.getFavorites();
       result.fold((failure) {
         emit(FavoritesFailure(errorMessage: failure.errorMessage));
@@ -24,9 +23,6 @@ class FavCubit extends Cubit<FavState> {
         favoritesModel = favModel;
         emit(FavoritesSuccess());
       });
-    } catch (e) {
-      emit(FavoritesFailure(errorMessage: e.toString()));
-    }
   }
 
   getNextPageFavorites(BuildContext context) async {
@@ -47,7 +43,7 @@ class FavCubit extends Cubit<FavState> {
     emit(FavoritesSuccess());
   }
 
-  setFavNewVal({required int productId,required bool favVal}) async {
+  setFavNewVal({required int productId,required bool favVal,bool fromFavScreen=false}) async {
     emit(ChangeFavValLoading());
     changedId = productId;
     var res = favVal? await getFavoritesRepo.removeFav(productId: productId): await getFavoritesRepo.setFav(productId: productId);
@@ -55,6 +51,7 @@ class FavCubit extends Cubit<FavState> {
       emit(ChangeFavValFailure(errorMessage: failure.errorMessage));
     }, ((x){
       emit(ChangeFavValSuccess());
+      fromFavScreen?getFavorites():null;
     }));
 
   }

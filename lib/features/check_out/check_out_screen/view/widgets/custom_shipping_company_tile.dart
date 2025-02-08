@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 
 import '../../../../../core/design/app_styles.dart';
-import '../../../../../core/design/widgets.dart';
+import '../../../../../core/design/widgets_fun.dart';
 
 class CustomRadioTiles<T> extends StatelessWidget {
   const CustomRadioTiles({Key? key, required this.val, required this.gVal, required this.fun, this.image, this.assetsImage, this.title, this.subTitle, this.horPadding=8, this.circleImage=false}) : super(key: key);
@@ -37,7 +36,7 @@ class CustomRadioTiles<T> extends StatelessWidget {
                     width: 200.w,
                     child: FittedBox(
                         alignment: AlignmentDirectional.centerStart,
-                        fit: BoxFit.scaleDown,child: Styles.text(title??'', size: 14))),
+                        fit: BoxFit.scaleDown,child: Styles.text(title??'No Name', size: 14))),
                 SizedBox(height: 6.h,),
                 SizedBox(
                     width: 200.w,

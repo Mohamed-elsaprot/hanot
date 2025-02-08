@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
+import 'package:hanot/core/models/category_model/Product.dart';
 import '../core/models/category_model/CategoryModel.dart';
 import 'item_card.dart';
 
 class GeneralProductsListBody extends StatelessWidget {
-  const GeneralProductsListBody({Key? key, required this.scrollController, required this.categoryModel, required this.last}) : super(key: key);
+  const GeneralProductsListBody({Key? key, required this.scrollController, required this.productList, required this.last}) : super(key: key);
   final ScrollController scrollController;
-  final CategoryProductsModel categoryModel;
+  final List<Product> productList;
   final bool last;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for(int i=0; i<categoryModel.productsList!.length; i+=2)
-          i == categoryModel.productsList!.length-1? Padding(
+        for(int i=0; i<productList!.length; i+=2)
+          i == productList!.length-1? Padding(
             padding: EdgeInsets.symmetric(vertical: 8.h),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(width: 185.w, child: ItemCard(product:categoryModel.productsList![i],)),
+                SizedBox(width: 185.w, child: ItemCard(product:productList![i],)),
                 SizedBox(width: 185.w,),
               ],
             ),
@@ -29,12 +30,12 @@ class GeneralProductsListBody extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                SizedBox(width: 185.w, child: ItemCard(product:categoryModel.productsList![i],)),
-                SizedBox(width: 185.w, child: ItemCard(product:categoryModel.productsList![i+1],)),
+                SizedBox(width: 185.w, child: ItemCard(product:productList![i],)),
+                SizedBox(width: 185.w, child: ItemCard(product:productList![i+1],)),
               ],
             ),
           ),
-        last || categoryModel.productsList!.length<=4? const SizedBox():loadingIndicator()
+        last || productList!.length<=4? const SizedBox():loadingIndicator()
       ],
     );
   }

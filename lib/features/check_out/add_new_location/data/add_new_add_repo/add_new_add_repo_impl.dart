@@ -5,6 +5,8 @@ import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/check_out/add_new_location/data/add_new_add_repo/add_new_add_repo.dart';
 import 'package:hanot/features/check_out/check_out_screen/models/customer_addresses_model/Addresses.dart';
 
+import '../../../../../core/services/localization.dart';
+
 class AddNewAddressRepoImpl implements AddNewAddressRepo{
   @override
   Future<Either<Failure, Address>> addNewAddress({required Map body}) async{
@@ -17,7 +19,7 @@ class AddNewAddressRepoImpl implements AddNewAddressRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

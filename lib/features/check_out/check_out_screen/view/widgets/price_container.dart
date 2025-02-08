@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,9 +8,9 @@ import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_fees_cubit/shipping_fees_state.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
-import '../../../../../core/design/appTexts.dart';
 import '../../../../../core/design/app_styles.dart';
 import '../../../../../core/design/images.dart';
+import '../../../../../core/local_storage/secure_storage.dart';
 import 'custom_continer.dart';
 
 class PriceContainer extends StatelessWidget {
@@ -42,20 +41,20 @@ class PriceContainer extends StatelessWidget {
           ),
           SizedBox(height: 6.h,),
           BlocBuilder<CouponCubit,CouponState>(builder: (context,state){
-            return Row(
+            return couponCubit.couponDiscount!=0?Row(
               children: [
                 Styles.subTitle(textsMap['mobile_Discounts'],size: 15),
                 const Spacer(),
-                Styles.text('${couponCubit.couponDiscount??0} ${Texts.currency.tr()}'),
+                Styles.text('${couponCubit.couponDiscount??0} ${SecureStorage.currency}',color: Colors.red),
               ],
-            );
+            ):const SizedBox();
           }),
           SizedBox(height: 6.h,),
           Row(
             children: [
               Styles.subTitle(textsMap['mobile_productsPrice'],size: 15),
               const Spacer(),
-              Styles.text('${cartCubit.cartTotal} ${Texts.currency}'),
+              Styles.text('${cartCubit.cartTotal} ${SecureStorage.currency}'),
             ],
           ),
           SizedBox(height: 6.h,),
@@ -64,7 +63,7 @@ class PriceContainer extends StatelessWidget {
               children: [
                 Styles.subTitle(textsMap['mobile_Shipping_Fees'],size: 15),
                 const Spacer(),
-                Styles.text('${shippingFeestCubit.shippingFeesModel?.shippingFees??0} ${Texts.currency}'),
+                Styles.text('${shippingFeestCubit.shippingFeesModel?.shippingFees??0} ${SecureStorage.currency}'),
               ],
             );
           }),

@@ -5,6 +5,8 @@ import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/payment_method_repo/payment_method_repo.dart';
 import 'package:hanot/features/check_out/check_out_screen/models/payment_method_model/PaymentMethodModel.dart';
 
+import '../../../../../core/services/localization.dart';
+
 class PaymentMethodRepoImpl implements PaymentMethodRepo{
   @override
   Future<Either<Failure, List<PaymentMethodModel>>> getPaymentMethods() async{
@@ -19,7 +21,7 @@ class PaymentMethodRepoImpl implements PaymentMethodRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
     }

@@ -14,6 +14,7 @@ class FavEmpty extends StatelessWidget {
     Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     return SizedBox(
       width: double.infinity,
+      height: MediaQuery.of(context).size.height*.8,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -21,7 +22,7 @@ class FavEmpty extends StatelessWidget {
           SizedBox(height: 10.h,),
           Styles.text(textsMap['mobile_youDidNotAddAnyProduct']),
           SizedBox(height: 10.h,),
-          Styles.subTitle(textsMap['mobile_favEmptyQuote'],size: 13)
+          Styles.subTitle(textsMap['mobile_favEmptyQuote'],size: 13,textAlign: TextAlign.center)
         ],
       ),
     );

@@ -21,7 +21,7 @@ class CountryDropDownButton extends StatelessWidget {
         children: [
           Row(
             children: [
-              Styles.text('البلد',size: 12),
+              Styles.text(textsMap['mobile_country_label'],size: 12),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Image.asset(Images.requiredStar,width: 10,),
@@ -37,6 +37,7 @@ class CountryDropDownButton extends StatelessWidget {
                 return null;
               }
             },
+            dropdownColor: Colors.white,
             decoration: InputDecoration(
                 errorStyle: const TextStyle(fontFamily: fontFamily),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: BorderSide(color: Colors.grey.shade200)),

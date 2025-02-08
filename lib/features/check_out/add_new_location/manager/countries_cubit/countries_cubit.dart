@@ -20,9 +20,7 @@ class CountriesCubit extends Cubit<CountriesState>{
       emit(CountriesFailure(errorMessage: failure.errorMessage));
     }, (list){
       countriesList = list;
-      // if(countriesList.length==1){
-      //   selectedCountry=countriesList[0];
-      // }
+      if(countriesList.length==1) selectedCountry=countriesList[0];
       emit(CountriesSuccess());
     });
   }

@@ -4,6 +4,7 @@ import 'package:hanot/core/errors/failure.dart';
 import 'package:hanot/features/categories/data/single_category_repo/single_category_repo.dart';
 
 import '../../../../core/services/api_service.dart';
+import '../../../../core/services/localization.dart';
 import '../../model/category_details/CategoryDetails.dart';
 
 class SingleCategoryRepoImpl implements SingleCategoryRepo{
@@ -18,7 +19,7 @@ class SingleCategoryRepoImpl implements SingleCategoryRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

@@ -6,6 +6,7 @@ import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_ad
 import 'package:hanot/features/check_out/all_old_addresses_screen/view/widgets/add_new_location_container.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/view/widgets/confirm_location_button.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/widgets/custom_shipping_company_tile.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 
 class AddNewLocationSheet extends StatefulWidget {
@@ -17,11 +18,13 @@ class AddNewLocationSheet extends StatefulWidget {
 
 class _AddNewLocationSheetState extends State<AddNewLocationSheet> {
   late AllAddressesCubit addressCubit;
+  late Map texts;
   late num selectedId;
   int selectedIndex=0;
   @override
   void initState() {
     addressCubit = BlocProvider.of<AllAddressesCubit>(context);
+    texts = BlocProvider.of<LangCubit>(context).texts;
     selectedId = addressCubit.selectedAddressId??0;
     super.initState();
   }
@@ -33,7 +36,7 @@ class _AddNewLocationSheetState extends State<AddNewLocationSheet> {
           borderRadius: BorderRadius.circular(20),
           child: Scaffold(
             backgroundColor: Colors.white,
-            appBar: sheetAppBar(title: 'اختر عنوان التوصيل',context: context),
+            appBar: sheetAppBar(title: texts['mobile_select_delivery_address_label'],context: context),
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 15.w),
               physics: const BouncingScrollPhysics(),

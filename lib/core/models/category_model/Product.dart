@@ -28,7 +28,7 @@ class Product {
     hasOptions = json['has_options'];
     inFavorites = json['in_favorites'];
     quantity = json['quantity'];
-    weight = json['weight'];
+    // weight = json['weight'];
     width = json['width'];
     height = json['height'];
     length = json['length'];

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
-import 'package:hanot/general_widgets/terms_widget.dart';
+import 'package:hanot/general_widgets/settings_textScaffold.dart';
 
 import '../../../../../core/design/app_styles.dart';
 
@@ -23,7 +23,7 @@ class TermsButton extends StatelessWidget {
             Styles.text(textsMap['mobile_By_continuing_you_agree_to'],size: 11),
             GestureDetector(
                 onTap: (){
-                  bottomSheet(context, SizedBox(height: 500.h,child: const TermsWidget(fromSheet: true,)));
+                  // bottomSheet(context, SizedBox(height: 500.h,child: const SettingsTextsScaffold(fromSheet: true,)));
                 },
                 child: Styles.text(textsMap['mobile_terms_and_Conditions'],color: const Color(0xffFF9500),size: 11)),
             const SizedBox(width: 2,),

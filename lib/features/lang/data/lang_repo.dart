@@ -4,6 +4,7 @@ import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/lang/model/LangModel.dart';
 
 import '../../../core/errors/failure.dart';
+import '../../../core/services/localization.dart';
 
 class LangRepo {
   Future<Either<Failure, Map>> getTexts() async {
@@ -14,7 +15,7 @@ class LangRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -29,7 +30,7 @@ class LangRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -44,7 +45,7 @@ class LangRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -57,7 +58,7 @@ class LangRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

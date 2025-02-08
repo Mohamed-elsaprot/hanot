@@ -45,6 +45,15 @@ dependencies:
   page_view_dot_indicator:
   webview_flutter: ^4.8.0
   lottie: ^3.1.2
+  url_launcher: ^6.3.0
+  mobile_device_identifier: ^0.0.2
+  custom_navigation_bar:
+  flutter_animate:
+  modal_bottom_sheet: ^3.0.0
+  smooth_page_indicator: ^1.2.0+3
+  package_info_plus: ^4.2.0
+  open_store: ^0.5.0
+  #  device_info_plus: ^10.1.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -52,6 +61,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 
 class TabsScreenShimmer extends StatelessWidget {
   const TabsScreenShimmer({Key? key}) : super(key: key);

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
-import 'package:hanot/general_widgets/removed_price.dart';
 
 import '../core/design/app_styles.dart';
+import '../core/local_storage/secure_storage.dart';
 import '../core/models/category_model/Product.dart';
+import '../features/favorites/manager/fav_cubit.dart';
+import '../features/favorites/manager/fav_state.dart';
+import 'fav_icon.dart';
 
 class ItemPriceRow extends StatelessWidget {
   const ItemPriceRow({Key? key, required this.product}) : super(key: key);
@@ -17,9 +20,12 @@ class ItemPriceRow extends StatelessWidget {
       height: 20.h,
       child: Row(
         children: [
-          Styles.text('${checkPrice? product.discountPrice : product.salePrice} ${Texts.currency}',color: Styles.primary,size: 13),
-          SizedBox(width: 5.w,),
-          if(checkPrice)RemovedPrice(removedPrice: product.salePrice??0),
+          Styles.text('${checkPrice? product.discountPrice : product.salePrice} ${SecureStorage.currency}',size: 13),
+          const Spacer(),
+          BlocBuilder<FavCubit,FavState>(builder: (context,state){
+            return FavIcon(product: product,);
+          }),
+          // if(checkPrice)RemovedPrice(removedPrice: product.salePrice??0),
         ],
       ),
     );

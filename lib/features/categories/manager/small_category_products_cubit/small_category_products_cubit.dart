@@ -17,12 +17,13 @@ class SmallCategoryProductsAndChildrenCubit extends Cubit<SmallCategoryProductsS
   late CategoryProductsModel categoryProductsModel;
   late CategoryDetails categoryDetails;
   late int lastCategoryIndex;
+  List<Product> filteredList =[];
   bool last = false;
 
   getCategoryProducts({required String catId,})async{
     last=false;
     emit(SmallCategoryProductsLoading());
-    var res = await productsRepoImpl.getCategoryProducts(catId: catId);
+    var res = await productsRepoImpl.getCategoryProducts(catId:catId);
     res.fold((failure) {
       emit(SmallCategoryProductsFailure(errorMessage: failure.errorMessage));
     }, (catModel) {
@@ -55,5 +56,16 @@ class SmallCategoryProductsAndChildrenCubit extends Cubit<SmallCategoryProductsS
       last = true;
     }
     emit(SmallCategoryProductsSuccess());
+  }
+
+  Future getFilteredList({required String link})async{
+    emit(SmallCategoryProductsLoading());
+    var res = await productsRepoImpl.getFilteredProduct(addedLink: link);
+    res.fold((failure) {
+      emit(SmallCategoryProductsFailure(errorMessage: failure.errorMessage));
+    }, (list) {
+      filteredList=list;
+      emit(SmallCategoryProductsSuccess());
+    });
   }
 }

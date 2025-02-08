@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/shipping_companies_cubit/shipping_companies_cubit.dart';
 import 'package:hanot/features/check_out/check_out_screen/view/change_shipping_company_sheet/confirm_shipping_company_button.dart';

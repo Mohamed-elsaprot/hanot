@@ -24,13 +24,13 @@ class AuthTextField extends StatelessWidget {
         validator: (x){
           if(authCubit.authType=='phone'){
             if(x!.isEmpty){
-              return 'required';
+              return textsMap['mobile_reuired_label'];
             }else {
               return null;
             }
           }else{
-            if(!x!.contains('@gmail.com')){
-              return 'must have @gmail.com';
+            if(!x!.contains('@')){
+              return textsMap['mobile_invalid_email_label'];
             }else {
               return null;
             }
@@ -49,7 +49,7 @@ class AuthTextField extends StatelessWidget {
             focusedBorder: border(),
             focusColor: Colors.black12,
             enabledBorder: border(),
-            filled: true,
+            filled: true,fillColor: Colors.grey.shade100,
             prefixIcon: SizedBox(
               width: 50.w,
               child: const Icon(Icons.check_circle_outline,color: Colors.black26),

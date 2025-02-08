@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/local_storage/secure_storage.dart';
+import 'package:hanot/core/services/localization.dart';
 import 'package:hanot/features/lang/data/lang_repo.dart';
 import 'package:hanot/features/lang/manager/lang_states.dart';
 import 'package:hanot/features/lang/model/LangModel.dart';
@@ -18,6 +19,7 @@ class LangCubit extends Cubit<LangState>{
       emit(LangFailure(errorMessage: failure.errorMessage));
     }, (map){
       texts=map;
+      Localization.tryAgainMessage=texts['mobile_error_message'];
       emit(LangPreSuccess());
     });
   }

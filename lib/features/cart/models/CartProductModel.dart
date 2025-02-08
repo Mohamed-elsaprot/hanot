@@ -20,6 +20,8 @@ class CartProductModel {
     productId = json['product_id'];
     skuId = json['sku_id'];
     qty = json['qty'];
+    availableQty = json['available_quantity'];
+    description = json['description'];
     // options = json['options'] != null ? Options.fromJson(json['options']) : null;
     salePrice = json['sale_price'];
     netTotal = json['net_total'];
@@ -27,11 +29,12 @@ class CartProductModel {
     total = json['total'];
   }
   String? rowId;
-  String? name;
+  String? name,description;
   String? image;
   num? productId;
   num? skuId;
   num? qty;
+  num? availableQty;
   // Options? options;
   num? salePrice;
   num? netTotal;

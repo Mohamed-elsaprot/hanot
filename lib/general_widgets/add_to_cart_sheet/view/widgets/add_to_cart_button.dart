@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/cart/manager/cart_cubit/cart_state.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
-import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/fun.dart';
 import '../../../../core/design/images.dart';
+import '../../../../core/local_storage/secure_storage.dart';
 import '../../../../features/cart/manager/cart_cubit/cart_cubit.dart';
 import '../../managers/single_products_details_cubit/single_products_details_cubit.dart';
 import '../../models/single_product_model/SingleProductModel.dart';
@@ -45,20 +45,34 @@ class AddToCartButton extends StatelessWidget {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                     padding: EdgeInsets.symmetric(vertical: 10.h)
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(Images.shoppingBag,width: 15.w,color: Colors.white,),
-                    SizedBox(width: 8.w,),
-                    Styles.text(textsMap['mobile_Add_To_Cart'],color: Colors.white,size: 12),
-                    SizedBox(
-                      width: 70.w,
-                      child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child:  Styles.text('(${ state is CartSuccess? (cartCubit.skuDetails.salePrice!*singleProductCubit.count):''} ${Texts.currency})',color: Colors.white,size: 12)
+                child: SizedBox(
+                  height: 18.h,
+                  child: AnimatedCrossFade(
+                    crossFadeState: state is CartSuccess? CrossFadeState.showFirst:CrossFadeState.showSecond,
+                    secondChild: const SizedBox(),
+                    firstChild: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(Images.shoppingBag,width: 15.w,color: Colors.white,),
+                          SizedBox(width: 8.w,),
+                          Styles.text(textsMap['mobile_Add_To_Cart'],color: Colors.white,size: 15),
+                          if(state is CartSuccess)SizedBox(
+                            width: 70.w,
+                            child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child:  Styles.text(
+                                    '(${cartCubit.skuDetails!.hasDiscountPrice!?
+                                     (cartCubit.skuDetails.discountPrice!*singleProductCubit.count):
+                                    (cartCubit.skuDetails.salePrice!*singleProductCubit.count)} ${SecureStorage.currency})',
+                                    color: Colors.white,size: 15)
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                    ), duration: const Duration(milliseconds: 100),
+                  ),
                 )
             );
         });

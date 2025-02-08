@@ -4,6 +4,7 @@ import 'package:hanot/core/models/category_model/Product.dart';
 
 import '../../../core/errors/failure.dart';
 import '../../../core/services/api_service.dart';
+import '../../../core/services/localization.dart';
 
 class SearchResultRepo {
   Future<Either<Failure, List<Product>>> getSearchResults({required String keyWord}) async {
@@ -16,7 +17,7 @@ class SearchResultRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

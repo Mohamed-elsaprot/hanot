@@ -10,4 +10,5 @@ class Localization {
       EasyLocalization.of(c)!.setLocale(const Locale('en'));
     }
   }
+  static String tryAgainMessage='Please Try again later.';
 }

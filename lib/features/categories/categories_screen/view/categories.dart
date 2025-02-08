@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/router.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 import 'package:hanot/features/categories/categories_screen/view/shimmer_categories.dart';
 
 import '../../../../core/design/fun.dart';
@@ -17,7 +17,6 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     var smallCategoryCubit = BlocProvider.of<SmallCategoryCubit>(context);
     return Scaffold(
-      appBar: customAppBar(),
       body: RefreshIndicator(
         color: Styles.primary,
         onRefresh: ()async{

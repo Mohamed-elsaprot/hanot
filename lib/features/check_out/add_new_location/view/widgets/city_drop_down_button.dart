@@ -22,7 +22,7 @@ class CityDropDownButton extends StatelessWidget {
         children: [
           Row(
             children: [
-              Styles.text('المدينة',size: 12),
+              Styles.text(textsMap['mobile_city_label'],size: 12),
               Padding(
                 padding: const EdgeInsets.only(bottom: 4),
                 child: Image.asset(Images.requiredStar,width: 10,),
@@ -33,6 +33,7 @@ class CityDropDownButton extends StatelessWidget {
           BlocBuilder<CitiesCubit,CitiesState>(builder: (context,state){
             if(state is CitiesSuccess){
               return DropdownButtonFormField(
+                dropdownColor: Colors.white,
                 validator: (x){
                   if(x==null){
                     return textsMap['mobile_required'];

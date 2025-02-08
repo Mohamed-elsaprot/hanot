@@ -16,10 +16,10 @@ class SubCategoryCubit extends Cubit<SubCategoryState>{
   late int lastCategoryIndex;
   bool last =false;
 
-  getCategoryProducts({required String subCatId,})async{
+  getCategoryProducts({String? subCatId,link})async{
     last=false;
     emit(SubCategoryLoading());
-    var res = await productsRepoImpl.getCategoryProducts(catId: subCatId);
+    var res = await productsRepoImpl.getCategoryProducts(catId: subCatId,link: link);
     res.fold((failure) {
       emit(SubCategoryFailure(errorMessage: failure.errorMessage));
     }, (catModel) {

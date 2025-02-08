@@ -3,13 +3,15 @@ import 'package:hanot/features/categories/model/SmallCategoryModel.dart';
 class HomeModelWithCategories {
   HomeModelWithCategories({
       this.id, 
-      this.title, 
+      this.temp,
+      this.title,
       this.type,
       this.categoriesList,
   });
 
   HomeModelWithCategories.fromJson(dynamic json) {
     id = json['id'];
+    temp = json['template'];
     title = json['title'];
     type = json['type'];
     if (json['data'] != null) {
@@ -20,6 +22,7 @@ class HomeModelWithCategories {
     }
   }
   num? id;
+  int? temp;
   String? title;
   String? type;
   List<SmallCategoryModel>? categoriesList;

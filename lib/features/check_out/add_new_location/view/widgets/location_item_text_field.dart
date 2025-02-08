@@ -6,12 +6,14 @@ import '../../../../../../core/design/images.dart';
 import '../../../../../../general_widgets/custom_textField.dart';
 
 class LocationItemTextField extends StatefulWidget {
-  const LocationItemTextField({Key? key, required this.title, required this.required, required this.iconData, required this.controller, this.validator,}) : super(key: key);
+  const LocationItemTextField({Key? key, required this.title, required this.required, required this.iconData, required this.controller, this.validator, this.textInputType,}) : super(key: key);
   final String title;
   final bool required;
   final IconData iconData;
   final TextEditingController controller;
   final String? Function(String?)? validator;
+  final TextInputType? textInputType;
+
   @override
   State<LocationItemTextField> createState() => _LocationItemTextFieldState();
 }
@@ -38,6 +40,7 @@ class _LocationItemTextFieldState extends State<LocationItemTextField> {
             CustomTextField(
               validator: widget.validator,
               hint: widget.title,
+              textInputType: widget.textInputType,
               inputBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12),borderSide: BorderSide(color: Colors.grey.shade200)),
               fillColor: Colors.transparent,
               controller: widget.controller,

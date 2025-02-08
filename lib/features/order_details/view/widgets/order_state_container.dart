@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/fun.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 
 import '../../manager/get_single_order_state.dart';
 import '../../manager/single_order_cubit.dart';
@@ -31,7 +31,7 @@ class OrderStateContainer extends StatelessWidget {
                   OrderStateItem(
                     title: singleOrderCubit.statesList[index].statusName!,
                     colored: singleOrderCubit.singleOrderModel.orderModel.status!>=singleOrderCubit.statesList[index].status!,
-                    color: singleOrderCubit.statesList[index].color!,
+                    color:  singleOrderCubit.statesList[index].color!,
                   ),
               ),
             ),

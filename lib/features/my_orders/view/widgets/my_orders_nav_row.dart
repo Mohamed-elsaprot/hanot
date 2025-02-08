@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/design/app_styles.dart';
+import '../../../lang/manager/lang_cubit.dart';
 import '../../manager/orders_cubit.dart';
 
 class MyOrdersNavRow extends StatefulWidget {
@@ -16,6 +17,7 @@ class _MyOrdersNavRowState extends State<MyOrdersNavRow> {
   @override
   Widget build(BuildContext context) {
     var orderCubit = BlocProvider.of<OrdersCubit>(context);
+    var langCubit = BlocProvider.of<LangCubit>(context);
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(50.r), color: Colors.white),
@@ -23,12 +25,12 @@ class _MyOrdersNavRowState extends State<MyOrdersNavRow> {
       margin: EdgeInsets.symmetric(horizontal: 10.w),
       child: Row(
         children: [
-          navItem('الجارية', orderCubit.orderNavIsSelected == 0, () {
+          navItem(langCubit.texts['mobile_new_button_label'], orderCubit.orderNavIsSelected == 0, () {
             orderCubit.orderNavIsSelected == 1 ? orderCubit.getCurrentOrders(context) : null;
             orderCubit.changeOrderNav(index: 0);
             setState(() {});
           }),
-          navItem('السابقة', orderCubit.orderNavIsSelected == 1, () {
+          navItem(langCubit.texts['mobile_prev_label'], orderCubit.orderNavIsSelected == 1, () {
             orderCubit.orderNavIsSelected == 0 ? orderCubit.getPrevOrders(context) : null;
             orderCubit.orderNavIsSelected == 0 ? orderCubit.resetLastValue() : null;
             orderCubit.changeOrderNav(index: 1);

@@ -3,18 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/favorites/data/models/get_favorites_model.dart';
-import 'package:hanot/general_widgets/item_price_row.dart';
 import 'package:hanot/general_widgets/removed_price.dart';
 
-import '../../../../core/design/appTexts.dart';
 import '../../../../core/design/app_styles.dart';
 import '../../../../core/design/fun.dart';
-import '../../../../core/design/widgets.dart';
+import '../../../../core/design/widgets_fun.dart';
+import '../../../../core/local_storage/secure_storage.dart';
 import '../../../../core/models/category_model/Product.dart';
 import '../../../../general_widgets/add_to_cart_sheet/add_to_cart_sheet.dart';
 import '../../../../general_widgets/fav_icon.dart';
 import '../../../auth_screen/view/phone/auth_screen.dart';
-import '../../manager/fav_cubit.dart';
 
 class FavItemCard extends StatelessWidget {
   const FavItemCard({Key? key, required this.favItemModel, required this.index}) : super(key: key);
@@ -23,7 +21,6 @@ class FavItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var authCubit = BlocProvider.of<AuthCubit>(context);
-    var favCubit = BlocProvider.of<FavCubit>(context);
     bool checkPrice= favItemModel.discountPrice!=null&&favItemModel.discountPrice!=0;
     return GestureDetector(
       onTap: () async {
@@ -33,7 +30,10 @@ class FavItemCard extends StatelessWidget {
             const AuthScreen(),
           );
         } else {
-          bottomSheet(context, AddToCartSheet(product: Product(id: favItemModel.productId, inFavorites: true)), rad: 0);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> AddToCartScreen(
+              product: Product(id: favItemModel.productId,image: favItemModel.image ?? '', inFavorites: true),fromFavScreen: true,
+          )));
+          // bottomSheet(context, AddToCartScreen(product: Product(id: favItemModel.productId, inFavorites: true),fromFavScreen: true,));
         }
       },
       child: Stack(
@@ -51,7 +51,7 @@ class FavItemCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: cachedImage(favItemModel.image ?? '', rad: 10, height: 100, width: 120),),
+                    child: Hero(tag: favItemModel.id!,child: cachedImage(favItemModel.image ?? '', rad: 10, height: 100, width: 120)),),
                   SizedBox(width: 10.w,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +75,7 @@ class FavItemCard extends StatelessWidget {
                         height: 20.h,
                         child: Row(
                           children: [
-                            Styles.text('${checkPrice? favItemModel.discountPrice : favItemModel.salePrice} ${Texts.currency}',color: Styles.primary,size: 13),
+                            Styles.text('${checkPrice? favItemModel.discountPrice : favItemModel.salePrice} ${SecureStorage.currency}',color: Styles.primary,size: 13),
                             SizedBox(width: 5.w,),
                             if(checkPrice)RemovedPrice(removedPrice: favItemModel.salePrice??0),
                           ],
@@ -87,7 +87,7 @@ class FavItemCard extends StatelessWidget {
               ),
             ),
           ),
-          PositionedDirectional(end: 25, top: 25, child: FavIcon(product: Product(inFavorites: true,id: favItemModel.productId),))
+          PositionedDirectional(end: 25, top: 25, child: FavIcon(product: Product(inFavorites: true,id: favItemModel.productId),fromFavScreen: true,))
         ],
       ),
     );

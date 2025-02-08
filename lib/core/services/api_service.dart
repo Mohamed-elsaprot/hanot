@@ -4,7 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:hanot/core/local_storage/secure_storage.dart';
 
 class ApiService {
-  static const baseUrl = 'https://dev.hanot.co/khan.com/api/v1/mobile';
+  // static const baseUrl = 'https://dev.hanot.co/khan.com/api/v1/mobile';
+  static const baseUrl = 'https://babybear.kids/api/v1/mobile';
   // static const baseUrl = 'https://hanot.co/khan.com/api/v1/mobile';
   static const categories = '/categories/tree';
   static const smallCategories = '/categories?pre_page=10000';
@@ -33,12 +34,23 @@ class ApiService {
   static const translations = '/translations';
   static const languages = '/languages';
   static const defaultLang = '/languages/default';
+  static const settings = '/settings';
+  static const catTemp2 = '/categories/children/';
+  static const defaultCurrency = '/currencies/default';
+  static const brands = '/brands/list';
+  static const filterOptions = '/categories/options/';
+  static const profile = '/profile';
+  static const checkCart = '/checkout/available-quantities';
 
   static final Dio _dio = Dio(
     BaseOptions(
         headers: {'Content-Type': 'application/json'},
         receiveDataWhenStatusError: true),
   );
+
+  static updateHeader(Map<String,dynamic> map){
+    _dio.options.headers.addAll(map);
+  }
 
   static Future<Map<String, dynamic>> getData({
     required String endPoint,
@@ -70,16 +82,15 @@ class ApiService {
   static Future getDataWithToken(
       {required String endPoint, String? perPage}) async {
     String? token = await SecureStorage.getToken();
-    if (token != null) {
-      _dio.options.headers['Authorization'] = 'Bearer $token';
-    }
+    token != null?_dio.options.headers['Authorization'] = 'Bearer $token':_dio.options.headers.remove('Authorization');
     String? userId = await SecureStorage.getUserId();
-    if(userId!=null){
-      _dio.options.headers['user-id'] = int.parse(userId);
-    }
+    userId!=null?_dio.options.headers['user-id'] = int.parse(userId): _dio.options.headers.remove('user-id');
     String? lang = await SecureStorage.getUserLang();
     if(lang!=null){
       _dio.options.headers['locale'] = lang;
+    }
+    if(SecureStorage.deviceId!=null){
+      _dio.options.headers['device-id'] = SecureStorage.deviceId;
     }
     Response res = await _dio.get(
       perPage == null ? baseUrl + endPoint : '$baseUrl$endPoint?page=1&pre_page=$perPage',
@@ -100,6 +111,9 @@ class ApiService {
     String? lang = await SecureStorage.getUserLang();
     if(lang!=null){
       _dio.options.headers['locale'] = lang;
+    }
+    if(SecureStorage.deviceId!=null){
+      _dio.options.headers['device-id'] = SecureStorage.deviceId;
     }
     Response res = await _dio.post(baseUrl + endPoint, data: postedData);
     return res.data;
@@ -123,7 +137,7 @@ class ApiService {
     return res.data;
   }
 
-  static Future getCategoryProducts({required String catId,}) async {
+  static Future getCategoryProducts({String? catId,link}) async {
     String? token = await SecureStorage.getToken();
     if (token != null) {
       _dio.options.headers['Authorization'] = 'Bearer $token';
@@ -136,8 +150,13 @@ class ApiService {
     if(lang!=null){
       _dio.options.headers['locale'] = lang;
     }
+    // print(link!=null);
+    // print(baseUrl);
+    // print(link);
+    // print(catId);
+    // print('object');
     Response res = await _dio.get(
-      '$baseUrl/categories/$catId?page=1&pre_page=26',
+      link!=null? '$baseUrl$link':'$baseUrl/categories/$catId?page=1&pre_page=26',
     );
     return res.data;
   }

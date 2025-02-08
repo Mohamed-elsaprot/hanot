@@ -22,7 +22,7 @@ class SearchBody extends StatelessWidget {
       backgroundColor: Styles.scaffoldColor,
       appBar: AppBar(
         elevation: 0,scrolledUnderElevation: 0,
-        title: Styles.text(textsMap['mobile_search'],color: Styles.primary,size: 22),
+        title: Styles.text(textsMap['mobile_search_input_label'],color: Styles.primary,size: 22),
         bottom: PreferredSize(
           preferredSize: Size(0, 55.h),
           child: SearchTextField(readOnly: false,onSubmit: (x)=> searchCubit.getResults(keyWord: x),),

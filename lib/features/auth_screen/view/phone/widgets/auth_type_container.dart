@@ -19,7 +19,7 @@ class AuthTypeContainer extends StatelessWidget {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: Colors.grey.shade300,
+          color: Colors.grey.shade100,
         ),
         padding: const EdgeInsets.all(2),
         child: Row(

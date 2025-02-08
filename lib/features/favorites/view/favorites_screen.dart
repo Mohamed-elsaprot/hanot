@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
+import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/router.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/favorites/manager/fav_cubit.dart';
@@ -9,9 +10,11 @@ import 'package:hanot/features/favorites/manager/fav_state.dart';
 import 'package:hanot/features/favorites/view/widgets/fav_empty.dart';
 import 'package:hanot/features/favorites/view/widgets/fav_item_card.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
+import 'package:hanot/features/navigation_screen/view/navigation_screen.dart';
 
-import '../../../core/design/widgets.dart';
+import '../../../core/design/widgets_fun.dart';
 import '../../cart/view/widgets/cart_appBar.dart';
+import '../../navigation_screen/manager/navigation_screen_manager.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -23,6 +26,7 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   late FavCubit favCubit;
   late AuthCubit authCubit;
+  late NavigationScreenCubit navCubit;
   late Map textsMap;
   late ScrollController scrollController;
   @override
@@ -30,6 +34,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     authCubit = BlocProvider.of<AuthCubit>(context);
     favCubit = BlocProvider.of<FavCubit>(context);
     textsMap = BlocProvider.of<LangCubit>(context).texts;
+    navCubit = BlocProvider.of<NavigationScreenCubit>(context);
     scrollController = ScrollController();
     if(authCubit.isAuth)favCubit.getFavorites();
     scrollController.addListener(() {
@@ -48,16 +53,11 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         favCubit.last=false;
       },
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(onPressed: (){
-            favCubit.last=false;
-            AppRouter.router.pop();
-          }, icon: const Icon(Icons.arrow_back)),
-          elevation: 0,
-          scrolledUnderElevation: 0,
-          title: const CartAppBar(),
-          // bottom: PreferredSize(preferredSize: Size(0, 50.h), child: const SearchAppBar(),),
-        ),
+        appBar: customAppBar(context,fun: (){
+          Navigator.pop(context);
+          navCubit.setIndex(2);
+          navCubit.checkFun(context);
+        }),
         backgroundColor: Styles.scaffoldColor,
         body: RefreshIndicator(
           color: Styles.primary,
@@ -75,7 +75,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
               authCubit.isAuth? BlocBuilder<FavCubit, FavState>(
                 buildWhen: (previous, current) => current is FavoritesSuccess || current is FavoritesLoading || current is FavoritesFailure,
                 builder: (context, state) {
-                  if (state is FavoritesSuccess) {
+                  if (state is FavoritesSuccess)
+                  // if(favCubit.favoritesModel.favItemsList!.isNotEmpty)
+                  {
                     return favCubit.favoritesModel.favItemsList!.isEmpty
                         ? const FavEmpty()
                         : Expanded(
@@ -104,7 +106,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                             ),
                           );
                   }
-                  if (state is FavoritesFailure) {
+                  else if (state is FavoritesFailure) {
                     return Expanded(
                       child: Center(
                         child: Styles.text(state.errorMessage),

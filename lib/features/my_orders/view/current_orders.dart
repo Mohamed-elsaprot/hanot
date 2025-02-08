@@ -5,7 +5,7 @@ import 'package:hanot/features/my_orders/view/widgets/orders_empty_body.dart';
 
 import '../../../core/design/app_styles.dart';
 import '../../../core/design/fun.dart';
-import '../../../core/design/widgets.dart';
+import '../../../core/design/widgets_fun.dart';
 import '../manager/orders_cubit.dart';
 
 class CurrentOrders extends StatelessWidget {

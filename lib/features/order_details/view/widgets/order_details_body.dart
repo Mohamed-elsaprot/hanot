@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/core/design/router.dart';
-import 'package:hanot/core/design/widgets.dart';
-import 'package:hanot/features/my_orders/data/models/orders_model.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/features/my_orders/view/widgets/order_container.dart';
 import 'package:hanot/features/order_details/manager/get_single_order_state.dart';
 import 'package:hanot/features/order_details/manager/single_order_cubit.dart';
@@ -13,7 +13,6 @@ import 'package:hanot/features/order_details/view/widgets/order_loc_container.da
 import 'package:hanot/features/order_details/view/widgets/order_price_container.dart';
 import 'package:hanot/features/order_details/view/widgets/order_products_container.dart';
 import 'package:hanot/features/order_details/view/widgets/order_state_container.dart';
-import 'package:hanot/general_widgets/custom_button.dart';
 
 class OrderDetailsBody extends StatelessWidget {
   const OrderDetailsBody({Key? key, required this.orderId,}) : super(key: key);
@@ -21,15 +20,18 @@ class OrderDetailsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var singleOrderCubit = BlocProvider.of<SingleOrderCubit>(context);
+    var langCubit = BlocProvider.of<LangCubit>(context);
     return BlocConsumer<SingleOrderCubit,GetSingleOrderState>(
       buildWhen: (context,current)=> current is GetSingleOrderLoading || current is GetSingleOrderFailure || current is GetSingleOrderSuccess,
       builder: (context,state){
       if(state is GetSingleOrderSuccess){
         return Scaffold(
-          backgroundColor: Styles.secScaffoldColor,
+          backgroundColor: Styles.scaffoldColor,
           appBar: AppBar(
             elevation: 0,
-            leading: IconButton(onPressed: () => AppRouter.router.pop(), icon: const Icon(Icons.arrow_back_ios_rounded)), title: Styles.text('تفاصيل الطلب'),),
+            leading: IconButton(
+            onPressed: () => AppRouter.router.pop(), icon: const Icon(Icons.arrow_back_ios_rounded)),
+            title: Styles.text(langCubit.texts['mobile_order_details_label']),),
           body: RefreshIndicator(
             color: Styles.primary,
             onRefresh: ()async{
@@ -39,7 +41,7 @@ class OrderDetailsBody extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 40.h),
               child: Column(
                 children: [
-                  const OrderStateContainer(),
+                  if(singleOrderCubit.singleOrderModel.orderModel.status!<=5)const OrderStateContainer(),
                   OrderContainer(order: singleOrderCubit.singleOrderModel.orderModel,inDetailsScreen: true,),
                   OrderLocContainer(orderModel: singleOrderCubit.singleOrderModel.orderModel,),
                   OrderProductsContainer(singleOrder: singleOrderCubit.singleOrderModel,),
@@ -60,7 +62,7 @@ class OrderDetailsBody extends StatelessWidget {
         );
       }else {
         return Scaffold(
-        backgroundColor: Styles.secScaffoldColor,
+        backgroundColor: Styles.scaffoldColor,
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(onPressed: () => AppRouter.router.pop(), icon: const Icon(Icons.arrow_back_ios_rounded)), title: Styles.text('تفاصيل الطلب'),),

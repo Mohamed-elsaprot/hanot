@@ -4,6 +4,8 @@ import 'package:hanot/core/errors/failure.dart';
 import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/coupon_repo/coupon_repo.dart';
 
+import '../../../../../core/services/localization.dart';
+
 class CouponRepoImpl implements CouponRepo{
   @override
   Future<Either<Failure, Map>> applyCoupon({required String coupon}) async{
@@ -18,7 +20,7 @@ class CouponRepoImpl implements CouponRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
      }
     }

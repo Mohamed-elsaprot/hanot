@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/design/widgets.dart';
+import '../../../../core/design/widgets_fun.dart';
 import '../../manager/counter_cubit/counter_cubit.dart';
 import '../../manager/counter_cubit/counter_state.dart';
 import '../../models/CartProductModel.dart';

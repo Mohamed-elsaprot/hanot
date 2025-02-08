@@ -5,7 +5,6 @@ import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/my_orders/view/current_orders.dart';
 import 'package:hanot/features/my_orders/view/prev_orders.dart';
 import 'package:hanot/features/my_orders/view/widgets/my_orders_nav_row.dart';
-import '../../../cart/view/widgets/cart_appBar.dart';
 import '../../manager/orders_cubit.dart';
 import 'orders_empty_body.dart';
 
@@ -44,11 +43,6 @@ class _MyOrdersBodyState extends State<MyOrdersBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const CartAppBar(),
-        // bottom: PreferredSize(preferredSize: Size(0, 50.h), child: const SearchAppBar(),),
-      ),
       body:authCubit.isAuth? Column(
         children: [
           SizedBox(height: 20.h,),

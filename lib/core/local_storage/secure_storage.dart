@@ -6,14 +6,16 @@ abstract class SecureStorage{
   static const String userId='userId';
   static const String lang='lang';
   static const String direction='direction';
-  static String? local;
+  static const String devIdKey='devId';
+  static const String versionKey='versionKey';
+  static String? local,deviceId,currency,version;
 
 
   static Future deleteData()async{
     await storage.delete(key: tokenKey);
     await storage.delete(key: userId);
-    await storage.delete(key: lang);
-    await storage.delete(key: direction);
+    // await storage.delete(key: lang);
+    // await storage.delete(key: direction);
 
   }
 
@@ -52,6 +54,22 @@ abstract class SecureStorage{
   static Future getAppDirection()async{
     var res = await storage.read(key: direction);
     return res;
+  }
+
+  static Future setDeviceId(String x)async{
+    await storage.write(key: devIdKey, value: x);
+  }
+
+  static Future getDeviceId()async{
+    deviceId = await storage.read(key: devIdKey);
+  }
+
+  static Future setVersion(String x)async{
+    await storage.write(key: versionKey, value: x);
+  }
+
+  static Future getVersion()async{
+    version = await storage.read(key: versionKey);
   }
 
 }

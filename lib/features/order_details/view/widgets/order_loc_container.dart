@@ -1,8 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
 import 'package:hanot/features/my_orders/data/models/orders_model.dart';
 
@@ -32,7 +30,7 @@ class OrderLocContainer extends StatelessWidget {
             children: [
               Image.asset(orderModel.deliveryMethod=='pick_up'?Images.selfDelivery:Images.locIcon,width: 22.w,),
               SizedBox(width: 10.w,),
-              Styles.text(orderModel.deliveryMethod=='pick_up'?textsMap['mobile_selfPickUp']:'عنوان التواصل')
+              Styles.text(orderModel.deliveryMethod=='pick_up'?textsMap['mobile_selfPickUp']:textsMap['mobile_delivery_address'])
             ],
           ),
           Divider(height: 30.h,color: Colors.black26,),

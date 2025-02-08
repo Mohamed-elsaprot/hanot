@@ -7,6 +7,8 @@ import 'package:hanot/features/home/models/HomeModelWithBannerItems/HomeModelWit
 import 'package:hanot/features/home/models/HomeModelWithCategores/HomeModelWithCategories.dart';
 import 'package:hanot/features/home/models/HomeModelWithProducts/HomeModelWithProducts.dart';
 
+import '../../../core/services/localization.dart';
+
 class HomeDataRepoImpl implements HomeDataRepo{
   @override
   Future<Either<Failure, List>> getHomeData() async{
@@ -19,7 +21,11 @@ class HomeDataRepoImpl implements HomeDataRepo{
         }else if(item['type']=='banner'){
           homeList.add(HomeModelWithBannerItems.fromJson(item));
         }else if(item['type']=='categories'){
-          homeList.add(HomeModelWithCategories.fromJson(item));
+          if(item['template']==1){
+            homeList.add(HomeModelWithCategories.fromJson(item));
+          }else{
+            homeList.add(HomeModelWithCategories.fromJson(item));
+          }
         }
       });
       return right(homeList);
@@ -27,7 +33,7 @@ class HomeDataRepoImpl implements HomeDataRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/auth_screen/manager/auth_state.dart';
 

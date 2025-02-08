@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/paymentMethod_state.dart';
 import 'package:hanot/features/check_out/check_out_screen/manager/payment_method_cubit/payment_method_cubit.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
@@ -14,7 +12,7 @@ import 'custom_continer.dart';
 import 'custom_shipping_company_tile.dart';
 
 class PaymentMethodsContainer extends StatefulWidget {
-  const                   PaymentMethodsContainer({Key? key}) : super(key: key);
+  const PaymentMethodsContainer({Key? key}) : super(key: key);
 
   @override
   State<PaymentMethodsContainer> createState() => _PaymentMethodsContainerState();

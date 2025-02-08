@@ -4,7 +4,9 @@ import 'package:hanot/features/sub_category_screen/manager/sub_category_cubit.da
 import 'package:hanot/features/sub_category_screen/view/widgets/sub_category_products_list.dart';
 
 import '../../../core/design/app_styles.dart';
+import '../../categories/category_products_screen/view/widgets/category_products_screen_shimmer.dart';
 import '../../categories/model/category_details/Children.dart';
+import '../manager/sub_category_state.dart';
 
 class SubCategoryScreen extends StatefulWidget {
   const SubCategoryScreen({Key? key, required this.children}) : super(key: key);
@@ -30,10 +32,19 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(title: Styles.text(widget.children.name!, size: 22),),
-      body: SubCategoryProductsList(scrollController: scrollController,),
+    return BlocBuilder<SubCategoryCubit, SubCategoryState>(
+      builder: (context,state){
+        if(state is SubCategorySuccess){
+          return SubCategoryProductsList(scrollController: scrollController, children: widget.children,);
+        }else if(state is SubCategoryFailure){
+          return Scaffold(
+            appBar: AppBar(leading: IconButton(onPressed: ()=>Navigator.pop(context), icon: const Icon(Icons.arrow_back_ios)),),
+            body: Center(child: Styles.text(state.errorMessage)),
+          );
+        }else{
+          return const CategoryProductsScreenShimmer();
+        }
+      },
     );
   }
 }

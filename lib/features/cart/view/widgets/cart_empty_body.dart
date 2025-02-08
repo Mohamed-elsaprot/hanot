@@ -15,17 +15,17 @@ class CartEmptyBody extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(height: 120.h,),
           Image.asset(Images.cart,width: 200.w,),
           SizedBox(height: 20.h,),
           Styles.text(textsMap['mobile_cart_empty'],size: 22),
-          SizedBox(height: 10.h,),
-          Styles.subTitle(textsMap['mobile_cartEmptyQuote'],size: 13,textAlign: TextAlign.center),
-          SizedBox(height: 110.h,),
-          Styles.subTitle(textsMap['mobile_availablePaymentMethods'],size: 15,textAlign: TextAlign.center),
-          SizedBox(height: 8.h,),
-          Align(alignment: Alignment.bottomCenter,child: Image.asset(Images.paymentMethods))
+          // SizedBox(height: 10.h,),
+          // Styles.subTitle(textsMap['mobile_cartEmptyQuote'],size: 13,textAlign: TextAlign.center),
+          // SizedBox(height: 110.h,),
+          // Styles.subTitle(textsMap['mobile_availablePaymentMethods'],size: 15,textAlign: TextAlign.center),
+          // SizedBox(height: 8.h,),
+          // Align(alignment: Alignment.bottomCenter,child: Image.asset(Images.paymentMethods))
         ],
       ),
     );

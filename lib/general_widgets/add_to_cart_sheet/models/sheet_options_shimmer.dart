@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/design/widgets.dart';
+import '../../../core/design/widgets_fun.dart';
 
 class SheetOptionsShimmer extends StatelessWidget {
   const SheetOptionsShimmer({Key? key}) : super(key: key);

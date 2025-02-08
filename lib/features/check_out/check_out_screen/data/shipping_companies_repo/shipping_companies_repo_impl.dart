@@ -6,6 +6,8 @@ import 'package:hanot/features/check_out/check_out_screen/data/shipping_companie
 import 'package:hanot/features/check_out/check_out_screen/models/shipping_fees_model/ShippingFeesModel.dart';
 import 'package:hanot/features/check_out/check_out_screen/models/shipping_company/ShippingCompany.dart';
 
+import '../../../../../core/services/localization.dart';
+
 class ShippingCompaniesRepoImpl implements ShippingCompaniesRepo{
   @override
   Future<Either<Failure, List<ShippingCompany>>> getShippingCompanies({required num addressId}) async{
@@ -20,7 +22,7 @@ class ShippingCompaniesRepoImpl implements ShippingCompaniesRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -36,7 +38,7 @@ class ShippingCompaniesRepoImpl implements ShippingCompaniesRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

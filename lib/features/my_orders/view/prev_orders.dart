@@ -4,8 +4,7 @@ import 'package:hanot/core/design/fun.dart';
 import 'package:hanot/features/my_orders/view/widgets/orders_column.dart';
 import 'package:hanot/features/my_orders/view/widgets/orders_empty_body.dart';
 
-import '../../../core/design/app_styles.dart';
-import '../../../core/design/widgets.dart';
+import '../../../core/design/widgets_fun.dart';
 import '../manager/orders_cubit.dart';
 
 class PrevOrders extends StatelessWidget {
@@ -35,13 +34,6 @@ class PrevOrders extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-            );
-          }
-          if (state is OrdersFailure) {
-            return Expanded(
-              child: Center(
-                child: Styles.text(state.errorMessage),
               ),
             );
           } else {

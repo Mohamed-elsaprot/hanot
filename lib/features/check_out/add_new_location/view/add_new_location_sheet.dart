@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/core/design/fun.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/add_new_add_cubit/add_new_add_cubit.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/cities_cubit/cities_cubit.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/countries_cubit/countries_cubit.dart';
@@ -23,7 +23,6 @@ class AddNewLocationSheet extends StatelessWidget {
     var citiesCubit = BlocProvider.of<CitiesCubit>(context);
     var countriesCubit = BlocProvider.of<CountriesCubit>(context);
     var newAddressCubit = BlocProvider.of<AddNewAddressCubit>(context);
-    bool isOneCountry = countriesCubit.selectedCountry!=null;
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return SizedBox(
       height: 520.h,
@@ -31,10 +30,11 @@ class AddNewLocationSheet extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: sheetAppBar(title: 'اضف عنوان جديد', context: context),
+          appBar: sheetAppBar(title: textsMap['mobile_add_new_address_label'], context: context),
           body: BlocConsumer<CountriesCubit,CountriesState>(
               listener: (context,state){
                 if(state is CountriesSuccess){
+                  bool isOneCountry = countriesCubit.selectedCountry!=null;
                   if(isOneCountry){
                     citiesCubit.getCities(context: context, countryId: countriesCubit.selectedCountry!.id.toString());
                   }
@@ -42,6 +42,7 @@ class AddNewLocationSheet extends StatelessWidget {
               },
               builder: (context,state){
                 if(state is CountriesSuccess) {
+                  bool isOneCountry = countriesCubit.selectedCountry!=null;
                   return SingleChildScrollView(
                     physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.only(left: 15.w,right: 15.w,bottom: 10.h),
@@ -51,9 +52,9 @@ class AddNewLocationSheet extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              // if(!isOneCountry)
+                              if(!isOneCountry)
                                 const CountryDropDownButton(),
-                              // if(!isOneCountry)
+                              if(!isOneCountry)
                                 SizedBox(width: 10.w,),
                               const CityDropDownButton(),
                             ],
@@ -67,7 +68,7 @@ class AddNewLocationSheet extends StatelessWidget {
                           },required: true,controller: newAddressCubit.neighborhoodController,iconData: CupertinoIcons.scribble,),
                           LocationItemTextField(title: textsMap['mobile_Home_Description'],required: false,controller: newAddressCubit.homeController,iconData: CupertinoIcons.chat_bubble_text,),
                           LocationItemTextField(title: textsMap['mobile_Street_Name'],required: false,controller: newAddressCubit.streetController,iconData: Icons.receipt_long,),
-                          LocationItemTextField(title: textsMap['mobile_Postal_Code'],required: false,controller: newAddressCubit.postalCodeController,iconData: Icons.password_outlined,),
+                          LocationItemTextField(title: textsMap['mobile_Postal_Code'],required: false,controller: newAddressCubit.postalCodeController,iconData: Icons.password_outlined,textInputType: TextInputType.phone,),
                         ],
                       ),
                     ),

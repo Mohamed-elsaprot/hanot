@@ -5,6 +5,8 @@ import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/check_out/check_out_screen/data/check_out_repo/check_out_repo.dart';
 import 'package:hanot/features/check_out/check_out_screen/models/order_model/OrderModel.dart';
 
+import '../../../../../core/services/localization.dart';
+
 class CheckOutRepoImpl implements CheckOutRepo {
   @override
   Future<Either<Failure, OrderModel>> sendOrder({
@@ -31,7 +33,7 @@ class CheckOutRepoImpl implements CheckOutRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

@@ -5,6 +5,7 @@ import 'package:hanot/features/order_details/models/single_order.dart';
 
 import '../../../core/errors/failure.dart';
 import '../../../core/services/api_service.dart';
+import '../../../core/services/localization.dart';
 import '../models/SingleOrderDetails.dart';
 
 class GetSingleOrderRepo {
@@ -20,7 +21,7 @@ class GetSingleOrderRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

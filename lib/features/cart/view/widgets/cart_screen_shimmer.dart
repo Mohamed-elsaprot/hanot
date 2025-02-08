@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/fun.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 
 import 'cart_appBar.dart';
 
@@ -9,7 +10,6 @@ class CartScreeShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(elevation: 0, title: const CartAppBar(),),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(

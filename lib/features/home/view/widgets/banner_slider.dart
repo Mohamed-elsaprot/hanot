@@ -1,65 +1,92 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/features/home/models/HomeModelWithBannerItems/HomeModelWithBannerItems.dart';
-import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../../core/design/widgets_fun.dart';
+import '../../models/HomeModelWithBannerItems/HomeModelWithBannerItems.dart';
 
-import '../../../../core/design/app_styles.dart';
-import '../../../../core/design/widgets.dart';
-
-class SliderContainer extends StatefulWidget {
-  const SliderContainer({Key? key, required this.homeModelWithBannerItems}) : super(key: key);
-  final HomeModelWithBannerItems homeModelWithBannerItems;
-
+class BannerSlider extends StatefulWidget {
+  const BannerSlider({Key? key, this.homeModelWithBannerItems, this.images,}) : super(key: key);
+  final HomeModelWithBannerItems? homeModelWithBannerItems;
+  final List<String>? images;
   @override
-  State<SliderContainer> createState() => _SliderState();
+  State<BannerSlider> createState() => _BannerSliderState();
 }
 
-class _SliderState extends State<SliderContainer> {
+class _BannerSliderState extends State<BannerSlider> {
   int pointer = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      margin: EdgeInsets.only(bottom: 5.h),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 150.h,width: double.infinity,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: CarouselSlider.builder(
-                itemCount: widget.homeModelWithBannerItems.bannerItem!.length,
-                itemBuilder: (context, index, realIndex) {
-                  return Padding(
-                    padding: EdgeInsets.only(left: 20.w,right: 20.w,bottom: 15.h),
-                    // child: cachedImage(widget.homeModelWithBannerItems.bannerItem![index].path??'',rad: 25),
-                    child: cachedImage('https://graphicsfamily.com/wp-content/uploads/edd/2023/05/Website-Food-Banner-Design-1180x664.jpg'??'',rad: 25),
-                  );
-                },
-                options: CarouselOptions(
-                    viewportFraction: 1,
-                    enlargeCenterPage: true,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 6),
-                    autoPlayCurve: Curves.easeInOutCubic,
-                    reverse: true,
-                    onPageChanged: (x, _) {
-                      setState(() => pointer = x);
-                    }),
+    return Stack(
+      children: [
+        CarouselSlider.builder(
+          itemCount:widget.images!=null? widget.images!.length :
+          widget.homeModelWithBannerItems!.bannerItem!.length,
+          itemBuilder: (context, index, realIndex) {
+            return
+              widget.images!=null?
+                cachedImage(widget.images![index]??'',height: 480) :
+                cachedImage(widget.homeModelWithBannerItems!.bannerItem![index].path??'',height: 270);
+          },
+          options: CarouselOptions(
+              viewportFraction: 1,
+              height: widget.images!=null?480.h:270.h,
+              enlargeCenterPage: true,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 6),
+              autoPlayCurve: Curves.easeInOutCubic,
+              reverse: true,
+              onPageChanged: (x, _) {
+                setState(() => pointer = x);
+              }),
+        ),
+        if(widget.images!=null)Positioned(
+          bottom: 10.h,
+          child: Container(
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Colors.white
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 4),
+              child: AnimatedSmoothIndicator(
+                activeIndex: pointer,
+                count: widget.images!.length,
+                effect: WormEffect(dotHeight: 12,dotWidth: 12,spacing: 12.w,activeDotColor: Colors.black,strokeWidth: 2,paintStyle: PaintingStyle.stroke),
               ),
             ),
-          ),
-          PageViewDotIndicator(
-            currentItem: pointer,
-            count: widget.homeModelWithBannerItems.bannerItem!.length,
-            size: const Size(8, 8),
-            unselectedColor: Colors.grey.shade200 ,
-            selectedColor: Styles.primary,
-          ),
-          SizedBox(height: 10.h,)
-        ],
-      ),
+          ).animate().fade(duration: const Duration(milliseconds: 400)),
+        )
+      ],
     );
   }
 }
+// Positioned.fill(
+//   top: 270.h,
+//     child: Container(
+//       decoration: const BoxDecoration(
+//           gradient: LinearGradient(
+//               begin: Alignment.bottomCenter,
+//               end: Alignment.topCenter,
+//               colors: [
+//                 Colors.black45,
+//                 Colors.transparent
+//               ]
+//           )
+//       ),
+//
+//       child: Padding(
+//         padding: const EdgeInsets.symmetric(horizontal: 12),
+//           child: Row(
+//             children: [
+//               Styles.text('New season styles',color: Colors.white),
+//               const Spacer(),
+//               Styles.text('Shop women\'s',color: Colors.white,textDecoration: TextDecoration.underline,fontWeight: FontWeight.w500),
+//             ],
+//           ),
+//       ),
+//     )
+// )

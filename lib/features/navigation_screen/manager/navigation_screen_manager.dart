@@ -24,7 +24,6 @@ class NavigationScreenCubit extends Cubit<NavigationScreenState> {
     if(index==2){
       var cartCubit = BlocProvider.of<CartCubit>(context);
       await cartCubit.getCartProducts();
-      cartCubit.allSelected=false;
     }
     emit(NavigationScreenState());
   }

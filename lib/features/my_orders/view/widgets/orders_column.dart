@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:hanot/features/my_orders/view/widgets/order_container.dart';
 
-import '../../../../core/design/widgets.dart';
+import '../../../../core/design/widgets_fun.dart';
 import '../../data/models/orders_model.dart';
 
 class OrdersColumn extends StatelessWidget {

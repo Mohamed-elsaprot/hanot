@@ -31,11 +31,9 @@ class _CouponTextFieldState extends State<CouponTextField> {
       return TextFormField(
         onChanged: (x){setState(() {});},
         controller: couponCubit.couponController,
-        // onFieldSubmitted: widget.onSubmit,
-        // focusNode: widget.focusNode,
-        // onTap: widget.onTap,
         cursorColor: Styles.primary,
         decoration: InputDecoration(
+          fillColor: Colors.grey.shade100,filled: true,
           prefixIcon: Image.asset(Images.couponLogo,scale: 1.1,),
           suffixIcon: Padding(
             padding: const EdgeInsetsDirectional.only(end: 10,top: 4,bottom: 4),
@@ -58,7 +56,7 @@ class _CouponTextFieldState extends State<CouponTextField> {
           focusedBorder: border(state is CouponFailure),
           focusColor: Colors.black12,
           enabledBorder: border(state is CouponFailure),
-          filled: true,
+
         ),
       );
     });

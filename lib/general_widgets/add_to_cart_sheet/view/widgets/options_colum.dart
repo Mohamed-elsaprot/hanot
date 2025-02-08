@@ -12,13 +12,13 @@ class OptionsColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     var singleProductCubit = BlocProvider.of<SingleProductCubit>(context);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...List.generate(singleProductCubit.singleProductModel.options!.length, (index) {
           return singleProductCubit.singleProductModel.options![index].type=='color'? ChooseColorContainer(product: singleProductCubit.singleProductModel,index: index):const SizedBox();
         }),
         ...List.generate(singleProductCubit.singleProductModel.options!.length, (index) {
-          return singleProductCubit.singleProductModel.options![index].type!='color'? ChooseSizeContainer(product: singleProductCubit.singleProductModel,index: index,):const SizedBox();
+          return singleProductCubit.singleProductModel.options![index].type!='color'?
+          ChooseSizeContainer(product: singleProductCubit.singleProductModel,index: index,):const SizedBox();
         }),
       ],
     );

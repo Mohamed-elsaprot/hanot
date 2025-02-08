@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/design/app_styles.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/fun.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../general_widgets/custom_button.dart';
@@ -15,7 +16,11 @@ class ActivateCouponButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Map textsMap = BlocProvider.of<LangCubit>(context).texts;
     var couponCubit = BlocProvider.of<CouponCubit>(context);
-    return BlocBuilder<CouponCubit,CouponState>(builder: (context,state){
+    return BlocConsumer<CouponCubit,CouponState>(
+      listener: (context,state){
+        if(state is CouponFailure) errorDialog(context: context, message: state.errorMessage);
+      },
+      builder: (context,state){
       if(state is CouponSuccess){
         return CustomButton(fun: (){
           couponCubit.applyCouponAndUpdateCartTotal(context: context);
@@ -31,7 +36,7 @@ class ActivateCouponButton extends StatelessWidget {
       }else{
         return CustomButton(fun: (){
           couponCubit.applyCouponAndUpdateCartTotal(context: context);
-        }, title: textsMap['mobile_activation'],padding: EdgeInsets.zero,rad: 6,textSize: 12,);
+        }, title: textsMap['mobile_activation'],padding: const EdgeInsets.symmetric(horizontal: 10),rad: 6,textSize: 12,);
       }
     },);
   }

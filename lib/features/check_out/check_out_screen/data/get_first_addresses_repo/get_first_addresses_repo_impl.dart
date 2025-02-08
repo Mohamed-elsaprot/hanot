@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:hanot/core/errors/failure.dart';
 import 'package:hanot/core/services/api_service.dart';
 
+import '../../../../../core/services/localization.dart';
 import '../../models/customer_addresses_model/CustomerAddressesModel.dart';
 import 'get_first_addresses_repo.dart';
 
@@ -18,7 +19,7 @@ class FirstAddressesRepoImpl implements FirstAddressesRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -32,7 +33,7 @@ class FirstAddressesRepoImpl implements FirstAddressesRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

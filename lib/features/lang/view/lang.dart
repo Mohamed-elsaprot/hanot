@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hanot/core/design/fun.dart';
-import 'package:hanot/core/design/widgets.dart';
+import 'package:hanot/core/design/widgets_fun.dart';
 import 'package:hanot/core/local_storage/secure_storage.dart';
 import 'package:hanot/features/auth_screen/manager/auth_cubit.dart';
 import 'package:hanot/features/lang/manager/lang_cubit.dart';
@@ -33,10 +33,10 @@ class _LangState extends State<Lang> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Styles.secScaffoldColor,
+        backgroundColor: Styles.scaffoldColor,
         appBar: AppBar(
           title: Styles.text(
-            langCubit.texts['mobile_lang'],
+            langCubit.texts['mobile_store_language'],
             size: 20,
           ),
           actions: [

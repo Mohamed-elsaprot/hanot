@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/add_new_add_cubit/add_new_add_cubit.dart';
 import 'package:hanot/features/check_out/add_new_location/manager/add_new_add_cubit/add_new_add_state.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/manager/all_addresses_cubit.dart';
+import 'package:hanot/features/lang/manager/lang_cubit.dart';
 
 import '../../../../../../general_widgets/custom_button.dart';
 import '../../manager/cities_cubit/cities_cubit.dart';
@@ -17,6 +18,7 @@ class SaveLocationButton extends StatelessWidget {
     var newAddressCubit = BlocProvider.of<AddNewAddressCubit>(context);
     var countriesCubit = BlocProvider.of<CountriesCubit>(context);
     var citiesCubit = BlocProvider.of<CitiesCubit>(context);
+    var texts = BlocProvider.of<LangCubit>(context).texts;
 
     return BlocListener<AddNewAddressCubit,AddNewAddressState>(listener: (context,state){
       var allAddressCubit = BlocProvider.of<AllAddressesCubit>(context);
@@ -29,7 +31,7 @@ class SaveLocationButton extends StatelessWidget {
         padding:
         EdgeInsets.only(left: 15.w, right: 15.w, bottom: 20.h, top: 10.h),
         child: CustomButton(
-          title: 'حفظ العنوان',
+          title: texts['mobile_save_address_label'],
           fun: () {
             if (formKey.currentState!.validate()) {
               newAddressCubit.addNewAdd(context: context, country: countriesCubit.selectedCountry!, city: citiesCubit.selectedCity!);

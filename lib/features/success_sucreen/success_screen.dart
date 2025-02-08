@@ -1,8 +1,6 @@
-// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 import 'package:hanot/core/design/app_styles.dart';
 import 'package:hanot/core/design/images.dart';
 import 'package:hanot/core/design/router.dart';
@@ -28,15 +26,15 @@ class SuccessScreen extends StatelessWidget {
             Image.asset(Images.successIcon,width: 120.w,),
             SizedBox(height: 25.h,),
             Styles.text(textsMap['mobile_Your_order_has_been_confirmed_successfully']),
-            SizedBox(height: 15.h,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Styles.subTitle('تم تأكيد طلبك بنجاح,',size: 13,),
-                Styles.subTitle('وخصم مبلغ  من محفظتك, ',size: 13,),
-              ],
-            ),
-            Styles.subTitle('يمكن الان عرض وتحميل الفاتورة.',size: 13),
+            // SizedBox(height: 15.h,),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     Styles.subTitle('تم تأكيد طلبك بنجاح,',size: 13,),
+            //     Styles.subTitle('وخصم مبلغ  من محفظتك, ',size: 13,),
+            //   ],
+            // ),
+            // Styles.subTitle('يمكن الان عرض وتحميل الفاتورة.',size: 13),
 
             // Styles.subTitle('تم تأكيد طلبك بنجاح, وخصم مبلغ  من محفظتك, يمكن الان عرض وتحميل الفاتورة.',size: 13,textAlign: TextAlign.center),
             SizedBox(height: 30.h,),

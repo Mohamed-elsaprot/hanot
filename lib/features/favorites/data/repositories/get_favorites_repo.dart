@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/services/api_service.dart';
+import '../../../../core/services/localization.dart';
 import '../models/get_favorites_model.dart';
 
 class GetFavoritesRepo {
@@ -14,12 +15,12 @@ class GetFavoritesRepo {
       var response = await ApiService.getDataWithToken(
           endPoint: '/favorites', perPage: '10');
       GetFavoritesModel result = GetFavoritesModel.fromJson(response);
-      return Right(result);
+      return right(result);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -37,7 +38,7 @@ class GetFavoritesRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -50,7 +51,7 @@ class GetFavoritesRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -63,7 +64,7 @@ class GetFavoritesRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

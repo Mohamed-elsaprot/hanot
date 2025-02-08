@@ -77,7 +77,7 @@ class MyOrderModel {
   String? createdAt;
   int? productsCount;
   String? subtotal;
-  int? discount;
+  num? discount;
   String? total;
 
   MyOrderModel(
@@ -101,8 +101,7 @@ class MyOrderModel {
 
   MyOrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    customer =
-        json['customer'] != null ? Customer.fromJson(json['customer']) : null;
+    customer = json['customer'] != null ? Customer.fromJson(json['customer']) : null;
     paymentMethod = json['payment_method'];
     deliveryMethod = json['delivery_method'];
     deliveryFee = json['delivery_fee'];
@@ -110,8 +109,7 @@ class MyOrderModel {
     status = json['status'];
     statusName = json['status_name'];
     statusColor = json['status_color'];
-    address =
-        json['address'] != null ? Address.fromJson(json['address']) : null;
+    address = json['address'] != null ? Address.fromJson(json['address']) : null;
     shippingCompany = json['shipping_company'];
     timeDiff = json['time_diff'];
     createdAt = json['created_at'];

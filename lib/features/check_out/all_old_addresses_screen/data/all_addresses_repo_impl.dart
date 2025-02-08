@@ -5,6 +5,8 @@ import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/check_out/all_old_addresses_screen/data/all_addresses_repo.dart';
 import 'package:hanot/features/check_out/check_out_screen/models/customer_addresses_model/Addresses.dart';
 
+import '../../../../core/services/localization.dart';
+
 class AllAddressesRepoImpl implements AllAddressesRepo{
   @override
   Future<Either<Failure, List<Address>>> getAllAddresses() async{
@@ -19,7 +21,7 @@ class AllAddressesRepoImpl implements AllAddressesRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -33,7 +35,7 @@ class AllAddressesRepoImpl implements AllAddressesRepo{
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }

@@ -27,7 +27,7 @@ class OtpTextField extends StatelessWidget {
           return null;
         }
       },
-      onSaved: (x)=>authCubit.confirmOtp(context: context,code: x!),
+      onSaved: (x)=>authCubit.confirmOtp(code: x!),
       focusNode: focusNode,
       textAlign: TextAlign.center,
       maxLength: 4,
@@ -39,7 +39,7 @@ class OtpTextField extends StatelessWidget {
         focusedBorder: border(),
         focusColor: Colors.black12,
         enabledBorder: border(),
-        filled: true,
+        filled: true,fillColor: Colors.grey.shade100
       ),
     ),);
   }

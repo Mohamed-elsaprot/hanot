@@ -1,5 +1,7 @@
 
 
+import 'package:hanot/core/models/category_model/Product.dart';
+
 import 'Options.dart';
 import 'Skus.dart';
 
@@ -7,7 +9,8 @@ class SingleProductModel {
   SingleProductModel({
       this.id, 
       this.name, 
-      this.salePrice, 
+      this.des,
+      this.salePrice,
       this.costPrice, 
       this.discountPrice, 
       this.hasCampaign, 
@@ -21,19 +24,24 @@ class SingleProductModel {
       this.barcode, 
       this.image, 
       this.options, 
+      required this.relatedProducts,
       this.skus,});
 
   SingleProductModel.fromJson(dynamic json) {
+
     id = json['id'];
     name = json['name'];
+    des = json['description'];
     salePrice = json['sale_price'];
     costPrice = json['cost_price'];
     discountPrice = json['discount_price'];
     hasCampaign = json['has_campaign'];
     hasOptions = json['has_options'];
     hasDiscountPrice = json['has_discount_price'];
-    quantity = json['quantity'];
-    weight = json['weight'];
+    // print(json['quantity']);
+    quantity = num.tryParse(json['quantity'].toString())??0;
+    // quantity = json['quantity'];
+    // weight = json['weight'];
     width = json['width'];
     height = json['height'];
     length = json['length'];
@@ -51,9 +59,15 @@ class SingleProductModel {
         skus?.add(Skus.fromJson(v));
       });
     }
+    // if (json['related_products'] != null) {
+    //   relatedProducts = [];
+    //   json['related_products'].forEach((v) {
+    //     relatedProducts?.add(Product.fromJson(v));
+    //   });
+    // }
   }
   num? id;
-  String? name;
+  String? name,des;
   num? salePrice;
   num? costPrice;
   num? discountPrice;
@@ -69,8 +83,10 @@ class SingleProductModel {
   String? image;
   List<Options>? options;
   List<Skus>? skus;
+  List<Product> relatedProducts=[];
 SingleProductModel copyWith({  num? id,
   String? name,
+  String? des,
   num? salePrice,
   num? costPrice,
   num? discountPrice,
@@ -86,8 +102,10 @@ SingleProductModel copyWith({  num? id,
   String? image,
   List<Options>? options,
   List<Skus>? skus,
+  List<Product>? relatedProducts,
 }) => SingleProductModel(  id: id ?? this.id,
   name: name ?? this.name,
+  des: des ?? this.des,
   salePrice: salePrice ?? this.salePrice,
   costPrice: costPrice ?? this.costPrice,
   discountPrice: discountPrice ?? this.discountPrice,
@@ -103,31 +121,7 @@ SingleProductModel copyWith({  num? id,
   image: image ?? this.image,
   options: options ?? this.options,
   skus: skus ?? this.skus,
+  relatedProducts: relatedProducts ?? this.relatedProducts,
 );
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['sale_price'] = salePrice;
-    map['cost_price'] = costPrice;
-    map['discount_price'] = discountPrice;
-    map['has_campaign'] = hasCampaign;
-    map['has_options'] = hasOptions;
-    map['has_discount_price'] = hasDiscountPrice;
-    map['quantity'] = quantity;
-    map['weight'] = weight;
-    map['width'] = width;
-    map['height'] = height;
-    map['length'] = length;
-    map['barcode'] = barcode;
-    map['image'] = image;
-    if (options != null) {
-      map['options'] = options?.map((v) => v.toJson()).toList();
-    }
-    if (skus != null) {
-      map['skus'] = skus?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
 
 }

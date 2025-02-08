@@ -1,16 +1,15 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hanot/core/design/appTexts.dart';
 
 import '../../../core/design/app_styles.dart';
 
 class CustomTile extends StatelessWidget {
-  const CustomTile({Key? key, required this.fun, required this.title, required this.icon, this.iconColor, this.textColor}) : super(key: key);
+  const CustomTile({Key? key, required this.fun, required this.title, required this.icon, this.iconColor, this.textColor, this.withDivider=true}) : super(key: key);
   final void Function() fun;
   final String title;
   final IconData icon;
   final Color? iconColor,textColor;
+  final bool? withDivider;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +30,7 @@ class CustomTile extends StatelessWidget {
             ),
           ),
         ),
-        Divider(indent: 20.w, endIndent: 20.w,height: 0),
+        if(withDivider!)Divider(indent: 20.w, endIndent: 20.w,height: 0),
       ],
     );
   }

@@ -79,9 +79,9 @@ class FavItemModel {
     hasCampaign = json['has_campaign'];
     hasOptions = json['has_options'];
     hasDiscountPrice = json['has_discount_price'];
-    quantity = json['quantity'];
-    availableQuantity = json['available_quantity'];
-    weight = json['weight'];
+    quantity = int.tryParse(json['quantity'].toString())??0;
+    availableQuantity = int.tryParse(json['available_quantity'].toString())??0;
+    // weight = json['weight'];
     width = json['width'];
     height = json['height'];
     length = json['length'];

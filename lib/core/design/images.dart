@@ -22,5 +22,6 @@ abstract class Images{
   static const successIcon= '${base}success_icon.png';
   static const ordersEmpty= '${base}ordersEmpty.png';
   static const orderIcon= '${base}orderIcon.png';
+  static const man= '${base}man.png';
 
 }

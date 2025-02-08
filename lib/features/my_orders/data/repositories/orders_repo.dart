@@ -4,6 +4,7 @@ import 'package:hanot/core/services/api_service.dart';
 import 'package:hanot/features/my_orders/data/models/orders_model.dart';
 
 import '../../../../core/errors/failure.dart';
+import '../../../../core/services/localization.dart';
 
 class OrdersRepo {
   //=================================================================================
@@ -19,7 +20,7 @@ class OrdersRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -36,7 +37,7 @@ class OrdersRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
@@ -54,7 +55,7 @@ class OrdersRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioError(e));
       } else {
-        return left(ServerFailure('حدث خطأ من فضلك حاول لاحقا'));
+        return left(ServerFailure(Localization.tryAgainMessage));
       }
     }
   }
